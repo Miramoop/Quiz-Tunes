@@ -1,0 +1,84 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+    
+.header {
+    padding: 25px 0;
+    text-align: center;
+}
+
+.h1 {
+    background-color: lightslategray;
+}
+
+.quiz-image {
+    padding: 25px 0;
+}
+
+.btn-group {
+    background-color: lightslategray;
+    border: 1px solid black;
+    color: white;
+    display: grid;
+    padding: 24px 24px; 
+    display: inline-grid;
+    gap: 15px;
+    cursor: pointer;
+    width: 400px;
+    height: 400px;
+
+}
+
+body {
+    background: lightgrey;
+    padding: 0;
+    text-align: center;
+}
+   
+.copyright {
+    width: 100%;
+    text-align: center;
+    padding: 25px 0; 
+    background-color: lightslategray;
+    font-weight: 300;
+    margin-top: 20px;
+}
+
+/* Quiz Options - Will be updated later */
+.choice-container {
+    display: flex;
+    margin-bottom: 0.8rem;
+    width: 100%;
+    border-radius: 4px;
+    background: lightblue;
+    font-size: 3rem;
+    min-width: 80rem;
+}
+
+.choice-container:hover {
+    cursor: pointer;
+    box-shadow: 0 0.4rem 1.4rem 0 darkblue;
+    transform: scale(1.02);
+    transform: transform 100ms;
+}
+
+.choice-prefix {
+    padding: 2rem 2.5rem;
+    color: white;
+}
+
+.choice-text {
+    padding: 2rem;
+    width: 100%;
+}
+
+@media screen and (max-width: 760px) {
+    .choice-container {
+        min-width: 40rem;
+    }
+}
+
+
