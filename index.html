@@ -3,49 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify Album Recommender</title>
+    <title>Album Recommender</title>
     <link rel="stylesheet" href="styles.css"> <!--Referencing the Style Sheet so the styles are implemented on my website -->
 </head>
 <body>
-    <div class="header" style="background: gray;">
-        <h1>Spotify Album Recommender</h1>
+    <div id="home">
+        <h1>Welcome to the Album Recommender!</h1>
+        <p>Click the button below to start the quiz:</p>
+        <button onclick="startQuiz()">Start Quiz</button>
     </div>
 
-    <div class="quiz-image">
-        <img src="img/quizimg1.jpg" alt="quizimg1" width="300" height="300">
+    <div id="quiz">
+        <h1>Quiz!</h1>
+        <div id="question"></div>
+        <div id="choices"></div>
     </div>
 
-    <!--Question & Answers-->
-    <h1 id="question">What option is best?</h1>
-
-    <div class="choice-container">
-        <p class="choice-prefix">A</p>
-        <p class="choice-text" data-number="1">Choice</p>
+    <div id="results">
+        <h1>Quiz Complete!</h1>
+        <div id="resultsContent"></div>
+        <!-- <p>Wait for your results!</p> -->
     </div>
-    <div class="choice-container">
-        <p class="choice-prefix">B</p>
-        <p class="choice-text" data-number="2">Choice 2</p>
-    </div>
-    <div class="choice-container">
-        <p class="choice-prefix">C</p>
-        <p class="choice-text" data-number="3">Choice 3</p>
-    </div>
-    <div class="choice-container">
-        <p class="choice-prefix">D</p>
-        <p class="choice-text" data-number="4">Choice 4</p>
-    </div>
-
-    <!--Button Group-->
-    <div class="btn-group">
-        <button> Choose Answer 1 </button>
-        <button> Choose Answer 2 </button>
-        <button> Choose Answer 3 </button>
-        <button> Choose Answer 4 </button>
-    </div>
-
-    <div class="copyright" style="background-color: gray;">
-        <p> © Miramoop, 2024 </p>
-    </div>
-<script src="main.js"></script> <!--Referencing the JavaScript Script so that the scripts are implemented on my website-->
+   
+    <!-- <button id="StartButton">CLick Me!</button> -->
+<script src="quiz.js"></script> <!--Referencing the JavaScript Script so that the scripts are implemented on my website-->
 </body>
 </html>
