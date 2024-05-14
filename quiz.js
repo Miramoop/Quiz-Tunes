@@ -1,3 +1,5 @@
+
+//Creating the Quiz Questions
 const questions = [
 {
     question: "If you were to take a hike in the woods, which option would you prefer?", //Question
@@ -22,10 +24,15 @@ const questions = [
     }
 ];
 
-let currentQuestionIndex = 0; //Initilizing the currentQuestionIndex to the element 0
-let choiceWeights = {}; //Creating an object to keep track of choice weights
+//Initializing the currentQuestionIndex to the element 0,
+//so it starts at the first question properly
+let currentQuestionIndex = 0;  
 
-//genres of music
+//Creating an object to keep track of the choice weights given 
+//by each question answer
+let choiceWeights = {}; 
+
+//Creating the variables for the genres of the music
 let rockGenreScore = 0;
 let animeGenreScore = 0;
 let soundtrackGenreScore = 0;
@@ -33,14 +40,19 @@ let popGenreScore = 0;
 let lofiGenreScore = 0;
 let instrumentalGenreScore = 0;
 
+//Creating a function that is triggered when the user clicks the 
+//Start Quiz button on home, Makes the home element invisible and
+//displays the quiz element
 function startQuiz(){
     document.getElementById("home").style.display = "none";
     document.getElementById("quiz").style.display = "block";
     displayQuestion();
 }
 
+//Creating a function to display all the quiz questions
+//Uses the containers created in the HTML file to display
+//each element based on id
 function displayQuestion() {
-
     const questionContainer = document.getElementById("question");
     const choicesContainer = document.getElementById("choices");
     const currentQuestion = questions[currentQuestionIndex];
@@ -53,18 +65,25 @@ function displayQuestion() {
         button.textContent = choice;
         button.onclick = () => {
             updateChoiceWeights(currentQuestion.choiceWeights[index]);
-            checkAnswer();
+            saveAnswer();
         };
         choicesContainer.appendChild(button);
     });
 }
 
+//Creating a function that keeps track of all the weights by merging 
+//the choiceWeights results from each question into the choiceWeights 
+//object
 function updateChoiceWeights(weights) {
-    //Merge the choice weights for the current question into the choiceWeights object
     choiceWeights = { ...choiceWeights, ...weights};
 }
 
-function checkAnswer(){
+//Creating a function that saves the answers for each question
+//As long as the currentQuestionIndex is less than the 
+//questions.length it displays the next question
+//If the questions have all been displayed then it makes the quiz
+//element invisible and displays the results page
+function saveAnswer(){
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length){
         displayQuestion();
@@ -76,13 +95,23 @@ function checkAnswer(){
     }
 }
 
+
+//Creating a function to display the quiz results in terms of the 
+//calculated genre values
 function displayResults(){
     const resultsContent = document.getElementById("resultsContent");
-    resultsContent.innnerHTML = ""; //Used to make sure the old results are cleared
+
+    //Used to make sure that the old results are cleared before the new
+    //ones are displayed
+    resultsContent.innnerHTML = ""; 
     const resultsText = document.createElement("p");
     resultsText.textContent = "Results:";
     resultsContent.appendChild(resultsText);
 
+    //Used to calculate all the genre values obtained from each question
+    //and display them for the user to see
+    //Will later on have the Spotify API take in these values to get
+    //an album in that genre
     for (const key in choiceWeights) {
         const resultItem = document.createElement("p");
         resultItem.textContent = `${key}: ${choiceWeights[key]}`;
@@ -90,8 +119,8 @@ function displayResults(){
     }
 }
 
-displayQuestion();
-
+//Must add these to ensure that the quiz and results pages are invisible
+//when the web quiz is first launched
 document.getElementById("quiz").style.display = "none";
 document.getElementById("results").style.display = "none";
 
