@@ -7,8 +7,8 @@ const questions = [
               "Bring a friend along and enjoy your time talking with eachother", //Answer Choice 2
     ],
     choiceWeights: [
-        {popGenreScore: 0, instrumentalGenreScore: +3}, //choiceWeights for first choice
-        {popGenreScore: +2, instrumentalGenreScore: 0}, //choiceWeights for second choice
+        {popGenreScore: 0, ambientGenreScore: +3}, //choiceWeights for first choice
+        {popGenreScore: +2, ambientGenreScore: 0}, //choiceWeights for second choice
     ],
 },
 
@@ -18,8 +18,8 @@ const questions = [
                   "Sing and dance along with the music", //Answer Choice 2
         ],
         choiceWeights: [
-            {lofiGenreScore: +2, rockGenreScore: 0}, //choiceWeights for first choice
-            {lofiGenreScore: 0, rockGenreScore: +2}, //choiceWeights for second choice
+            {chillGenreScore: +2, danceGenreScore: 0}, //choiceWeights for first choice
+            {chillGenreScore: 0, danceGenreScore: +2}, //choiceWeights for second choice
         ],
     }
 ];
@@ -33,12 +33,15 @@ let currentQuestionIndex = 0;
 let choiceWeights = {}; 
 
 //Creating the variables for the genres of the music
-let rockGenreScore = 0;
-let animeGenreScore = 0;
-let soundtrackGenreScore = 0;
+let chillGenreScore = 0;
 let popGenreScore = 0;
-let lofiGenreScore = 0;
-let instrumentalGenreScore = 0;
+let danceGenreScore = 0;
+let ambientGenreScore = 0;
+
+//Additional Genres to Add
+//let animeGenreScore = 0;
+//let indieGenreScore = 0;
+//let moviesGenreScore = 0;
 
 //Creating a function that is triggered when the user clicks the 
 //Start Quiz button on home, Makes the home element invisible and
@@ -94,7 +97,6 @@ function saveAnswer(){
         displayResults();
     }
 }
-
 
 //Creating a function to display the quiz results in terms of the 
 //calculated genre values
