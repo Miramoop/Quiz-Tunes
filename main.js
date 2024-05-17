@@ -2,27 +2,161 @@
 
 //Creating the Quiz Questions
 const questions = [
-    {
-        question: "If you were to take a hike in the woods, which option would you prefer?", //Question
-        choices: ["Go on the hike alone spending the time just enjoying the peaceful ambience", //Answer Choice 1
-                  "Bring a friend along and enjoy your time talking with eachother", //Answer Choice 2
-        ],
-        choiceWeights: [
-            {pop: 0, ambient: +50}, //choiceWeights for first choice
-            {pop: +25, ambient: 0}, //choiceWeights for second choice
-        ],
-    },
-    
         {
-            question: "If you were to go to a concert, which option would you prefer?", //Question
-            choices: ["Sit in a seat and just enjoy the concert", //Answer choice 1
-                      "Sing and dance along with the music", //Answer Choice 2
+            question: "What is your ideal way to spend a Saturday afternoon?", 
+            choices: ["Reading a book", 
+                      "Hiking in the Forest", 
+                      "Hanging out with Friends", 
+                      "Watching movies or TV shows", 
             ],
             choiceWeights: [
-                {chill: +25, dance: 0}, //choiceWeights for first choice
-                {chill: 0, dance: +50}, //choiceWeights for second choice
+                { chill: +20, ambient: +20 }, 
+                { country: +20, ambient: +20 }, 
+                { indie: +20, pop: +20 }, 
+                { movies: +20, anime: +20 }, 
             ],
-        }
+            // imageURL: "img/question1.jpg",
+        },
+    
+        {
+            question: "What is your ideal vacation?", 
+            choices: ["Beach Resort", 
+                      "Mountain Retreat", 
+                      "City Exploration", 
+                      "Chilling at Home", 
+            ],
+            choiceWeights: [
+                {chill: +20, dance: +20}, 
+                {rock: +20, ambient: +20}, 
+                {anime: +20, movies: +20}, 
+                {chill: +20, piano: +20}, 
+            ],
+            // imageURL: "img/question2.jpg",
+        },
+
+        {
+            question: "If you were able to travel to any of these countries, where would you choose?", 
+            choices: ["Japan", 
+                      "Australia", 
+                      "France", 
+                      "Mexico", 
+            ],
+            choiceWeights: [
+                {anime: +20, movies: +20}, 
+                {country: +20, ambient: +20}, 
+                {indie: +20, piano: +20}, 
+                {dance: +20, pop: +20}, 
+            ],
+            // imageURL: "img/question3.jpg",
+        },
+
+        {
+            question: "What type of exercise do you prefer?", 
+            choices: ["Dance", 
+                      "Jogging", 
+                      "Weight Training", 
+                      "Yoga", 
+            ],
+            choiceWeights: [
+                {dance: +20, movies: +20}, 
+                {pop: +20, rock: +20}, 
+                {rock: +20, anime: +20}, 
+                {piano: +20, chill: +20}, 
+            ],
+            // imageURL: "img/question4.jpg",
+        },
+
+        {
+            question: "What kind of music do you prefer to listen to?", 
+            choices: ["Country", 
+                      "Rock", 
+                      "Dance", 
+                      "Chill", 
+            ],
+            choiceWeights: [
+                {country: +20, ambient: +20}, 
+                {indie: +20, rock: +20}, 
+                {pop: +20, dance: +20}, 
+                {chill: +20, ambient: +20}, 
+            ],
+        },
+
+        
+        {
+            question: "Which season do you enjoy the most?", 
+            choices: ["Fall", 
+                      "Winter", 
+                      "Spring", 
+                      "Summer", 
+            ],
+            choiceWeights: [
+                {indie: +20, ambient: 0}, 
+                {piano: +20, chill: +20}, 
+                {chill: +20, anime: +20}, 
+                {pop: +20, dance: +20}, 
+            ],
+        },
+
+         
+        {
+            question: "What types of movies do you prefer?", 
+            choices: ["Action", 
+                      "Comedy", 
+                      "Drama", 
+                      "Horror", 
+            ],
+            choiceWeights: [
+                {rock: +20, anime: +20}, 
+                {indie: +20, chill: +20}, 
+                {indie: +20, pop: +20}, 
+                {pop: +20, rock: +20}, 
+            ],
+        },
+
+        {
+            question: "What is your favorite flower?", 
+            choices: ["Rose", 
+                      "Tulip", 
+                      "Sunflower", 
+                      "Orchids", 
+            ],
+            choiceWeights: [
+                {indie: +20, movies: +20}, 
+                {chill: +20, ambient: +20}, 
+                {pop: +20, dance: +20}, 
+                {rock: +20, piano: +20}, 
+            ],
+        },
+
+        {
+            question: "What type of cuisine do you enjoy the most?", 
+            choices: ["Japanese", 
+                      "Spanish", 
+                      "French", 
+                      "American", 
+            ],
+            choiceWeights: [
+                {anime: +20, movies: +20}, 
+                {dance: +20, pop: +20}, 
+                {piano: +20, indie: +20}, 
+                {movies: +20, country: +20}, 
+            ],
+        },
+        
+        {
+            question: "What is your favorite time of day?",
+            choices: ["Morning", 
+                      "Afternoon", 
+                      "Evening", 
+                      "Night", 
+            ],
+            choiceWeights: [
+                {piano: +20, ambient: +20}, 
+                {pop: +20, dance: +20}, 
+                {chill: +20, indie: +20}, 
+                {rock: +20, movies: +20}, 
+            ],
+        },
     ];
     
     //Initializing the currentQuestionIndex to the element 0,
@@ -38,7 +172,14 @@ const questions = [
     let pop = 0;
     let dance = 0;
     let ambient = 0;
+    let anime = 0;
+    let indie = 0;
+    let movies = 0;
+    let rock = 0;
+    let country = 0;
+    let piano = 0;
 
+    //dominantGenre intialized at null
     let dominantGenre;
     
     //Additional Genres to Add
@@ -54,15 +195,26 @@ const questions = [
         document.getElementById("quiz").style.display = "block";
         displayQuestion();
     }
-    
+
+    function displayHome(){
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("results").style.display = "none";
+        document.getElementById("home").style.display = "block";
+        currentQuestionIndex = 0;
+    }
+
     //Creating a function to display all the quiz questions
     //Uses the containers created in the HTML file to display
     //each element based on id
     function displayQuestion() {
+
         const questionContainer = document.getElementById("question");
         const choicesContainer = document.getElementById("choices");
         const currentQuestion = questions[currentQuestionIndex];
-    
+
+        // const imageContainer = document.getElementById("questionImage");
+        // const currentImage = questions[currentQuestionIndex];
+        
         questionContainer.textContent = currentQuestion.question;
         choicesContainer.innerHTML = "";
     
@@ -76,13 +228,13 @@ const questions = [
             choicesContainer.appendChild(button);
         });
     }
-    
+
     //Creating a function that keeps track of all the weights by merging 
     //the choiceWeights results from each question into the choiceWeights 
     //object
     function updateChoiceWeights(weights) {
         choiceWeights = { ...choiceWeights, ...weights};
-        // console.log(choiceWeights)
+        //console.log(choiceWeights)
     }
     
     //Creating a function that saves the answers for each question
@@ -97,9 +249,15 @@ const questions = [
         }
         else {
             document.getElementById("quiz").style.display = "none";
-            document.getElementById("results").style.display = "block";
-            displayResults();
+            document.getElementById("calculatingResults").style.display = "block";
         }
+    }
+
+    //Creating a function that displays the calculatingResults Page
+    function calculateResults(){
+        document.getElementById("calculatingResults").style.display = "none";
+        document.getElementById("results").style.display = "block";
+        displayResults();
     }
     
     //Creating a function to display the quiz results in terms of the 
@@ -161,28 +319,38 @@ const questions = [
     
         //Create a heading to display the recommended track
         const heading = document.createElement("h2");
-        heading.textContent = "Recommended Song:";
+        heading.textContent = "Your Recommended Song is:";
         resultsContent.appendChild(heading);
     
         //Loop through each track in the trackInfo response
         trackInfo.tracks.forEach(track => {
             //Create a div to hold track information
-            const trackDiv = document.createElement("div");
+            const trackDiv = document.getElementById("trackDiv");
     
-            //Create HTML elements for track name, artist, & album
-            const trackName = document.createElement("p");
+            //Reference HTML elements for trackName, artists, album
+            const trackName = document.getElementById("trackName");
             trackName.textContent = "Track Name: " + track.name;
     
-            const artists = document.createElement("p");
+            const artists = document.getElementById("artists");
             artists.textContent = "Artists: " + track.artists.map(artist => artist.name).join(", ");
     
-            const album = document.createElement("p");
+            const album = document.getElementById("album");
             album.textContent = "Album: " + track.album.name;
+
+            const spotifyLink = document.getElementById("spotifyLink");
+            spotifyLink.textContent = "Link to Spotify";
+            spotifyLink.setAttribute("href", track.external_urls.spotify);
+
+            // const albumCover = document.getElementById("albumCover");
+            // albumImage.textContent = "Album Cover";
+            // albumImage.setAttribute("src", track.album.images.url);
     
             //Append track info to trackDiv
             trackDiv.appendChild(trackName);
             trackDiv.appendChild(artists);
             trackDiv.appendChild(album);
+            trackDiv.appendChild(spotifyLink);
+            //trackDiv.appendChild(albumImage);
     
             //Append trackDiv to resultsContent
             resultsContent.appendChild(trackDiv);
@@ -193,10 +361,16 @@ const questions = [
     //when the web quiz is first launched
     document.getElementById("quiz").style.display = "none";
     document.getElementById("results").style.display = "none";
+    document.getElementById("calculatingResults").style.display = "none";
 
 
 //SPOTIFY API PART OF CODE
 //Creating the constants for client_id and client_secret
+//Song Recommender
+// const client_id = 'eb9584f3368842e2963869356c4cd09a';
+// const client_secret = '0ae2f080ee224ca9bd236079d4083f20';
+
+//Album Recommender
 const client_id = 'd7ed26ea3e8d4b3096480eb9f06b86a2';
 const client_secret = 'c1eac9aaa6c14ac2b482107a44994a18';
 
@@ -234,14 +408,14 @@ async function getToken(dominantGenre) {
 //Protecting us from having an execution order issue
 //This function gets track info about a specific track using our access_token 
 async function getTrackInfo(access_token, genre) {
-    //const response = await fetch("https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT", {
-
     //This line can be used to see all of the available genre seeds in the Spotify API
     //const response = await fetch("https://api.spotify.com/v1/recommendations/available-genre-seeds", {
     const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=1&seed_genres=${genre}`, {
         method: 'GET',
         headers: { 'Authorization': 'Bearer ' + access_token },
     });
+    
+    console.log(response);
     
     return await response.json();
 }
