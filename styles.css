@@ -81,7 +81,7 @@ button:hover {
 #quiz {
     width: 100%;
     text-align: center;
-    padding: 260px 0;
+    padding: 40px 0;
     background: lightgoldenrodyellow;
     background-image: linear-gradient(180deg,slateblue, palegoldenrod);
     box-sizing: border-box;

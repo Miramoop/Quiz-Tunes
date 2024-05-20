@@ -286,7 +286,7 @@ const questions = [
     
         const tokenResponse = await getToken(dominantGenre);
         const trackInfo = await getTrackInfo(tokenResponse.access_token, dominantGenre);
-        console.log(trackInfo); //Testing Purposes
+        console.log(trackInfo); //Testing 
     
         displayRecommendedTracks(trackInfo);
     }
