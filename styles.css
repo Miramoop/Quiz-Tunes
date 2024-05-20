@@ -49,15 +49,15 @@ p {
     text-align: center; */
 }
 
-/* img {
+img {
     display: inline;
-    border-radius: 8px;
+    /* border-radius: 8px;
     max-width: 100px;
-    max-height: 100px;
+    max-height: 100px; */
     align-items: center;
     margin: 20px; 
 
-} */
+}
 
 button {
     background: white; 

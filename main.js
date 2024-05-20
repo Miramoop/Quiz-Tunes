@@ -182,11 +182,6 @@ const questions = [
     //dominantGenre intialized at null
     let dominantGenre;
     
-    //Additional Genres to Add
-    //let animeGenreScore = 0;
-    //let indieGenreScore = 0;
-    //let moviesGenreScore = 0;
-    
     //Creating a function that is triggered when the user clicks the 
     //Start Quiz button on home, Makes the home element invisible and
     //displays the quiz element
@@ -324,9 +319,10 @@ const questions = [
     
         //Loop through each track in the trackInfo response
         trackInfo.tracks.forEach(track => {
+
             //Create a div to hold track information
             const trackDiv = document.getElementById("trackDiv");
-    
+
             //Reference HTML elements for trackName, artists, album
             const trackName = document.getElementById("trackName");
             trackName.textContent = "Track Name: " + track.name;
@@ -341,17 +337,23 @@ const questions = [
             spotifyLink.textContent = "Link to Spotify";
             spotifyLink.setAttribute("href", track.external_urls.spotify);
 
-            // const albumCover = document.getElementById("albumCover");
-            // albumImage.textContent = "Album Cover";
-            // albumImage.setAttribute("src", track.album.images.url);
+            // const genreId = document.getElementById("genreId");
+            // genreId.textContent = "Genre: " + seeds.id;
+
+            const albumCover = document.getElementById("albumCover");
+            albumCover.textContent = "Album Cover";
+            albumCover.setAttribute("src", track.album.images[1].url);
+            // console.log(track.album.images[1].url);
+
     
             //Append track info to trackDiv
+            trackDiv.appendChild(albumCover);
             trackDiv.appendChild(trackName);
             trackDiv.appendChild(artists);
             trackDiv.appendChild(album);
             trackDiv.appendChild(spotifyLink);
-            //trackDiv.appendChild(albumImage);
-    
+            // trackDiv.appendChild(genreId);
+
             //Append trackDiv to resultsContent
             resultsContent.appendChild(trackDiv);
         });
