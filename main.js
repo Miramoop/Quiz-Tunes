@@ -15,9 +15,8 @@ const questions = [
                 { indie: +20, pop: +20 }, 
                 { movies: +20, anime: +20 }, 
             ],
-            // imageURL: "img/question1.jpg",
         },
-    
+
         {
             question: "What is your ideal vacation?", 
             choices: ["Beach Resort", 
@@ -31,7 +30,6 @@ const questions = [
                 {anime: +20, movies: +20}, 
                 {chill: +20, piano: +20}, 
             ],
-            // imageURL: "img/question2.jpg",
         },
 
         {
@@ -47,7 +45,6 @@ const questions = [
                 {indie: +20, piano: +20}, 
                 {dance: +20, pop: +20}, 
             ],
-            // imageURL: "img/question3.jpg",
         },
 
         {
@@ -63,7 +60,6 @@ const questions = [
                 {rock: +20, anime: +20}, 
                 {piano: +20, chill: +20}, 
             ],
-            // imageURL: "img/question4.jpg",
         },
 
         {
@@ -206,13 +202,10 @@ const questions = [
         const questionContainer = document.getElementById("question");
         const choicesContainer = document.getElementById("choices");
         const currentQuestion = questions[currentQuestionIndex];
-
-        // const imageContainer = document.getElementById("questionImage");
-        // const currentImage = questions[currentQuestionIndex];
         
         questionContainer.textContent = currentQuestion.question;
         choicesContainer.innerHTML = "";
-    
+
         currentQuestion.choices.forEach((choice, index) => {
             const button = document.createElement("button");
             button.textContent = choice;
@@ -229,7 +222,6 @@ const questions = [
     //object
     function updateChoiceWeights(weights) {
         choiceWeights = { ...choiceWeights, ...weights};
-        //console.log(choiceWeights)
     }
     
     //Creating a function that saves the answers for each question
@@ -266,7 +258,7 @@ const questions = [
         //Call Spotify API using the dominant genre
         const tokenResponse = await getToken(dominantGenre);
         const trackInfo = await getTrackInfo(tokenResponse.access_token, dominantGenre);
-        console.log(trackInfo)
+        console.log(trackInfo);
     
         //Display the recommended song on webpage
         displayRecommendedTracks(trackInfo);
@@ -285,8 +277,9 @@ const questions = [
                 }
             }
         }
-
+        
         return dominantGenre;
+        
     }
     
     function displayRecommendedTracks(trackInfo){
@@ -339,77 +332,9 @@ const questions = [
             resultsContent.appendChild(trackDiv);
         });
     }
-    
+
     //Must add these to ensure that the quiz and results pages are invisible
     //when the web quiz is first launched
     document.getElementById("quiz").style.display = "none";
     document.getElementById("results").style.display = "none";
     document.getElementById("calculatingResults").style.display = "none";
-
-
-//SPOTIFY API PART OF CODE
-//Creating the constants for client_id and client_secret
-//Song Recommender
-// const client_id = 'eb9584f3368842e2963869356c4cd09a';
-// const client_secret = '0ae2f080ee224ca9bd236079d4083f20';
-
-//Album Recommender
-const client_id = 'd7ed26ea3e8d4b3096480eb9f06b86a2';
-const client_secret = 'c1eac9aaa6c14ac2b482107a44994a18';
-
-//An async function is used here so that our response is not given until the fetch is complete,
-//Protecting us from having an execution order issue
-//This function is meant to get the user's token to ensure that the token is valid before 
-//allowing the function to continue
-async function getToken(dominantGenre) {
-    try {
-        const response = await fetch('https://accounts.spotify.com/api/token',
-        {
-            method: 'POST',
-            body: new URLSearchParams({
-                'grant_type': 'client_credentials',
-            }),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret),
-            },
-        });
-    
-        if(!response.ok){
-            throw new error('Failed to fetch token');
-        }
-    
-        return await response.json();
-    }
-    catch (error) {
-        console.error("Error in getting token", error);
-        throw error;
-    }
-}
-
-//An async function is used here so that our response is not given until the fetch is complete,
-//Protecting us from having an execution order issue
-//This function gets track info about a specific track using our access_token 
-async function getTrackInfo(access_token, genre) {
-    //This line can be used to see all of the available genre seeds in the Spotify API
-    //const response = await fetch("https://api.spotify.com/v1/recommendations/available-genre-seeds", {
-    const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=1&seed_genres=${genre}`, {
-        method: 'GET',
-        headers: { 'Authorization': 'Bearer ' + access_token },
-    });
-    
-    console.log(response);
-    
-    return await response.json();
-}
-
-getToken(dominantGenre).then(async response => {
-    // console.log("Token response: ", response);
-    const trackInfo = await getTrackInfo(response.access_token, dominantGenre);
-    // console.log("Track Info: ", trackInfo);
-    displayRecommendedTracks(trackInfo);
-}).catch(error => {
-    console.error("Error getting token: ",error);
-});
-
-
