@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: lightgoldenrodyellow;
+    font-family: "Lucida Console", "Courier New", monospace;
+    scroll-behavior: smooth;
+}
+
+h1 {
+    background: transparent;
+}
+
+h2 {
+    background: transparent;
+}
+
+p {
+    background: transparent;
+}
+
+#header {
+    width: 100%;
+    text-align: center;
+    padding: 25px 0;
+    background: slateblue;
+    font-weight: 300;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* border: 5px inset slateblue; */
+    color: black;
+    
+}
+
+#home {
+    width: 100%;
+    text-align: center;
+    padding: 300px 0;
+    background: lightgoldenrodyellow;
+    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
+    box-sizing: border-box;
+    overflow: hidden;
+
+    /*Possibly add box shadow*/
+    /* border: 3px solid lightslategray; */
+    /* box-shadow: 10px 10px 5px rgb(155, 133, 133); */
+    /* width: 250px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center; */
+}
+
+/* img {
+    display: inline;
+    border-radius: 8px;
+    max-width: 100px;
+    max-height: 100px;
+    align-items: center;
+    margin: 20px; 
+
+} */
+
+button {
+    background: white; 
+    padding: 20px;
+    align-items: center;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+} 
+
+button:hover {
+    background-color: slateblue;
+    color: white;
+}
+
+#spotifyLink {
+    background: transparent;
+    transition-duration: 0.4s;
+}
+
+#spotifyLink:hover {
+    background-color: darkblue;
+    color: white;
+}
+
+#quiz {
+    width: 100%;
+    text-align: center;
+    padding: 260px 0;
+    background: lightgoldenrodyellow;
+    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#question {
+    padding: 25px 0;
+    background: transparent;
+}
+
+#choices {
+    padding: 25px;
+    background: transparent;
+}
+
+#calculatingResults {
+    width: 100%;
+    text-align: center;
+    padding: 300px 0;
+    background: lightgoldenrodyellow;
+    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#results {
+    width: 100%;
+    text-align: center;
+    padding: 250px 0;
+    background: lightgoldenrodyellow;
+    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#resultsContent {
+    padding: 25px;
+    background: transparent;
+}
+
+#trackDiv {
+    background: transparent;
+}
+
+#copyright {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    padding: 40px 0;
+    background: palegoldenrod;
+    margin: 0;
+}
+
+#copyright a i{
+    background: lightgoldenrodyellow;
+}
