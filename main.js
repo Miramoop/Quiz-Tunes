@@ -1,6 +1,3 @@
-//QUIZ PART OF CODE:
-
-//Creating the Quiz Questions
 const questions = [
         {
             question: "What is your ideal way to spend a Saturday afternoon?", 
@@ -155,15 +152,11 @@ const questions = [
         },
     ];
     
-    //Initializing the currentQuestionIndex to the element 0,
-    //so it starts at the first question properly
     let currentQuestionIndex = 0;  
     
-    //Creating an object to keep track of the choice weights given 
-    //by each question answer
+    //Object to keep track of the choice weights given by each question answer
     let choiceWeights = {}; 
     
-    //Creating the variables for the genres of the music
     let chill = 0;
     let pop = 0;
     let dance = 0;
@@ -178,12 +171,11 @@ const questions = [
     //dominantGenre intialized at null
     let dominantGenre;
     
-    //Creating a function that is triggered when the user clicks the 
-    //Start Quiz button on home, Makes the home element invisible and
-    //displays the quiz element
     function startQuiz(){
-        document.getElementById("home").style.display = "none";
-        document.getElementById("quiz").style.display = "block";
+        document.getElementById("home").classList.remove("active");
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("quiz").classList.remove("hidden");
+        document.getElementById("quiz").classList.add("active");
         displayQuestion();
     }
 
@@ -194,9 +186,6 @@ const questions = [
         currentQuestionIndex = 0;
     }
 
-    //Creating a function to display all the quiz questions
-    //Uses the containers created in the HTML file to display
-    //each element based on id
     function displayQuestion() {
 
         const questionContainer = document.getElementById("question");
@@ -217,18 +206,14 @@ const questions = [
         });
     }
 
-    //Creating a function that keeps track of all the weights by merging 
-    //the choiceWeights results from each question into the choiceWeights 
-    //object
     function updateChoiceWeights(weights) {
-        choiceWeights = { ...choiceWeights, ...weights};
+        for (let choice in weights) {
+            if(weights.hasOwnProperty(choice)){
+                choiceWeights[choice] = weights[choice];
+            }
+        }
     }
     
-    //Creating a function that saves the answers for each question
-    //As long as the currentQuestionIndex is less than the 
-    //questions.length it displays the next question
-    //If the questions have all been displayed then it makes the quiz
-    //element invisible and displays the results page
     function saveAnswer(){
         currentQuestionIndex++;
         if (currentQuestionIndex < questions.length){
@@ -240,66 +225,53 @@ const questions = [
         }
     }
 
-    //Creating a function that displays the calculatingResults Page
     function calculateResults(){
         document.getElementById("calculatingResults").style.display = "none";
         document.getElementById("results").style.display = "block";
         displayResults();
     }
     
-    //Creating a function to display the quiz results in terms of the 
-    //calculated genre values
     async function displayResults() {
         const resultsContent = document.getElementById("resultsContent");
-    
-        //Calculating the dominant genre by using the choiceWeights
+
         const dominantGenre = calculateDominantGenre(choiceWeights);
     
-        //Call Spotify API using the dominant genre
         const tokenResponse = await getToken(dominantGenre);
         const trackInfo = await getTrackInfo(tokenResponse.access_token, dominantGenre);
-        console.log(trackInfo);
+        console.log(trackInfo); //Testing Purposes
     
-        //Display the recommended song on webpage
         displayRecommendedTracks(trackInfo);
     }
     
     function calculateDominantGenre(choiceWeights) {
         let maxScore = -Infinity;
     
-        //Loop through each genre score in choiceWeights
         for (const genre in choiceWeights){
             if (choiceWeights.hasOwnProperty(genre)){
-                //check through each genre's score to see if it is higher than current maxScore
+
                 if(choiceWeights[genre] > maxScore){
                     maxScore = choiceWeights[genre];
                     dominantGenre = genre;
                 }
             }
         }
-        
+
         return dominantGenre;
         
     }
     
     function displayRecommendedTracks(trackInfo){
         const resultsContent = document.getElementById("resultsContent");
+        resultsContent.innerHTML = ""; 
     
-        //Clear any previous results
-        resultsContent.innerHTML = "";
-    
-        //Create a heading to display the recommended track
         const heading = document.createElement("h2");
         heading.textContent = "Your Recommended Song is: ";
         resultsContent.appendChild(heading);
     
-        //Loop through each track in the trackInfo response
         trackInfo.tracks.forEach(track => {
 
-            //Create a div to hold track information
             const trackDiv = document.getElementById("trackDiv");
 
-            //Reference HTML elements for album cover, trackName, artists, album
             const albumCover = document.getElementById("albumCover");
             albumCover.textContent = "Album Cover";
             albumCover.setAttribute("src", track.album.images[1].url);
@@ -320,7 +292,6 @@ const questions = [
             spotifyLink.textContent = "Link to Spotify";
             spotifyLink.setAttribute("href", track.external_urls.spotify);
     
-            //Append track info to trackDiv
             trackDiv.appendChild(albumCover);
             trackDiv.appendChild(trackName);
             trackDiv.appendChild(artists);
@@ -328,13 +299,6 @@ const questions = [
             trackDiv.appendChild(genreId);
             trackDiv.appendChild(spotifyLink);
 
-            //Append trackDiv to resultsContent
             resultsContent.appendChild(trackDiv);
         });
     }
-
-    //Must add these to ensure that the quiz and results pages are invisible
-    //when the web quiz is first launched
-    document.getElementById("quiz").style.display = "none";
-    document.getElementById("results").style.display = "none";
-    document.getElementById("calculatingResults").style.display = "none";
