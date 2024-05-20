@@ -260,23 +260,6 @@ const questions = [
     async function displayResults() {
         const resultsContent = document.getElementById("resultsContent");
     
-        //Used to make sure that the old results are cleared before the new
-        //ones are displayed
-        // resultsContent.innnerHTML = ""; 
-        // const resultsText = document.createElement("p");
-        // resultsText.textContent = "Results:";
-        // resultsContent.appendChild(resultsText);
-    
-        //Used to calculate all the genre values obtained from each question
-        //and display them for the user to see
-        //Will later on have the Spotify API take in these values to get
-        //an album in that genre
-        // for (const key in choiceWeights) {
-        //     const resultItem = document.createElement("p");
-        //     resultItem.textContent = `${key}: ${choiceWeights[key]}`;
-        //     resultsContent.appendChild(resultItem);
-        // }
-    
         //Calculating the dominant genre by using the choiceWeights
         const dominantGenre = calculateDominantGenre(choiceWeights);
     
@@ -314,7 +297,7 @@ const questions = [
     
         //Create a heading to display the recommended track
         const heading = document.createElement("h2");
-        heading.textContent = "Your Recommended Song is:";
+        heading.textContent = "Your Recommended Song is: ";
         resultsContent.appendChild(heading);
     
         //Loop through each track in the trackInfo response
@@ -323,7 +306,11 @@ const questions = [
             //Create a div to hold track information
             const trackDiv = document.getElementById("trackDiv");
 
-            //Reference HTML elements for trackName, artists, album
+            //Reference HTML elements for album cover, trackName, artists, album
+            const albumCover = document.getElementById("albumCover");
+            albumCover.textContent = "Album Cover";
+            albumCover.setAttribute("src", track.album.images[1].url);
+
             const trackName = document.getElementById("trackName");
             trackName.textContent = "Track Name: " + track.name;
     
@@ -332,27 +319,21 @@ const questions = [
     
             const album = document.getElementById("album");
             album.textContent = "Album: " + track.album.name;
+            
+            const genreId = document.getElementById("genreId");
+            genreId.textContent = "Genre: " + dominantGenre;
 
             const spotifyLink = document.getElementById("spotifyLink");
             spotifyLink.textContent = "Link to Spotify";
             spotifyLink.setAttribute("href", track.external_urls.spotify);
-
-            // const genreId = document.getElementById("genreId");
-            // genreId.textContent = "Genre: " + seeds.id;
-
-            const albumCover = document.getElementById("albumCover");
-            albumCover.textContent = "Album Cover";
-            albumCover.setAttribute("src", track.album.images[1].url);
-            // console.log(track.album.images[1].url);
-
     
             //Append track info to trackDiv
             trackDiv.appendChild(albumCover);
             trackDiv.appendChild(trackName);
             trackDiv.appendChild(artists);
             trackDiv.appendChild(album);
+            trackDiv.appendChild(genreId);
             trackDiv.appendChild(spotifyLink);
-            // trackDiv.appendChild(genreId);
 
             //Append trackDiv to resultsContent
             resultsContent.appendChild(trackDiv);
