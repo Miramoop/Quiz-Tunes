@@ -1,4 +1,16 @@
 const questions = [
+
+        //An idea to combine the choices and weights?
+        // {
+        //     question: "What is your ideal way to spend a Saturday afternoon?",  
+        //     choices: [
+        //         { choice: "Reading a book", weights: { chill: +20, ambient: +20 }}, 
+        //         { choice: "Hiking in the Forest", weights: {country: +20, ambient: +20}},
+        //         { choice: "Hanging out with Friends", weights: { indie: +20, pop: +20 }},
+        //         { choice: "Watching movies or TV shows", weights: { movies: +20, anime: +20 }},
+        //     ],
+        // },
+
         {
             question: "What is your ideal way to spend a Saturday afternoon?", 
             choices: ["Reading a book", 
@@ -7,10 +19,10 @@ const questions = [
                       "Watching movies or TV shows", 
             ],
             choiceWeights: [
-                { chill: +20, ambient: +20 }, 
-                { country: +20, ambient: +20 }, 
-                { indie: +20, pop: +20 }, 
-                { movies: +20, anime: +20 }, 
+                {chill: +20, ambient: +20}, 
+                {country: +20, ambient: +20}, 
+                {indie: +20, pop: +20}, 
+                {movies: +20, anime: +20}, 
             ],
         },
 
@@ -151,12 +163,29 @@ const questions = [
             ],
         },
     ];
-    
+   
     let currentQuestionIndex = 0;  
     
     //Object to keep track of the choice weights given by each question answer
     let choiceWeights = {}; 
     
+    //Make into an object
+    // let genreCounts = {
+    //     chill: 0,
+    //     pop: 0,
+    //     dance: 0,
+    //     ambient: 0,
+    //     anime: 0,
+    //     indie: 0,
+    //     movies: 0,
+    //     rock: 0,
+    //     country: 0,
+    //     piano: 0
+    // };
+    
+    // genreCounts.chill += 1;
+    // genreCounts.pop -= 1;
+
     let chill = 0;
     let pop = 0;
     let dance = 0;
@@ -185,6 +214,23 @@ const questions = [
         document.getElementById("home").style.display = "block";
         currentQuestionIndex = 0;
     }
+        
+    function displayQuestionImage(currentQuestionIndex) {
+        const imageURLs = [
+            "img/question1.jpg",
+            "img/question2.jpg",
+            "img/question3.jpg",
+            "img/question4.jpg",
+            "img/question5.jpg",
+            "img/question6.jpg",
+            "img/question7.jpg",
+            "img/question8.jpg",
+            "img/question9.jpg",
+            "img/question10.jpg",
+        ];
+        const questionImage = document.getElementById("questionImage");
+        questionImage.setAttribute("src", imageURLs[currentQuestionIndex]);
+    }
 
     function displayQuestion() {
 
@@ -194,6 +240,8 @@ const questions = [
         
         questionContainer.textContent = currentQuestion.question;
         choicesContainer.innerHTML = "";
+
+        displayQuestionImage(currentQuestionIndex);
 
         currentQuestion.choices.forEach((choice, index) => {
             const button = document.createElement("button");

@@ -111,7 +111,7 @@ button:hover {
 #results {
     width: 100%;
     text-align: center;
-    padding: 250px 0;
+    padding: 60px 0;
     background: lightgoldenrodyellow;
     background-image: linear-gradient(180deg,slateblue, palegoldenrod);
     box-sizing: border-box;
