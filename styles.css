@@ -7,6 +7,14 @@
     scroll-behavior: smooth;
 }
 
+.hidden {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
 h1 {
     background: transparent;
 }
@@ -27,9 +35,7 @@ p {
     font-weight: 300;
     box-sizing: border-box;
     overflow: hidden;
-    /* border: 5px inset slateblue; */
     color: black;
-    
 }
 
 #home {
@@ -40,24 +46,14 @@ p {
     background-image: linear-gradient(180deg,slateblue, palegoldenrod);
     box-sizing: border-box;
     overflow: hidden;
-
-    /*Possibly add box shadow*/
-    /* border: 3px solid lightslategray; */
-    /* box-shadow: 10px 10px 5px rgb(155, 133, 133); */
-    /* width: 250px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    text-align: center; */
 }
 
-/* img {
+img {
     display: inline;
-    border-radius: 8px;
-    max-width: 100px;
-    max-height: 100px;
     align-items: center;
     margin: 20px; 
 
-} */
+}
 
 button {
     background: white; 
@@ -85,7 +81,7 @@ button:hover {
 #quiz {
     width: 100%;
     text-align: center;
-    padding: 260px 0;
+    padding: 40px 0;
     background: lightgoldenrodyellow;
     background-image: linear-gradient(180deg,slateblue, palegoldenrod);
     box-sizing: border-box;
@@ -115,7 +111,7 @@ button:hover {
 #results {
     width: 100%;
     text-align: center;
-    padding: 250px 0;
+    padding: 60px 0;
     background: lightgoldenrodyellow;
     background-image: linear-gradient(180deg,slateblue, palegoldenrod);
     box-sizing: border-box;

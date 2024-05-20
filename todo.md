@@ -8,9 +8,9 @@ Let's see if we can't set up a plan for making this thing truly epic.
 - [ ] Style the app
 
 ## 🏅 Best Practices
-- [ ] Pull requests
-- [ ] Get branching setup in repo
-- [ ] Pull Spotify code out into its own file
+- [x] Pull requests
+- [x] Get branching setup in repo
+- [x] Pull Spotify code out into its own file
 - [ ] Move secret keys to Actions variable
 - [ ] Convert JS styling changes to CSS
 
@@ -23,9 +23,8 @@ Let's see if we can't set up a plan for making this thing truly epic.
 
 ## ♻️ Refactoring
 - [ ] Create fewer elements with JS
-- [ ] Simplify scoring (we don't need to list genres we aren't adding scores to) - mabye we can condense choiceweights and choices together
+- [ ] Simplify scoring (we don't need to list genres we aren't adding scores to) - maybe we can condense choiceweights and choices together
 - [ ] Think about simpler ways to find the highest scoring genre
-- [ ] Convert genres to an array/object
 - [ ] Convert genres to an array/object
 
 ## 🧘🏻 Stretch Goals
