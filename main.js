@@ -209,15 +209,19 @@ const questions = [
     }
 
     function displayHome(){
-        document.getElementById("quiz").style.display = "none";
-        document.getElementById("results").style.display = "none";
-        document.getElementById("home").style.display = "block";
+        document.getElementById("quiz").classList.remove("active");
+        document.getElementById("quiz").classList.add("hidden");
+        document.getElementById("results").classList.remove("active");
+        document.getElementById("results").classList.add("hidden");
+        document.getElementById("home").classList.remove("hidden");
+        document.getElementById("home").classList.add("active");
         currentQuestionIndex = 0;
     }
         
     function displayQuestionImage(currentQuestionIndex) {
         const imageURLs = [
-            "img/question1.jpg",
+            "img/q1.jpg",
+            //"img/question1.jpg",
             "img/question2.jpg",
             "img/question3.jpg",
             "img/question4.jpg",
@@ -268,14 +272,18 @@ const questions = [
             displayQuestion();
         }
         else {
-            document.getElementById("quiz").style.display = "none";
-            document.getElementById("calculatingResults").style.display = "block";
+            document.getElementById("quiz").classList.remove("active");
+            document.getElementById("quiz").classList.add("hidden");
+            document.getElementById("calculatingResults").classList.remove("hidden");
+            document.getElementById("calculatingResults").classList.add("active");
         }
     }
 
     function calculateResults(){
-        document.getElementById("calculatingResults").style.display = "none";
-        document.getElementById("results").style.display = "block";
+        document.getElementById("calculatingResults").classList.remove("active");
+        document.getElementById("calculatingResults").classList.add("hidden")
+        document.getElementById("results").classList.remove("hidden");
+        document.getElementById("results").classList.add("active");
         displayResults();
     }
     
