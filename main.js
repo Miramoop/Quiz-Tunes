@@ -219,21 +219,37 @@ const questions = [
     }
         
     function displayQuestionImage(currentQuestionIndex) {
-        const imageURLs = [
+        const questionImageURLs = [
             "img/q1.jpg",
-            //"img/question1.jpg",
-            "img/question2.jpg",
-            "img/question3.jpg",
-            "img/question4.jpg",
-            "img/question5.jpg",
-            "img/question6.jpg",
-            "img/question7.jpg",
-            "img/question8.jpg",
-            "img/question9.jpg",
-            "img/question10.jpg",
+            "img/q2.jpg",
+            "img/q3.jpg",
+            "img/q4.jpg",
+            "img/q5.jpg",
+            "img/q6.jpg",
+            "img/q7.jpg",
+            "img/q8.jpg",
+            "img/q9.jpg",
+            "img/q10.jpg",
         ];
         const questionImage = document.getElementById("questionImage");
-        questionImage.setAttribute("src", imageURLs[currentQuestionIndex]);
+        questionImage.setAttribute("src", questionImageURLs[currentQuestionIndex]);
+    }
+
+    function displayProgressbar(currentQuestionIndex){
+        const progressBarURLs = [
+            "img/progressBar1.jpg",
+            "img/.jpg",
+            "img/.jpg",
+            "img/.jpg",
+            "img/.jpg",
+            "img/.jpg",
+            "img/.jpg",
+            "img/.jpg",
+            "img/.jpg",
+            "img/.jpg",
+        ];
+        const progressBar = document.getElementById("progressBar");
+        progressBar.setAttribute("src", progressBarURLs[currentQuestionIndex]);
     }
 
     function displayQuestion() {
@@ -246,6 +262,7 @@ const questions = [
         choicesContainer.innerHTML = "";
 
         displayQuestionImage(currentQuestionIndex);
+        displayProgressbar(currentQuestionIndex);
 
         currentQuestion.choices.forEach((choice, index) => {
             const button = document.createElement("button");
