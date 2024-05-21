@@ -125,7 +125,7 @@ const questions = [
         piano: 0,
     }; 
 
-    let dominantGenre; //null
+    let dominantGenre;
     
     function startQuiz(){
         document.getElementById("home").classList.remove("active");
@@ -144,23 +144,6 @@ const questions = [
         document.getElementById("home").classList.add("active");
         currentQuestionIndex = 0;
     }
-        
-    // function displayQuestionImage(currentQuestionIndex) {
-    //     const questionImageURLs = [
-    //         "img/q1.jpg",
-    //         "img/q2.jpg",
-    //         "img/q3.jpg",
-    //         "img/q4.jpg",
-    //         "img/q5.jpg",
-    //         "img/q6.jpg",
-    //         "img/q7.jpg",
-    //         "img/q8.jpg",
-    //         "img/q9.jpg",
-    //         "img/q10.jpg",
-    //     ];
-    //     const questionImage = document.getElementById("questionImage");
-    //     questionImage.setAttribute("src", questionImageURLs[currentQuestionIndex]);
-    // }
 
     function displayQuestionImage(currentQuestionIndex){
         const questionImage = document.getElementById("questionImage");
@@ -183,6 +166,7 @@ const questions = [
             button.textContent = choiceObj.choice;
             button.onclick = () => {
                 updateChoiceWeights(weights[index]);
+                //console.log(weights[index]); //testing //values are undefined
                 saveAnswer();
             };
             choicesContainer.appendChild(button);
@@ -226,25 +210,25 @@ const questions = [
     
         const tokenResponse = await getToken(dominantGenre);
         const trackInfo = await getTrackInfo(tokenResponse.access_token, dominantGenre);
-        console.log(trackInfo); //Testing 
+        console.log(trackInfo); //Testing
     
         displayRecommendedTracks(trackInfo);
     }
 
     function calculateDominantGenre(weights) {
-        let maxScore = -Infinity;
+        let maxValue = -Infinity;
     
         for (const genre in weights){
             if (weights.hasOwnProperty(genre)){
 
-                if(weights[genre] > maxScore){
-                    maxScore = weights[genre];
+                if(weights[genre] > maxValue){
+                    maxValue = weights[genre];
                     dominantGenre = genre;
                 }
             }
         }
 
-        console.log(dominantGenre);
+        console.log(dominantGenre); //Testing
         return dominantGenre;
         
     }
