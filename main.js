@@ -1,204 +1,131 @@
 const questions = [
-
-        //An idea to combine the choices and weights?
-        // {
-        //     question: "What is your ideal way to spend a Saturday afternoon?",  
-        //     choices: [
-        //         { choice: "Reading a book", weights: { chill: +20, ambient: +20 }}, 
-        //         { choice: "Hiking in the Forest", weights: {country: +20, ambient: +20}},
-        //         { choice: "Hanging out with Friends", weights: { indie: +20, pop: +20 }},
-        //         { choice: "Watching movies or TV shows", weights: { movies: +20, anime: +20 }},
-        //     ],
-        // },
-
         {
-            question: "What is your ideal way to spend a Saturday afternoon?", 
-            choices: ["Reading a book", 
-                      "Hiking in the Forest", 
-                      "Hanging out with Friends", 
-                      "Watching movies or TV shows", 
-            ],
-            choiceWeights: [
-                {chill: +20, ambient: +20}, 
-                {country: +20, ambient: +20}, 
-                {indie: +20, pop: +20}, 
-                {movies: +20, anime: +20}, 
+            question: "What is your ideal way to spend a Saturday afternoon?",  
+            image: "img/q1.jpg",
+            choices: [
+                { choice: "Reading a book", weights: { chill: +20, ambient: +20 }}, 
+                { choice: "Hiking in the Forest", weights: { country: +20, ambient: +20 }},
+                { choice: "Hanging out with Friends", weights: { indie: +20, pop: +20 }},
+                { choice: "Watching movies or TV shows", weights: { movies: +20, anime: +20 }},
             ],
         },
 
         {
-            question: "What is your ideal vacation?", 
-            choices: ["Beach Resort", 
-                      "Mountain Retreat", 
-                      "City Exploration", 
-                      "Chilling at Home", 
-            ],
-            choiceWeights: [
-                {chill: +20, dance: +20}, 
-                {rock: +20, ambient: +20}, 
-                {anime: +20, movies: +20}, 
-                {chill: +20, piano: +20}, 
-            ],
+            question: "What is your ideal vacation?",
+            image: "img/q2.jpg",
+            choices: [
+                { choice: "Beach Resort", weights: { chill: +20, dance: +20 }},
+                { choice: "Mountain Retreat", weights: { rock: +20, ambient: +20 }},
+                { choice: "City Exploration", weights: { anime: +20, movies: +20 }},
+                { choice:  "Chilling at Home", weights: { chill: +20, piano: +20 }},
+            ]
         },
 
         {
-            question: "If you were able to travel to any of these countries, where would you choose?", 
-            choices: ["Japan", 
-                      "Australia", 
-                      "France", 
-                      "Mexico", 
-            ],
-            choiceWeights: [
-                {anime: +20, movies: +20}, 
-                {country: +20, ambient: +20}, 
-                {indie: +20, piano: +20}, 
-                {dance: +20, pop: +20}, 
-            ],
+            question: "If you were able to travel to any of these countries, where would you choose?",
+            image: "img/q3.jpg",
+            choices: [
+                { choice: "Japan", weights: { anime: +20, movies: +20 }},
+                { choice: "Australia", weights: { country: +20, ambient: +20 }},
+                { choice: "France", weights: { indie: +20, piano: +20 }},
+                { choice: "Mexico", weights: { dance: +20, pop: +20 }},
+            ]
         },
 
         {
             question: "What type of exercise do you prefer?", 
-            choices: ["Dance", 
-                      "Jogging", 
-                      "Weight Training", 
-                      "Yoga", 
-            ],
-            choiceWeights: [
-                {dance: +20, movies: +20}, 
-                {pop: +20, rock: +20}, 
-                {rock: +20, anime: +20}, 
-                {piano: +20, chill: +20}, 
-            ],
+            image: "img/q4.jpg",
+            choices: [
+                { choice: "Dance", weights: { dance: +20, movies: +20 }},
+                { choice: "Jogging", weights: { pop: +20, rock: +20 }},
+                { choice: "Weight Training", weights: { rock: +20, anime: +20 }},
+                { choice: "Yoga", weights: { piano: +20, chill: +20 }},
+            ]
         },
 
         {
             question: "What kind of music do you prefer to listen to?", 
-            choices: ["Country", 
-                      "Rock", 
-                      "Dance", 
-                      "Chill", 
-            ],
-            choiceWeights: [
-                {country: +20, ambient: +20}, 
-                {indie: +20, rock: +20}, 
-                {pop: +20, dance: +20}, 
-                {chill: +20, ambient: +20}, 
-            ],
+            image: "img/q5.jpg",
+            choices: [
+                { choice: "Country", weights: { country: +20, ambient: +20 }},
+                { choice: "Rock", weights: { indie: +20, rock: +20 }},
+                { choice: "Dance", weights: { pop: +20, dance: +20 }},
+                { choice: "Chill", weights: { chill: +20, ambient: +20 }},
+            ]
         },
 
-        
         {
             question: "Which season do you enjoy the most?", 
-            choices: ["Fall", 
-                      "Winter", 
-                      "Spring", 
-                      "Summer", 
-            ],
-            choiceWeights: [
-                {indie: +20, ambient: 0}, 
-                {piano: +20, chill: +20}, 
-                {chill: +20, anime: +20}, 
-                {pop: +20, dance: +20}, 
-            ],
+            image: "img/q6.jpg",
+            choices: [
+                { choice: "Fall", weights: { indie: +20, ambient: +20 }},
+                { choice: "Winter", weights: { piano: +20, chill: +20 }},
+                { choice: "Spring", weights: { chill: +20, anime: +20 }},
+                { choice: "Summer", weights: { pop: +20, dance: +20 }},
+            ]
         },
 
-         
         {
             question: "What types of movies do you prefer?", 
-            choices: ["Action", 
-                      "Comedy", 
-                      "Drama", 
-                      "Horror", 
-            ],
-            choiceWeights: [
-                {rock: +20, anime: +20}, 
-                {indie: +20, chill: +20}, 
-                {indie: +20, pop: +20}, 
-                {pop: +20, rock: +20}, 
-            ],
+            image: "img/q7.jpg", 
+            choices: [
+                { choice: "Action", weights: { rock: +20, anime: +20 }},
+                { choice: "Comedy", weights: { indie: +20, chill: +20 }},
+                { choice: "Drama", weights: { indie: +20, pop: +20 }},
+                { choice: "Horror", weights: { pop: +20, rock: +20 }},
+            ]
         },
 
         {
-            question: "What is your favorite flower?", 
-            choices: ["Rose", 
-                      "Tulip", 
-                      "Sunflower", 
-                      "Orchids", 
-            ],
-            choiceWeights: [
-                {indie: +20, movies: +20}, 
-                {chill: +20, ambient: +20}, 
-                {pop: +20, dance: +20}, 
-                {rock: +20, piano: +20}, 
-            ],
+            question: "What is your favorite flower?",   
+            image: "img/q8.jpg",
+            choices: [
+                { choice: "Rose", weights: { indie: +20, movies: +20 }},
+                { choice: "Tulip", weights: { chill: +20, ambient: +20 }},
+                { choice: "Sunflower", weights: { pop: +20, dance: +20 }},
+                { choice: "Orchids", weights: { rock: +20, piano: +20 }},
+            ]
         },
 
         {
-            question: "What type of cuisine do you enjoy the most?", 
-            choices: ["Japanese", 
-                      "Spanish", 
-                      "French", 
-                      "American", 
-            ],
-            choiceWeights: [
-                {anime: +20, movies: +20}, 
-                {dance: +20, pop: +20}, 
-                {piano: +20, indie: +20}, 
-                {movies: +20, country: +20}, 
-            ],
+            question: "What type of cuisine do you enjoy the most?",   
+            image: "img/q9.jpg",
+            choices: [
+                { choice: "Japanese", weights: { anime: +20, movies: +20 }},
+                { choice: "Spanish", weights: { dance: +20, pop: +20 }},
+                { choice: "French", weights: { piano: +20, indie: +20 }},
+                { choice: "American", weights: { movies: +20, country: +20 }},
+            ]
         },
-        
+
         {
-            question: "What is your favorite time of day?",
-            choices: ["Morning", 
-                      "Afternoon", 
-                      "Evening", 
-                      "Night", 
-            ],
-            choiceWeights: [
-                {piano: +20, ambient: +20}, 
-                {pop: +20, dance: +20}, 
-                {chill: +20, indie: +20}, 
-                {rock: +20, movies: +20}, 
-            ],
+            question: "What is your favorite time of day?", 
+            image: "img/q10.jpg",  
+            choices: [
+                { choice: "Morning", weights: { piano: +20, ambient: +20 }},
+                { choice: "Afternoon", weights: { pop: +20, dance: +20 }},
+                { choice: "Evening", weights: { chill: +20, indie: +20 }},
+                { choice: "Night", weights: { rock: +20, movies: +20 }},
+            ]
         },
+
     ];
    
     let currentQuestionIndex = 0;  
-    
-    //Object to keep track of the choice weights given by each question answer
-    let choiceWeights = {}; 
-    
-    //Make into an object
-    // let genreCounts = {
-    //     chill: 0,
-    //     pop: 0,
-    //     dance: 0,
-    //     ambient: 0,
-    //     anime: 0,
-    //     indie: 0,
-    //     movies: 0,
-    //     rock: 0,
-    //     country: 0,
-    //     piano: 0
-    // };
-    
-    // genreCounts.chill += 1;
-    // genreCounts.pop -= 1;
+    let weights = {
+        chill: 0,
+        pop: 0,
+        dance: 0,
+        mbient: 0,
+        anime: 0,
+        indie: 0,
+        movies: 0,
+        rock: 0,
+        country: 0,
+        piano: 0,
+    }; 
 
-    let chill = 0;
-    let pop = 0;
-    let dance = 0;
-    let ambient = 0;
-    let anime = 0;
-    let indie = 0;
-    let movies = 0;
-    let rock = 0;
-    let country = 0;
-    let piano = 0;
-
-    //dominantGenre intialized at null
-    let dominantGenre;
+    let dominantGenre; //null
     
     function startQuiz(){
         document.getElementById("home").classList.remove("active");
@@ -218,23 +145,27 @@ const questions = [
         currentQuestionIndex = 0;
     }
         
-    function displayQuestionImage(currentQuestionIndex) {
-        const questionImageURLs = [
-            "img/q1.jpg",
-            "img/q2.jpg",
-            "img/q3.jpg",
-            "img/q4.jpg",
-            "img/q5.jpg",
-            "img/q6.jpg",
-            "img/q7.jpg",
-            "img/q8.jpg",
-            "img/q9.jpg",
-            "img/q10.jpg",
-        ];
-        const questionImage = document.getElementById("questionImage");
-        questionImage.setAttribute("src", questionImageURLs[currentQuestionIndex]);
-    }
+    // function displayQuestionImage(currentQuestionIndex) {
+    //     const questionImageURLs = [
+    //         "img/q1.jpg",
+    //         "img/q2.jpg",
+    //         "img/q3.jpg",
+    //         "img/q4.jpg",
+    //         "img/q5.jpg",
+    //         "img/q6.jpg",
+    //         "img/q7.jpg",
+    //         "img/q8.jpg",
+    //         "img/q9.jpg",
+    //         "img/q10.jpg",
+    //     ];
+    //     const questionImage = document.getElementById("questionImage");
+    //     questionImage.setAttribute("src", questionImageURLs[currentQuestionIndex]);
+    // }
 
+    function displayQuestionImage(currentQuestionIndex){
+        const questionImage = document.getElementById("questionImage");
+        questionImage.setAttribute("src", questions[currentQuestionIndex].image);
+    }
 
     function displayQuestion() {
 
@@ -247,11 +178,11 @@ const questions = [
 
         displayQuestionImage(currentQuestionIndex);
 
-        currentQuestion.choices.forEach((choice, index) => {
+        currentQuestion.choices.forEach((choiceObj, index) => {
             const button = document.createElement("button");
-            button.textContent = choice;
+            button.textContent = choiceObj.choice;
             button.onclick = () => {
-                updateChoiceWeights(currentQuestion.choiceWeights[index]);
+                updateChoiceWeights(weights[index]);
                 saveAnswer();
             };
             choicesContainer.appendChild(button);
@@ -261,11 +192,11 @@ const questions = [
     function updateChoiceWeights(weights) {
         for (let choice in weights) {
             if(weights.hasOwnProperty(choice)){
-                choiceWeights[choice] = weights[choice];
+                weights[choice] = weights[choice];
             }
         }
     }
-    
+
     function saveAnswer(){
         currentQuestionIndex++;
         if (currentQuestionIndex < questions.length){
@@ -286,11 +217,12 @@ const questions = [
         document.getElementById("results").classList.add("active");
         displayResults();
     }
-    
+
+        
     async function displayResults() {
         const resultsContent = document.getElementById("resultsContent");
 
-        const dominantGenre = calculateDominantGenre(choiceWeights);
+        const dominantGenre = calculateDominantGenre(weights);
     
         const tokenResponse = await getToken(dominantGenre);
         const trackInfo = await getTrackInfo(tokenResponse.access_token, dominantGenre);
@@ -298,20 +230,21 @@ const questions = [
     
         displayRecommendedTracks(trackInfo);
     }
-    
-    function calculateDominantGenre(choiceWeights) {
+
+    function calculateDominantGenre(weights) {
         let maxScore = -Infinity;
     
-        for (const genre in choiceWeights){
-            if (choiceWeights.hasOwnProperty(genre)){
+        for (const genre in weights){
+            if (weights.hasOwnProperty(genre)){
 
-                if(choiceWeights[genre] > maxScore){
-                    maxScore = choiceWeights[genre];
+                if(weights[genre] > maxScore){
+                    maxScore = weights[genre];
                     dominantGenre = genre;
                 }
             }
         }
 
+        console.log(dominantGenre);
         return dominantGenre;
         
     }

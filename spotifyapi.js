@@ -1,10 +1,10 @@
 // //Song Recommender App
-// const client_id = 'eb9584f3368842e2963869356c4cd09a';
-// const client_secret = '0ae2f080ee224ca9bd236079d4083f20';
+const client_id = 'eb9584f3368842e2963869356c4cd09a';
+const client_secret = '0ae2f080ee224ca9bd236079d4083f20';
 
 //Album Recommender App
-const client_id = 'd7ed26ea3e8d4b3096480eb9f06b86a2';
-const client_secret = 'c1eac9aaa6c14ac2b482107a44994a18';
+// const client_id = 'd7ed26ea3e8d4b3096480eb9f06b86a2';
+// const client_secret = 'c1eac9aaa6c14ac2b482107a44994a18';
 
 //An async function is used here so that our response is not given until the fetch is complete,
 //Protecting us from having an execution order issue
