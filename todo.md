@@ -23,9 +23,9 @@ Let's see if we can't set up a plan for making this thing truly epic.
 
 ## ♻️ Refactoring
 - [ ] Create fewer elements with JS
-- [ ] Simplify scoring (we don't need to list genres we aren't adding scores to) - maybe we can condense choiceweights and choices together
+- [x] Simplify scoring (we don't need to list genres we aren't adding scores to) - maybe we can condense choiceweights and choices together
 - [ ] Think about simpler ways to find the highest scoring genre
-- [ ] Convert genres to an array/object
+- [x] Convert genres to an array/object
 
 ## 🧘🏻 Stretch Goals
 - [ ] Add to portfolio

@@ -49,7 +49,7 @@ p {
 }
 
 img {
-    display: inline;
+    display:inline-flexbox;
     align-items: center;
     margin: 20px; 
 
