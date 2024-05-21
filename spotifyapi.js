@@ -1,7 +1,6 @@
 // //Song Recommender App
 // const client_id = 'eb9584f3368842e2963869356c4cd09a';
 // const client_secret = '0ae2f080ee224ca9bd236079d4083f20';
-console.log(dominantGenre);
 
 //Album Recommender App
 const client_id = 'd7ed26ea3e8d4b3096480eb9f06b86a2';

@@ -235,22 +235,6 @@ const questions = [
         questionImage.setAttribute("src", questionImageURLs[currentQuestionIndex]);
     }
 
-    function displayProgressbar(currentQuestionIndex){
-        const progressBarURLs = [
-            "img/progressBar1.jpg",
-            "img/.jpg",
-            "img/.jpg",
-            "img/.jpg",
-            "img/.jpg",
-            "img/.jpg",
-            "img/.jpg",
-            "img/.jpg",
-            "img/.jpg",
-            "img/.jpg",
-        ];
-        const progressBar = document.getElementById("progressBar");
-        progressBar.setAttribute("src", progressBarURLs[currentQuestionIndex]);
-    }
 
     function displayQuestion() {
 
@@ -262,7 +246,6 @@ const questions = [
         choicesContainer.innerHTML = "";
 
         displayQuestionImage(currentQuestionIndex);
-        displayProgressbar(currentQuestionIndex);
 
         currentQuestion.choices.forEach((choice, index) => {
             const button = document.createElement("button");
@@ -359,7 +342,7 @@ const questions = [
             album.textContent = "Album: " + track.album.name;
             
             const genreId = document.getElementById("genreId");
-            genreId.textContent = "Genre: " + dominantGenre;
+            genreId.textContent = "Genre: " + (dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1));
 
             const spotifyLink = document.getElementById("spotifyLink");
             spotifyLink.textContent = "Link to Spotify";
