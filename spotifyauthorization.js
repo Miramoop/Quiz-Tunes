@@ -58,15 +58,24 @@ const codeChallenge = base64encode(hashed);
 
 
 //Step 2 - Request User Authorization
+//Creates a constant using the clientID of the web application
 const clientId = '8a649d0e1cf74b1c89b6874845b17646';
+
+//Creates a constant of the redirect uri to send the user to after
+//authorization
 const redirectUri = 'http://localhost:5500';
 
+//Creates a constant of the scopes that will be made available to the 
+//web app after authorization
 const scope = 'user-read-private user-read-email';
+//Creates a constant of the authentication url which is the spotify 
+//authorization website
 const authUrl = new URL("https://accounts.spotify.com/authorize")
 
-// generated in the previous step
+//Adds the codeverifier set in the previous step to the local storage
 window.localStorage.setItem('code_verifier', codeVerifier);
 
+//Creates the constant parameters 
 const params =  {
   response_type: 'code',
   client_id: clientId,
@@ -76,20 +85,32 @@ const params =  {
   redirect_uri: redirectUri,
 }
 
+//Takes the authentication url and adds our parameters to the url
 authUrl.search = new URLSearchParams(params).toString();
 
+//Creating the function that sends the user to the spotify authenication 
+//website (using a button)
 function openSpotify() {
     window.location.href = authUrl.toString();
 } 
 
+//Creates a constant of the urlParams that are present in the browser's url
+//when the user is redirected back to our site after authenication
 const urlParams = new URLSearchParams(window.location.search);
+
+//Creates a variable named code that parses the url to retrieve the code
+//parameter
 let code = urlParams.get('code');
 
+//Creates a constant for obtaining the token by inputting the code saved from the url
+//and the code verifier that was added to the browser's local storage
 const getToken = async code => {
 
     // stored in the previous step
     let codeVerifier = localStorage.getItem('code_verifier');
   
+    //Creating a constant named payload that attempts the POST request to 
+    //the Spotify API using the method, headers, and body 
     const payload = {
       method: 'POST',
       headers: {
@@ -104,9 +125,16 @@ const getToken = async code => {
       }),
     }
   
+    //Creating a new constant named body that awaits fetching 
+    //the url and payload
     const body = await fetch(url, payload);
+    //Creating a new constant named response that awaits the 
+    //response to the body.json
     const response =await body.json();
   
+    //Storing the access token that we got in the response in the 
+    //local storage to ensure we can use it again without doing
+    //another request
     localStorage.setItem('access_token', response.access_token);
   }
 
