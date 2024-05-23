@@ -67,7 +67,7 @@ const redirectUri = 'http://localhost:5500';
 
 //Creates a constant of the scopes that will be made available to the 
 //web app after authorization
-const scope = 'user-read-private user-read-email';
+const scope = 'user-read-private user-read-email user-library-modify';
 //Creates a constant of the authentication url which is the spotify 
 //authorization website
 const authUrl = new URL("https://accounts.spotify.com/authorize")
@@ -101,41 +101,67 @@ const urlParams = new URLSearchParams(window.location.search);
 //Creates a variable named code that parses the url to retrieve the code
 //parameter
 let code = urlParams.get('code');
+//console.log(code); //Testing
 
 //Creates a constant for obtaining the token by inputting the code saved from the url
 //and the code verifier that was added to the browser's local storage
 const getToken = async code => {
+    try {
+        //ensure that the URL is correct
+        const url = "https://acounts.spotify.com/api/token";
 
-    // stored in the previous step
-    let codeVerifier = localStorage.getItem('code_verifier');
-  
-    //Creating a constant named payload that attempts the POST request to 
-    //the Spotify API using the method, headers, and body 
-    const payload = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        client_id: clientId,
-        grant_type: 'authorization_code',
-        code,
-        redirect_uri: redirectUri,
-        code_verifier: codeVerifier,
-      }),
+        //Retrieve the code verifier from local storage
+        let codeVerifier = localStorage.getItem('code_verifier');
+        if (!codeVerifier) {
+            throw new error('Code verifier not found in local storage');
+        }
+
+        //Creating a constant named payload that attempts the POST request to 
+        //the Spotify API using the method, headers, and body 
+        const payload = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'applications/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                client_id: clientId,
+                grant_type: 'authorization_code',
+                code,
+                redirect_uri: redirectUri,
+                code_verifier: codeVerifier
+            }),
+        };
+
+        //Creating a new constant named body that awaits fetching 
+        //the url and payload
+        const body = await fetch(url, payload);
+
+        //Check if response is ok
+        if (!body.ok) {
+            throw new error('Error: ${body.status} ${body.statusText');
+        }
+
+        //Creating a new constant named response that awaits the 
+        //response to the body.json
+        const response = await body.json();
+
+        //Storing the access token that we got in the response in the 
+        //local storage to ensure we can use it again without doing
+        //another request
+        localStorage.setItem('access_token', response.access_token);
+        
+        //Store the refresh token if available
+        if (response.refresh_token) {
+            localStorage.setItem('refresh_token', reponse.refresh_token);
+        }
     }
+    catch (error) {
+        console.error('Error getting token:', error);
+    }
+};
+
+
+
   
-    //Creating a new constant named body that awaits fetching 
-    //the url and payload
-    const body = await fetch(url, payload);
-    //Creating a new constant named response that awaits the 
-    //response to the body.json
-    const response =await body.json();
-  
-    //Storing the access token that we got in the response in the 
-    //local storage to ensure we can use it again without doing
-    //another request
-    localStorage.setItem('access_token', response.access_token);
-  }
 
 
