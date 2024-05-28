@@ -128,7 +128,7 @@ const questions = [
     }; 
 
     let dominantGenre;
-    
+
     function startQuiz(){
         document.getElementById("home").classList.remove("active");
         document.getElementById("home").classList.add("hidden");
@@ -136,6 +136,12 @@ const questions = [
         document.getElementById("quiz").classList.add("active");
         displayQuestion();
     }
+
+    document.getElementById("startQuiz").addEventListener('click', function() {
+        startQuiz();
+    });
+
+    export {startQuiz};
 
     function displayHome(){
         document.getElementById("quiz").classList.remove("active");
@@ -204,6 +210,12 @@ const questions = [
         displayResults();
     }
 
+    document.getElementById("calculateResults").addEventListener('click', function() {
+        calculateResults();
+    });
+
+   
+
         
     async function displayResults() {
         const resultsContent = document.getElementById("resultsContent");
@@ -231,11 +243,10 @@ const questions = [
         }
 
         console.log(dominantGenre); //Testing
+        localStorage.setItem('dominantGenre', dominantGenre);
         return dominantGenre;
-        
     }
     
-
     async function displayRecommendedTracks(){
         const resultsElem = document.getElementById("results");
         const trackInfo = await getTrackInfo(dominantGenre);
@@ -254,13 +265,16 @@ const questions = [
                     <p>Album: ${track.album.name}</p>
                     <a id="spotifyLink" href=${track.external_urls.spotify}>Link to Spotify</a>
                 </div>
+                <br>
+                <button onclick="displayHome()">Return to HomePage</button>
             `;
 
+            // Cannot add back in until dominantgenre is working properly!
             // <p id="genreId">${(dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1))}</p>
 
             resultsContent.innerHTML = result;
         });
     }
 
-    displayRecommendedTracks(getTrackInfo);
+    // displayRecommendedTracks(getTrackInfo);
 

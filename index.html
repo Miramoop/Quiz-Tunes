@@ -14,26 +14,14 @@
     <div id="header" class="active">
         <h1>Spotify Song Recommender</h1>
         <!-- <button onclick="openSpotify()">Spotify</button> --> 
-        <!--Don't need this since it automatically refreshes if no code is present-->
+        <!-- Unsure if this button would be needed
+            Should make sure that the page refreshes if no code is present in URL?-->
     </div>
     
-    <div id="results" class="active">
-        <div id="resultsContent"></div>
-        <!--<div id="trackDiv">
-            <img id="albumCover">
-            <p id="trackName"></p>
-            <p id="artists"></p>
-            <p id="album"></p>
-            <p id="genreId"></p>
-            <a id="spotifyLink" href="">Spotify Link</a>
-        </div> -->
-    </div>
-
-<!-- 
     <div id="home" class="active"> 
         <h2>Welcome to the Song Recommender!</h2>
         <p>Click the button below to start the quiz: <br><br></p>
-        <button onclick="startQuiz()">Start Quiz</button>
+        <button id="startQuiz">Start Quiz</button>
     </div>
 
     <div id="quiz" class="hidden">
@@ -45,21 +33,12 @@
     <div id="calculatingResults" class="hidden">
         <h2>Quiz is Complete!</h2>
         <p>Click below to get your results:<br><br></p>
-        <button onclick="calculateResults()">Calculate Results</button>
-    </div>
+        <button id="calculateResults">Calculate Results</button>
+    </div> 
 
     <div id="results" class="hidden">
-        <div id="resultsContent"></div>
-        <div id="trackDiv">
-            <img id="albumCover">
-            <p id="trackName"></p>
-            <p id="artists"></p>
-            <p id="album"></p>
-            <p id="genreId"></p>
-            <a id="spotifyLink" href="">Spotify Link</a>
-        </div>
-        <button onclick="displayHome()">Return to HomePage</button>
-    </div> -->
+        <div id="resultsContent"></div> 
+    </div>
 
     <div id="copyright" class="active"> 
     <p> Check out my Socials Below:
@@ -70,9 +49,10 @@
     <a href="https://www.linkedin.com/in/mirandamorris845/" target="_blank" rel="noopener" rel="noreferrer"><i class="fa-brands fa-linkedin"></i></a>
     </div>
 
-<script src="main.js" type="module"></script> 
+<script src="main.js" type="module">
+    import {startQuiz} from "./main.js";
+</script> 
 <script src="spotifyauthorization.js" type="module"></script>
-<!-- <script src="spotifyapi.js"></script>  -->
 <script src="https://kit.fontawesome.com/7777890cf7.js" crossorigin="anonymous"></script> 
 </body>
 </html>
