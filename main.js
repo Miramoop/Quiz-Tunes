@@ -151,6 +151,10 @@ const questions = [
         currentQuestionIndex = 0;
     }
 
+    document.getElementById("displayHome").addEventListener('click', function() {
+        displayHome();
+    });
+
     function displayQuestionImage(currentQuestionIndex){
         const questionImage = document.getElementById("questionImage");
         questionImage.setAttribute("src", questions[currentQuestionIndex].image);
@@ -216,13 +220,14 @@ const questions = [
         const resultsContent = document.getElementById("resultsContent");
 
         const dominantGenre = calculateDominantGenre(weights);
-        console.log(dominantGenre); //Testing
+        //console.log(dominantGenre); //Testing
     
-        const tokenResponse = await getToken(dominantGenre); 
-        const trackInfo = await getTrackInfo(tokenResponse.access_token, dominantGenre);
-        console.log(trackInfo); //Testing
+        // const tokenResponse = await getToken(dominantGenre); 
+        // console.log(tokenResponse);
+        // const trackInfo = await getTrackInfo(tokenResponse.access_token, dominantGenre);
+        //console.log(trackInfo); //Testing
     
-        displayRecommendedTracks(trackInfo);
+        displayRecommendedTracks();
     }
 
     function calculateDominantGenre(weights) {
@@ -239,7 +244,6 @@ const questions = [
         }
 
         console.log(dominantGenre); //Testing
-        localStorage.setItem('dominantGenre', dominantGenre);
         return dominantGenre;
     }
     
@@ -262,16 +266,10 @@ const questions = [
                     <p id="genreId">${(dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1))}</p>
                     <a id="spotifyLink" href=${track.external_urls.spotify}>Link to Spotify</a>
                 </div>
-                <br>
-                <button onclick="displayHome()">Return to HomePage</button>
             `;
-
-            // Cannot add back in until dominantgenre is working properly!
-            // <p id="genreId">${(dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1))}</p>
 
             resultsContent.innerHTML = result;
         });
     }
 
     //displayRecommendedTracks(getTrackInfo);
-
