@@ -5,26 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Song Recommender</title>
     <link rel="stylesheet" href="styles.css"> 
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/icons/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest"> -->
 </head>
 <body>
     <div id="header" class="active">
         <h1>Spotify Song Recommender</h1>
-        <button onclick="openSpotify()">Spotify</button>
+        <!-- <button onclick="openSpotify()">Spotify</button> --> 
+        <!--Don't need this since it automatically refreshes if no code is present-->
     </div>
     
     <div id="results" class="active">
         <div id="resultsContent"></div>
-        <div id="trackDiv">
+        <!--<div id="trackDiv">
             <img id="albumCover">
             <p id="trackName"></p>
             <p id="artists"></p>
             <p id="album"></p>
             <p id="genreId"></p>
             <a id="spotifyLink" href="">Spotify Link</a>
-        </div>
+        </div> -->
     </div>
 
-    <!-- <div id="home" class="active"> 
+<!-- 
+    <div id="home" class="active"> 
         <h2>Welcome to the Song Recommender!</h2>
         <p>Click the button below to start the quiz: <br><br></p>
         <button onclick="startQuiz()">Start Quiz</button>
@@ -60,12 +66,12 @@
         <br>
         <br>
     </p>
-    <a href="https://github.com/Miramoop" target="_blank" rel="noopener" rel="noreferrer"> <i class="fa-brands fa-github"></i></a>
+    <a href="https://github.com/Miramoop" target="_blank" rel="noopener" rel="noreferrer"><i class="fa-brands fa-github"></i></a>
     <a href="https://www.linkedin.com/in/mirandamorris845/" target="_blank" rel="noopener" rel="noreferrer"><i class="fa-brands fa-linkedin"></i></a>
     </div>
 
-<!-- <script src="main.js"></script>  -->
-<script src="spotifyauthorization.js"></script>
+<script src="main.js" type="module"></script> 
+<script src="spotifyauthorization.js" type="module"></script>
 <!-- <script src="spotifyapi.js"></script>  -->
 <script src="https://kit.fontawesome.com/7777890cf7.js" crossorigin="anonymous"></script> 
 </body>

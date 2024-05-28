@@ -11,8 +11,6 @@
 //be caught. The fetch request is sending a POST request to the 
 //Spotify token endpoint to obtain an access token which can be used 
 //in later API requests to obtain information such as a track
-
-//DON'T NEED THIS CODE BECAUSE SPOTIFYAUTHORIZATION.js ALREADY DOES THIS
 // async function getToken(dominantGenre) {
 //     try {
 //         const response = await fetch('https://accounts.spotify.com/api/token',
@@ -44,18 +42,16 @@
 //receive data about a random track within the specified dominantGenre
 //It outputs this into the console for testing purposes. Then parses the response
 //into the json file.
-
-//WILL STILL NEED THIS SO THAT THIS API REQUEST OCCURS
-async function getTrackInfo(access_token, genre) {
-    const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=1&seed_genres=${genre}`, {
-        method: 'GET',
-        headers: { 'Authorization': 'Bearer ' + access_token },
-    });
+// async function getTrackInfo(access_token, genre) {
+//     const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=1&seed_genres=${genre}`, {
+//         method: 'GET',
+//         headers: { 'Authorization': 'Bearer ' + access_token },
+//     });
     
-    console.log(response); //Testing
+//     console.log(response); //Testing
     
-    return await response.json();
-}
+//     return await response.json();
+// }
 
 //A function that explains the order of the previous functions, first an access
 //token is received by the getToken function then the recommended track info is 

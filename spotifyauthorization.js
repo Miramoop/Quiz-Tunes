@@ -34,7 +34,6 @@ const sha256 = async (plain) => {
 //Then it replaces the characters to make the string URL-sage by removing any '=' characters
 //that are usd for padding in the standard base64. Then replaces '+' with '-'. Next, replacing
 // '/' with '_'
-
 const base64encode = (input) => {
   return btoa(String.fromCharCode(...new Uint8Array(input)))
       .replace(/=/g, '')
@@ -62,7 +61,6 @@ const authUrl = new URL("https://accounts.spotify.com/authorize");
 //generating a code challenge using the getCodeChallenge function,
 //Then stores the codeVerifier in localStorage, sets the authrization
 //parameters, then redirects to the authorization URL
-
 const initiateAuthFlow = async () => {
   const codeChallenge = await getCodeChallenge(codeVerifier);
   window.localStorage.setItem('code_verifier', codeVerifier);
@@ -118,74 +116,21 @@ const getToken = async (code) => {
 
   if (response.ok) {
       localStorage.setItem('access_token', data.access_token);
-      const trackInfo = await getTrackInfo(data.access_token);
-      console.log(trackInfo);
   } else {
       console.error("Error getting token: ", data);
   }
 }
 
-const getTrackInfo = async (access_token) => {
+const getTrackInfo = async (access_token, genre) => {
+  access_token = localStorage.getItem('access_token');
+
   const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=1&seed_genres=chill`, {
+    // const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=1&seed_genres=${genre}`, {
     method: 'GET',
     headers: { 'Authorization': 'Bearer ' + access_token },
-});
-
-console.log(getTrackInfo);
-return await response.json();
-
-}
-
-       
-async function displayResults() {
-  const resultsContent = document.getElementById("resultsContent");
-  const trackInfo = await getTrackInfo(tokenResponse.access_token, dominantGenre);
-  console.log(trackInfo); //Testing
-
-  displayRecommendedTracks(trackInfo);
-}
-
-function displayRecommendedTracks(trackInfo){
-  const resultsContent = document.getElementById("resultsContent");
-  resultsContent.innerHTML = ""; 
-
-  const heading = document.createElement("h2");
-  heading.textContent = "Your Recommended Song is: ";
-  resultsContent.appendChild(heading);
-
-  trackInfo.tracks.forEach(track => {
-
-      const trackDiv = document.getElementById("trackDiv");
-
-      const albumCover = document.getElementById("albumCover");
-      albumCover.textContent = "Album Cover";
-      albumCover.setAttribute("src", track.album.images[1].url);
-
-      const trackName = document.getElementById("trackName");
-      trackName.textContent = "Track Name: " + track.name;
-
-      const artists = document.getElementById("artists");
-      artists.textContent = "Artists: " + track.artists.map(artist => artist.name).join(", ");
-
-      const album = document.getElementById("album");
-      album.textContent = "Album: " + track.album.name;
-      
-      const genreId = document.getElementById("genreId");
-      genreId.textContent = "Genre: " + (dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1));
-
-      const spotifyLink = document.getElementById("spotifyLink");
-      spotifyLink.textContent = "Link to Spotify";
-      spotifyLink.setAttribute("href", track.external_urls.spotify);
-
-      trackDiv.appendChild(albumCover);
-      trackDiv.appendChild(trackName);
-      trackDiv.appendChild(artists);
-      trackDiv.appendChild(album);
-      trackDiv.appendChild(genreId);
-      trackDiv.appendChild(spotifyLink);
-
-      resultsContent.appendChild(trackDiv);
   });
+
+  return await response.json();
 }
 
 //Processes the authorization code from the URL and calls getToken to generate an access token
@@ -221,7 +166,7 @@ checkAuth().catch(error => {
   console.error("Error in checkAuth function: ", error);
 });
 
-
+export {getTrackInfo};
 
 
 

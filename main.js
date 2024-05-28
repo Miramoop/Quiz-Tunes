@@ -1,3 +1,5 @@
+import { getTrackInfo } from "./spotifyauthorization.js";
+
 const questions = [
         {
             question: "What is your ideal way to spend a Saturday afternoon?",  
@@ -233,45 +235,32 @@ const questions = [
         
     }
     
-    function displayRecommendedTracks(trackInfo){
-        const resultsContent = document.getElementById("resultsContent");
-        resultsContent.innerHTML = ""; 
-    
-        const heading = document.createElement("h2");
-        heading.textContent = "Your Recommended Song is: ";
-        resultsContent.appendChild(heading);
-    
+
+    async function displayRecommendedTracks(){
+        const resultsElem = document.getElementById("results");
+        const trackInfo = await getTrackInfo(dominantGenre);
+        console.log(trackInfo);
+
         trackInfo.tracks.forEach(track => {
 
-            const trackDiv = document.getElementById("trackDiv");
+            const result = `
+                <div id="resultsContent">
+                    <h2>Your Recommended Song is: </h2>
+                </div>
+                <div id="trackDiv">
+                    <img src=${track.album.images[1].url}>
+                    <p>Track Name:  ${track.name}</p>
+                    <p>Artist: ${track.artists.map(artist => artist.name).join(", ")}</p>
+                    <p>Album: ${track.album.name}</p>
+                    <a id="spotifyLink" href=${track.external_urls.spotify}>Link to Spotify</a>
+                </div>
+            `;
 
-            const albumCover = document.getElementById("albumCover");
-            albumCover.textContent = "Album Cover";
-            albumCover.setAttribute("src", track.album.images[1].url);
+            // <p id="genreId">${(dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1))}</p>
 
-            const trackName = document.getElementById("trackName");
-            trackName.textContent = "Track Name: " + track.name;
-    
-            const artists = document.getElementById("artists");
-            artists.textContent = "Artists: " + track.artists.map(artist => artist.name).join(", ");
-    
-            const album = document.getElementById("album");
-            album.textContent = "Album: " + track.album.name;
-            
-            const genreId = document.getElementById("genreId");
-            genreId.textContent = "Genre: " + (dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1));
-
-            const spotifyLink = document.getElementById("spotifyLink");
-            spotifyLink.textContent = "Link to Spotify";
-            spotifyLink.setAttribute("href", track.external_urls.spotify);
-    
-            trackDiv.appendChild(albumCover);
-            trackDiv.appendChild(trackName);
-            trackDiv.appendChild(artists);
-            trackDiv.appendChild(album);
-            trackDiv.appendChild(genreId);
-            trackDiv.appendChild(spotifyLink);
-
-            resultsContent.appendChild(trackDiv);
+            resultsContent.innerHTML = result;
         });
     }
+
+    displayRecommendedTracks(getTrackInfo);
+
