@@ -261,3 +261,24 @@ const questions = [
             resultsContent.innerHTML = result;
         });
     }
+
+
+
+    //Would need to have trackId in order to add into their library
+    //Saving Track to user's libary
+    // const saveTrack = async (access_token, trackId) => {
+    //     access_token = localStorage.getItem('access_token');
+
+    //     const response = await fetch("https://api.spotify.com/v1/me/tracks=${trackId}", {
+    //         method: 'PUT',
+    //         headers: { 'Authorization': 'Bearer ' + access_token},
+    //       });
+
+    //       return await response.json();
+    // }
+    //     document.getElementById("saveTrack").addEventListener('click', function() {
+    //         saveTrack();
+    //     });
+  
+
+
