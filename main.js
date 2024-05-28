@@ -1,4 +1,4 @@
-import { getTrackInfo } from "./spotifyauthorization.js";
+import { getTrackInfo, getToken } from "./spotifyauthorization.js";
 
 const questions = [
         {
@@ -141,8 +141,6 @@ const questions = [
         startQuiz();
     });
 
-    export {startQuiz};
-
     function displayHome(){
         document.getElementById("quiz").classList.remove("active");
         document.getElementById("quiz").classList.add("hidden");
@@ -214,15 +212,13 @@ const questions = [
         calculateResults();
     });
 
-   
-
-        
     async function displayResults() {
         const resultsContent = document.getElementById("resultsContent");
 
         const dominantGenre = calculateDominantGenre(weights);
+        console.log(dominantGenre); //Testing
     
-        const tokenResponse = await getToken(dominantGenre);
+        const tokenResponse = await getToken(dominantGenre); 
         const trackInfo = await getTrackInfo(tokenResponse.access_token, dominantGenre);
         console.log(trackInfo); //Testing
     
@@ -263,6 +259,7 @@ const questions = [
                     <p>Track Name:  ${track.name}</p>
                     <p>Artist: ${track.artists.map(artist => artist.name).join(", ")}</p>
                     <p>Album: ${track.album.name}</p>
+                    <p id="genreId">${(dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1))}</p>
                     <a id="spotifyLink" href=${track.external_urls.spotify}>Link to Spotify</a>
                 </div>
                 <br>
@@ -276,5 +273,5 @@ const questions = [
         });
     }
 
-    // displayRecommendedTracks(getTrackInfo);
+    //displayRecommendedTracks(getTrackInfo);
 
