@@ -1,4 +1,4 @@
-import { getTrackInfo, getToken } from "./spotifyauthorization.js";
+import { getTrackInfo } from "./spotifyauthorization.js";
 
 const questions = [
         {
@@ -118,7 +118,7 @@ const questions = [
         chill: 0,
         pop: 0,
         dance: 0,
-        mbient: 0,
+        ambient: 0,
         anime: 0,
         indie: 0,
         movies: 0,
@@ -127,7 +127,7 @@ const questions = [
         piano: 0,
     }; 
 
-    let dominantGenre;
+   let dominantGenre;
 
     function startQuiz(){
         document.getElementById("home").classList.remove("active");
@@ -161,7 +161,6 @@ const questions = [
     }
 
     function displayQuestion() {
-
         const questionContainer = document.getElementById("question");
         const choicesContainer = document.getElementById("choices");
         const currentQuestion = questions[currentQuestionIndex];
@@ -171,22 +170,24 @@ const questions = [
 
         displayQuestionImage(currentQuestionIndex);
 
-        currentQuestion.choices.forEach((choiceObj, index) => {
+        currentQuestion.choices.forEach((choiceObj) => {
             const button = document.createElement("button");
             button.textContent = choiceObj.choice;
             button.onclick = () => {
-                updateChoiceWeights(weights[index]);
-                //console.log(weights[index]); //testing //values are undefined
+                updateChoiceWeights(choiceObj.weights);
                 saveAnswer();
             };
             choicesContainer.appendChild(button);
         });
     }
 
-    function updateChoiceWeights(weights) {
-        for (let choice in weights) {
+    function updateChoiceWeights(choiceWeights) {
+        for (let choice in choiceWeights) {
             if(weights.hasOwnProperty(choice)){
-                weights[choice] = weights[choice];
+                weights[choice] += choiceWeights[choice];
+            }
+            else {
+                weights[choice] = choiceWeights[choice];
             }
         }
     }
@@ -209,47 +210,36 @@ const questions = [
         document.getElementById("calculatingResults").classList.add("hidden")
         document.getElementById("results").classList.remove("hidden");
         document.getElementById("results").classList.add("active");
-        displayResults();
+        displayRecommendedTracks();
     }
 
     document.getElementById("calculateResults").addEventListener('click', function() {
         calculateResults();
     });
 
-    async function displayResults() {
-        const resultsContent = document.getElementById("resultsContent");
-
-        const dominantGenre = calculateDominantGenre(weights);
-        //console.log(dominantGenre); //Testing
-    
-        // const tokenResponse = await getToken(dominantGenre); 
-        // console.log(tokenResponse);
-        // const trackInfo = await getTrackInfo(tokenResponse.access_token, dominantGenre);
-        //console.log(trackInfo); //Testing
-    
-        displayRecommendedTracks();
-    }
-
     function calculateDominantGenre(weights) {
         let maxValue = -Infinity;
+        
+        for (const genre in weights) {
+            if (weights.hasOwnProperty(genre)) {
+                //console.log(`Checking genre: ${genre}, weight: ${weights[genre]}`); //Testing
     
-        for (const genre in weights){
-            if (weights.hasOwnProperty(genre)){
-
-                if(weights[genre] > maxValue){
+                if (weights[genre] > maxValue) {
                     maxValue = weights[genre];
                     dominantGenre = genre;
+                   //console.log(`New dominant genre: ${dominantGenre}, maxValue: ${maxValue}`); //Testing
                 }
             }
         }
-
-        console.log(dominantGenre); //Testing
+        //console.log(`Final dominant genre: ${dominantGenre}`); //Testing
         return dominantGenre;
     }
-    
+
     async function displayRecommendedTracks(){
         const resultsElem = document.getElementById("results");
-        const trackInfo = await getTrackInfo(dominantGenre);
+
+        dominantGenre = calculateDominantGenre(weights);
+        const trackInfo = await getTrackInfo(localStorage.getItem('access_token'), dominantGenre);
         console.log(trackInfo);
 
         trackInfo.tracks.forEach(track => {
@@ -260,10 +250,10 @@ const questions = [
                 </div>
                 <div id="trackDiv">
                     <img src=${track.album.images[1].url}>
-                    <p>Track Name:  ${track.name}</p>
+                    <p>Track Name: ${track.name}</p>
                     <p>Artist: ${track.artists.map(artist => artist.name).join(", ")}</p>
                     <p>Album: ${track.album.name}</p>
-                    <p id="genreId">${(dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1))}</p>
+                    <p>Genre: ${(dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1))}</p>
                     <a id="spotifyLink" href=${track.external_urls.spotify}>Link to Spotify</a>
                 </div>
             `;
@@ -271,5 +261,3 @@ const questions = [
             resultsContent.innerHTML = result;
         });
     }
-
-    //displayRecommendedTracks(getTrackInfo);

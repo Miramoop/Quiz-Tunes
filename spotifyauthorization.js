@@ -121,11 +121,9 @@ const getToken = async (code) => {
   }
 }
 
-//add genre into call when we have the dominantGenre
 const getTrackInfo = async (access_token, genre) => {
   access_token = localStorage.getItem('access_token');
 
-  //const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=1&seed_genres=chill`, {
   const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=1&seed_genres=${genre}`, {
     method: 'GET',
     headers: { 'Authorization': 'Bearer ' + access_token },
