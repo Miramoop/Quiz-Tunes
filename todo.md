@@ -11,13 +11,13 @@ Let's see if we can't set up a plan for making this thing truly epic.
 - [x] Pull requests
 - [x] Get branching setup in repo
 - [x] Pull Spotify code out into its own file
-- [ ] Move secret keys to Actions variable
+~~- [ ] Move secret keys to Actions variable~~ No Need to do this anymore due to new authentication and authorization method
 - [ ] Convert JS styling changes to CSS
 
 ## 🧹 Clean UP
 - [ ] Clean up clutter
 - [ ] Remove extra comments
-- [ ] Get rid of extra token requests
+- [x] Get rid of extra token requests
 - [ ] Get rid of unused variables
 - [ ] Review function/variable names and make sure they make sense
 
@@ -28,10 +28,11 @@ Let's see if we can't set up a plan for making this thing truly epic.
 - [x] Convert genres to an array/object
 
 ## 🧘🏻 Stretch Goals
-- [ ] Add to portfolio
+- [x] Add to portfolio
 - [ ] Design Logo
 - [ ] Add additional types of recommendations (playlists, albums, whatever)
-- [ ] Allow user to save recommendations
+- [ ] Add another API to output data along with the Spotify API
+- [x] Allow user to save recommendations
 
 # How Developers Spend Their Time
 ```mermaid
