@@ -11,7 +11,7 @@ Let's see if we can't set up a plan for making this thing truly epic.
 - [x] Pull requests
 - [x] Get branching setup in repo
 - [x] Pull Spotify code out into its own file
-- [ ] ~~Move secret keys to Actions variable~~ No Need to do this anymore due to new authentication and authorization method
+- [ ] ~~Move secret keys to Actions variable~~ New Authorization method makes it so secret keys are not needed in the code
 - [ ] Convert JS styling changes to CSS
 
 ## 🧹 Clean UP
