@@ -49,10 +49,26 @@ p {
 }
 
 img {
-    display:inline-flexbox;
-    align-items: center;
-    margin: 20px; 
+    /* display:inline-flexbox;  */
+    /* align-items: center; */
+    /* margin: 20px;  */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
 
+#questionImage {
+    border-radius: 10px;
+    border-style: outset;
+    border-color: black;
+}
+
+#progressImage {
+    border-radius: 10px;
+    border-style: inset;
+    border-color: black;
 }
 
 button {
@@ -81,7 +97,7 @@ button:hover {
 #quiz {
     width: 100%;
     text-align: center;
-    padding: 40px 0;
+    padding: 20px 0;
     background: lightgoldenrodyellow;
     background-image: linear-gradient(180deg,slateblue, palegoldenrod);
     box-sizing: border-box;
