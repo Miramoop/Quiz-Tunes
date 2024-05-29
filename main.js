@@ -1,3 +1,5 @@
+import { getTrackInfo } from "./spotifyauthorization.js";
+
 const questions = [
         {
             question: "What is your ideal way to spend a Saturday afternoon?",  
@@ -116,7 +118,7 @@ const questions = [
         chill: 0,
         pop: 0,
         dance: 0,
-        mbient: 0,
+        ambient: 0,
         anime: 0,
         indie: 0,
         movies: 0,
@@ -125,8 +127,8 @@ const questions = [
         piano: 0,
     }; 
 
-    let dominantGenre;
-    
+   let dominantGenre;
+
     function startQuiz(){
         document.getElementById("home").classList.remove("active");
         document.getElementById("home").classList.add("hidden");
@@ -134,6 +136,10 @@ const questions = [
         document.getElementById("quiz").classList.add("active");
         displayQuestion();
     }
+
+    document.getElementById("startQuiz").addEventListener('click', function() {
+        startQuiz();
+    });
 
     function displayHome(){
         document.getElementById("quiz").classList.remove("active");
@@ -145,13 +151,16 @@ const questions = [
         currentQuestionIndex = 0;
     }
 
+    document.getElementById("displayHome").addEventListener('click', function() {
+        displayHome();
+    });
+
     function displayQuestionImage(currentQuestionIndex){
         const questionImage = document.getElementById("questionImage");
         questionImage.setAttribute("src", questions[currentQuestionIndex].image);
     }
 
     function displayQuestion() {
-
         const questionContainer = document.getElementById("question");
         const choicesContainer = document.getElementById("choices");
         const currentQuestion = questions[currentQuestionIndex];
@@ -161,22 +170,24 @@ const questions = [
 
         displayQuestionImage(currentQuestionIndex);
 
-        currentQuestion.choices.forEach((choiceObj, index) => {
+        currentQuestion.choices.forEach((choiceObj) => {
             const button = document.createElement("button");
             button.textContent = choiceObj.choice;
             button.onclick = () => {
-                updateChoiceWeights(weights[index]);
-                //console.log(weights[index]); //testing //values are undefined
+                updateChoiceWeights(choiceObj.weights);
                 saveAnswer();
             };
             choicesContainer.appendChild(button);
         });
     }
 
-    function updateChoiceWeights(weights) {
-        for (let choice in weights) {
+    function updateChoiceWeights(choiceWeights) {
+        for (let choice in choiceWeights) {
             if(weights.hasOwnProperty(choice)){
-                weights[choice] = weights[choice];
+                weights[choice] += choiceWeights[choice];
+            }
+            else {
+                weights[choice] = choiceWeights[choice];
             }
         }
     }
@@ -199,79 +210,116 @@ const questions = [
         document.getElementById("calculatingResults").classList.add("hidden")
         document.getElementById("results").classList.remove("hidden");
         document.getElementById("results").classList.add("active");
-        displayResults();
+        displayRecommendedTracks();
     }
 
-        
-    async function displayResults() {
-        const resultsContent = document.getElementById("resultsContent");
-
-        const dominantGenre = calculateDominantGenre(weights);
-    
-        const tokenResponse = await getToken(dominantGenre);
-        const trackInfo = await getTrackInfo(tokenResponse.access_token, dominantGenre);
-        console.log(trackInfo); //Testing
-    
-        displayRecommendedTracks(trackInfo);
-    }
+    document.getElementById("calculateResults").addEventListener('click', function() {
+        calculateResults();
+    });
 
     function calculateDominantGenre(weights) {
         let maxValue = -Infinity;
+        
+        for (const genre in weights) {
+            if (weights.hasOwnProperty(genre)) {
+                //console.log(`Checking genre: ${genre}, weight: ${weights[genre]}`); //Testing
     
-        for (const genre in weights){
-            if (weights.hasOwnProperty(genre)){
-
-                if(weights[genre] > maxValue){
+                if (weights[genre] > maxValue) {
                     maxValue = weights[genre];
                     dominantGenre = genre;
+                   //console.log(`New dominant genre: ${dominantGenre}, maxValue: ${maxValue}`); //Testing
                 }
             }
         }
-
-        console.log(dominantGenre); //Testing
+        //console.log(`Final dominant genre: ${dominantGenre}`); //Testing
         return dominantGenre;
-        
     }
-    
-    function displayRecommendedTracks(trackInfo){
-        const resultsContent = document.getElementById("resultsContent");
-        resultsContent.innerHTML = ""; 
-    
-        const heading = document.createElement("h2");
-        heading.textContent = "Your Recommended Song is: ";
-        resultsContent.appendChild(heading);
-    
+
+    async function displayRecommendedTracks(){
+        const resultsElem = document.getElementById("results");
+
+        dominantGenre = calculateDominantGenre(weights);
+        const trackInfo = await getTrackInfo(localStorage.getItem('access_token'), dominantGenre);
+        console.log(trackInfo);
+
         trackInfo.tracks.forEach(track => {
 
-            const trackDiv = document.getElementById("trackDiv");
+            const result = `
+                <div id="resultsContent">
+                    <h2>Your Recommended Song is: </h2>
+                </div>
+                <div id="trackDiv">
+                    <img src=${track.album.images[1].url}>
+                    <p>Track Name: ${track.name}</p>
+                    <p>Artist: ${track.artists.map(artist => artist.name).join(", ")}</p>
+                    <p>Album: ${track.album.name}</p>
+                    <p>Genre: ${(dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1))}</p>
+                    <a id="spotifyLink" href=${track.external_urls.spotify}>Link to Spotify</a>
+                </div>
+            `;
 
-            const albumCover = document.getElementById("albumCover");
-            albumCover.textContent = "Album Cover";
-            albumCover.setAttribute("src", track.album.images[1].url);
-
-            const trackName = document.getElementById("trackName");
-            trackName.textContent = "Track Name: " + track.name;
-    
-            const artists = document.getElementById("artists");
-            artists.textContent = "Artists: " + track.artists.map(artist => artist.name).join(", ");
-    
-            const album = document.getElementById("album");
-            album.textContent = "Album: " + track.album.name;
-            
-            const genreId = document.getElementById("genreId");
-            genreId.textContent = "Genre: " + (dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1));
-
-            const spotifyLink = document.getElementById("spotifyLink");
-            spotifyLink.textContent = "Link to Spotify";
-            spotifyLink.setAttribute("href", track.external_urls.spotify);
-    
-            trackDiv.appendChild(albumCover);
-            trackDiv.appendChild(trackName);
-            trackDiv.appendChild(artists);
-            trackDiv.appendChild(album);
-            trackDiv.appendChild(genreId);
-            trackDiv.appendChild(spotifyLink);
-
-            resultsContent.appendChild(trackDiv);
+            resultsContent.innerHTML = result;
+            localStorage.setItem("track_id",track.id);
         });
     }
+
+
+
+    //Would need to have trackId in order to add into their library
+    //Saving Track to user's libary
+        const saveTrack = async () => {
+            const access_token = localStorage.getItem('access_token');
+            const trackId = localStorage.getItem('track_id');
+        
+            const response = await fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${access_token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+        
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Error ${response.status}: ${errorData.message}`);
+            }
+        
+            return response.status === 200 ? 'Track saved successfully' : response.json();
+        };
+        
+        document.getElementById("saveTrack").addEventListener('click', function() {
+            saveTrack().then(result => {
+                console.log(result);
+            }).catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        });
+        
+
+        //Testing to Make Sure Track Actually Saved
+        // const checkSavedTrack = async () => {
+        //     const access_token = localStorage.getItem('access_token');
+        //     const trackId = localStorage.getItem('track_id');
+
+        //     const response = await fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`, {
+        //     method: 'GET',
+        //     headers: {
+        //             'Authorization': `Bearer ${access_token}`,
+        //     }
+        // });
+        
+        // return await response.json();
+        // };
+
+        // document.getElementById("checkSaveTrack").addEventListener('click', function() {
+        //     checkSavedTrack().then(result => {
+        //         console.log(result);
+        //     }).catch(error => {
+        //         console.error('There was a problem with the save operation:', error);
+        //     });
+        // });
+        
+ 
+  
+
+
