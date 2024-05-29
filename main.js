@@ -244,6 +244,7 @@ const questions = [
 
         trackInfo.tracks.forEach(track => {
 
+            //const result = null; //Testing Error Management
             const result = `
                 <div id="resultsContent">
                     <h2>Your Recommended Song is: </h2>
@@ -260,16 +261,19 @@ const questions = [
 
             resultsContent.innerHTML = result;
             localStorage.setItem("track_id",track.id);
+
+            if(!result) {
+                alert('Error in Displaying Results! Please Try Again!');
+            }
         });
     }
-
-
 
     //Would need to have trackId in order to add into their library
     //Saving Track to user's libary
         const saveTrack = async () => {
             const access_token = localStorage.getItem('access_token');
             const trackId = localStorage.getItem('track_id');
+            //const trackId = null; //Testing Error Management
         
             const response = await fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`, {
                 method: 'PUT',
@@ -280,11 +284,14 @@ const questions = [
             });
         
             if (!response.ok) {
+                alert('Error in Saving Track! Please Try Again');
                 const errorData = await response.json();
                 throw new Error(`Error ${response.status}: ${errorData.message}`);
             }
-        
+
+            alert('Track was Saved Successfully!');
             return response.status === 200 ? 'Track saved successfully' : response.json();
+            
         };
         
         document.getElementById("saveTrack").addEventListener('click', function() {
