@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Song Recommender</title>
     <link rel="stylesheet" href="styles.css"> 
-    <!--Look into adding a good favicon-->
+    
 </head>
 <body>
     <div id="header" class="active">
@@ -19,12 +19,14 @@
     </div>
 
     <div id="quiz" class="hidden">
+        <img id="progressImage">
         <img id="questionImage">
         <div id="question"></div>
         <div id="choices"></div>
     </div>
 
     <div id="calculatingResults" class="hidden">
+        <img id="progressImage" src="img/q10progress.jpg">
         <h2>Quiz is Complete!</h2>
         <p>Click below to get your results:<br><br></p>
         <button id="calculateResults">Calculate Results</button>
@@ -33,7 +35,6 @@
     <div id="results" class="hidden">
         <div id="resultsContent"></div>
         <button id="saveTrack">Save Track to Library</button>
-        <!-- <button id="checkSaveTrack">Check if Saved to Library</button> -->
         <button id="displayHome">Return to HomePage</button> 
     </div>
 

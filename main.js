@@ -3,111 +3,121 @@ import { getTrackInfo } from "./spotifyauthorization.js";
 const questions = [
         {
             question: "What is your ideal way to spend a Saturday afternoon?",  
-            image: "img/q1.jpg",
+            questionImage: "img/q1.jpg",
+            progressImage: "img/emptyprogress.jpg",
             choices: [
-                { choice: "Reading a book", weights: { chill: +20, ambient: +20 }}, 
-                { choice: "Hiking in the Forest", weights: { country: +20, ambient: +20 }},
-                { choice: "Hanging out with Friends", weights: { indie: +20, pop: +20 }},
-                { choice: "Watching movies or TV shows", weights: { movies: +20, anime: +20 }},
+                { choice: "Reading a book", weights: { chill: +25, ambient: +30 }}, 
+                { choice: "Hiking in the Forest", weights: { country: +30, ambient: +15 }},
+                { choice: "Hanging out with Friends", weights: { indie: +30, pop: +25 }},
+                { choice: "Watching movies or TV shows", weights: { movies: +35, anime: +25 }},
             ],
         },
 
         {
             question: "What is your ideal vacation?",
-            image: "img/q2.jpg",
+            questionImage: "img/q2.jpg",
+            progressImage: "img/q1progress.jpg",
             choices: [
-                { choice: "Beach Resort", weights: { chill: +20, dance: +20 }},
-                { choice: "Mountain Retreat", weights: { rock: +20, ambient: +20 }},
-                { choice: "City Exploration", weights: { anime: +20, movies: +20 }},
-                { choice:  "Chilling at Home", weights: { chill: +20, piano: +20 }},
+                { choice: "Beach Resort", weights: { chill: +30, dance: +20 }},
+                { choice: "Mountain Retreat", weights: { rock: +35, ambient: +20 }},
+                { choice: "City Exploration", weights: { anime: +25, movies: +30 }},
+                { choice:  "Chilling at Home", weights: { chill: +25, piano: +20 }},
             ]
         },
 
         {
             question: "If you were able to travel to any of these countries, where would you choose?",
-            image: "img/q3.jpg",
+            questionImage: "img/q3.jpg",
+            progressImage: "img/q2progress.jpg",
             choices: [
-                { choice: "Japan", weights: { anime: +20, movies: +20 }},
-                { choice: "Australia", weights: { country: +20, ambient: +20 }},
-                { choice: "France", weights: { indie: +20, piano: +20 }},
-                { choice: "Mexico", weights: { dance: +20, pop: +20 }},
+                { choice: "Japan", weights: { anime: +40, movies: +20 }},
+                { choice: "Australia", weights: { country: +30, ambient: +10 }},
+                { choice: "France", weights: { indie: +10, piano: +30 }},
+                { choice: "Mexico", weights: { dance: +40, pop: +25 }},
             ]
         },
 
         {
             question: "What type of exercise do you prefer?", 
-            image: "img/q4.jpg",
+            questionImage: "img/q4.jpg",
+            progressImage: "img/q3progress.jpg",
             choices: [
-                { choice: "Dance", weights: { dance: +20, movies: +20 }},
-                { choice: "Jogging", weights: { pop: +20, rock: +20 }},
-                { choice: "Weight Training", weights: { rock: +20, anime: +20 }},
-                { choice: "Yoga", weights: { piano: +20, chill: +20 }},
+                { choice: "Dance", weights: { dance: +40, movies: +25 }},
+                { choice: "Jogging", weights: { pop: +30, rock: +20 }},
+                { choice: "Weight Training", weights: { rock: +35, anime: +30 }},
+                { choice: "Yoga", weights: { piano: +40, chill: +25 }},
             ]
         },
 
         {
             question: "What kind of music do you prefer to listen to?", 
-            image: "img/q5.jpg",
+            questionImage: "img/q5.jpg",
+            progressImage: "img/q4progress.jpg",
             choices: [
-                { choice: "Country", weights: { country: +20, ambient: +20 }},
-                { choice: "Rock", weights: { indie: +20, rock: +20 }},
-                { choice: "Dance", weights: { pop: +20, dance: +20 }},
-                { choice: "Chill", weights: { chill: +20, ambient: +20 }},
+                { choice: "Country", weights: { country: +40, ambient: +15 }},
+                { choice: "Rock", weights: { indie: +15, rock: +40 }},
+                { choice: "Dance", weights: { pop: +15, dance: +40 }},
+                { choice: "Chill", weights: { chill: +40, ambient: +15 }},
             ]
         },
 
         {
             question: "Which season do you enjoy the most?", 
-            image: "img/q6.jpg",
+            questionImage: "img/q6.jpg",
+            progressImage: "img/q5progress.jpg",
             choices: [
-                { choice: "Fall", weights: { indie: +20, ambient: +20 }},
-                { choice: "Winter", weights: { piano: +20, chill: +20 }},
-                { choice: "Spring", weights: { chill: +20, anime: +20 }},
-                { choice: "Summer", weights: { pop: +20, dance: +20 }},
+                { choice: "Fall", weights: { indie: +20, ambient: +35 }},
+                { choice: "Winter", weights: { piano: +25, chill: +30 }},
+                { choice: "Spring", weights: { chill: +10, anime: +15 }},
+                { choice: "Summer", weights: { pop: +30, dance: +40 }},
             ]
         },
 
         {
             question: "What types of movies do you prefer?", 
-            image: "img/q7.jpg", 
+            questionImage: "img/q7.jpg", 
+            progressImage: "img/q6progress.jpg",
             choices: [
-                { choice: "Action", weights: { rock: +20, anime: +20 }},
+                { choice: "Action", weights: { rock: +40, anime: +40 }},
                 { choice: "Comedy", weights: { indie: +20, chill: +20 }},
-                { choice: "Drama", weights: { indie: +20, pop: +20 }},
-                { choice: "Horror", weights: { pop: +20, rock: +20 }},
+                { choice: "Drama", weights: { indie: +30, pop: +25 }},
+                { choice: "Horror", weights: { pop: +10, rock: +15 }},
             ]
         },
 
         {
             question: "What is your favorite flower?",   
-            image: "img/q8.jpg",
+            questionImage: "img/q8.jpg",
+            progressImage: "img/q7progress.jpg",
             choices: [
-                { choice: "Rose", weights: { indie: +20, movies: +20 }},
-                { choice: "Tulip", weights: { chill: +20, ambient: +20 }},
-                { choice: "Sunflower", weights: { pop: +20, dance: +20 }},
-                { choice: "Orchids", weights: { rock: +20, piano: +20 }},
+                { choice: "Rose", weights: { indie: +25, movies: +15 }},
+                { choice: "Tulip", weights: { chill: +25, ambient: +15 }},
+                { choice: "Sunflower", weights: { pop: +25, dance: +25 }},
+                { choice: "Orchids", weights: { rock: +25, piano: +15 }},
             ]
         },
 
         {
             question: "What type of cuisine do you enjoy the most?",   
-            image: "img/q9.jpg",
+            questionImage: "img/q9.jpg",
+            progressImage: "img/q8progress.jpg",
             choices: [
-                { choice: "Japanese", weights: { anime: +20, movies: +20 }},
-                { choice: "Spanish", weights: { dance: +20, pop: +20 }},
-                { choice: "French", weights: { piano: +20, indie: +20 }},
-                { choice: "American", weights: { movies: +20, country: +20 }},
+                { choice: "Japanese", weights: { anime: +40, movies: +20 }},
+                { choice: "Spanish", weights: { dance: +40, pop: +30 }},
+                { choice: "French", weights: { piano: +40, indie: +20 }},
+                { choice: "American", weights: { movies: +40, country: +30 }},
             ]
         },
 
         {
             question: "What is your favorite time of day?", 
-            image: "img/q10.jpg",  
+            questionImage: "img/q10.jpg",  
+            progressImage: "img/q9progress.jpg",
             choices: [
-                { choice: "Morning", weights: { piano: +20, ambient: +20 }},
-                { choice: "Afternoon", weights: { pop: +20, dance: +20 }},
-                { choice: "Evening", weights: { chill: +20, indie: +20 }},
-                { choice: "Night", weights: { rock: +20, movies: +20 }},
+                { choice: "Morning", weights: { piano: +40, ambient: +25 }},
+                { choice: "Afternoon", weights: { pop: +35, dance: +20 }},
+                { choice: "Evening", weights: { chill: +30, indie: +20 }},
+                { choice: "Night", weights: { rock: +25, movies: +15 }},
             ]
         },
 
@@ -155,20 +165,18 @@ const questions = [
         displayHome();
     });
 
-    function displayQuestionImage(currentQuestionIndex){
-        const questionImage = document.getElementById("questionImage");
-        questionImage.setAttribute("src", questions[currentQuestionIndex].image);
-    }
-
     function displayQuestion() {
         const questionContainer = document.getElementById("question");
         const choicesContainer = document.getElementById("choices");
+        const questionImage = document.getElementById("questionImage");
+        const progressImage = document.getElementById("progressImage");
         const currentQuestion = questions[currentQuestionIndex];
         
         questionContainer.textContent = currentQuestion.question;
         choicesContainer.innerHTML = "";
 
-        displayQuestionImage(currentQuestionIndex);
+        questionImage.setAttribute("src", questions[currentQuestionIndex].questionImage);
+        progressImage.setAttribute("src", questions[currentQuestionIndex].progressImage);
 
         currentQuestion.choices.forEach((choiceObj) => {
             const button = document.createElement("button");
@@ -207,7 +215,7 @@ const questions = [
 
     function calculateResults(){
         document.getElementById("calculatingResults").classList.remove("active");
-        document.getElementById("calculatingResults").classList.add("hidden")
+        document.getElementById("calculatingResults").classList.add("hidden");
         document.getElementById("results").classList.remove("hidden");
         document.getElementById("results").classList.add("active");
         displayRecommendedTracks();
@@ -222,16 +230,13 @@ const questions = [
         
         for (const genre in weights) {
             if (weights.hasOwnProperty(genre)) {
-                //console.log(`Checking genre: ${genre}, weight: ${weights[genre]}`); //Testing
     
                 if (weights[genre] > maxValue) {
                     maxValue = weights[genre];
                     dominantGenre = genre;
-                   //console.log(`New dominant genre: ${dominantGenre}, maxValue: ${maxValue}`); //Testing
                 }
             }
         }
-        //console.log(`Final dominant genre: ${dominantGenre}`); //Testing
         return dominantGenre;
     }
 
@@ -260,13 +265,13 @@ const questions = [
 
             resultsContent.innerHTML = result;
             localStorage.setItem("track_id",track.id);
+
+            if(!result) {
+                alert('Error in Displaying Results! Please Try Again!');
+            }
         });
     }
 
-
-
-    //Would need to have trackId in order to add into their library
-    //Saving Track to user's libary
         const saveTrack = async () => {
             const access_token = localStorage.getItem('access_token');
             const trackId = localStorage.getItem('track_id');
@@ -280,11 +285,14 @@ const questions = [
             });
         
             if (!response.ok) {
+                alert('Error in Saving Track! Please Try Again');
                 const errorData = await response.json();
                 throw new Error(`Error ${response.status}: ${errorData.message}`);
             }
-        
+
+            alert('Track was Saved Successfully!');
             return response.status === 200 ? 'Track saved successfully' : response.json();
+            
         };
         
         document.getElementById("saveTrack").addEventListener('click', function() {
@@ -295,31 +303,7 @@ const questions = [
             });
         });
         
-
-        //Testing to Make Sure Track Actually Saved
-        // const checkSavedTrack = async () => {
-        //     const access_token = localStorage.getItem('access_token');
-        //     const trackId = localStorage.getItem('track_id');
-
-        //     const response = await fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`, {
-        //     method: 'GET',
-        //     headers: {
-        //             'Authorization': `Bearer ${access_token}`,
-        //     }
-        // });
-        
-        // return await response.json();
-        // };
-
-        // document.getElementById("checkSaveTrack").addEventListener('click', function() {
-        //     checkSavedTrack().then(result => {
-        //         console.log(result);
-        //     }).catch(error => {
-        //         console.error('There was a problem with the save operation:', error);
-        //     });
-        // });
-        
- 
   
 
 
+        
