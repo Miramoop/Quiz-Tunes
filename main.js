@@ -3,7 +3,8 @@ import { getTrackInfo } from "./spotifyauthorization.js";
 const questions = [
         {
             question: "What is your ideal way to spend a Saturday afternoon?",  
-            image: "img/q1.jpg",
+            questionImage: "img/q1.jpg",
+            progressImage: "img/emptyprogress.jpg",
             choices: [
                 { choice: "Reading a book", weights: { chill: +25, ambient: +30 }}, 
                 { choice: "Hiking in the Forest", weights: { country: +30, ambient: +15 }},
@@ -14,7 +15,8 @@ const questions = [
 
         {
             question: "What is your ideal vacation?",
-            image: "img/q2.jpg",
+            questionImage: "img/q2.jpg",
+            progressImage: "img/q1progress.jpg",
             choices: [
                 { choice: "Beach Resort", weights: { chill: +30, dance: +20 }},
                 { choice: "Mountain Retreat", weights: { rock: +35, ambient: +20 }},
@@ -25,7 +27,8 @@ const questions = [
 
         {
             question: "If you were able to travel to any of these countries, where would you choose?",
-            image: "img/q3.jpg",
+            questionImage: "img/q3.jpg",
+            progressImage: "img/q2progress.jpg",
             choices: [
                 { choice: "Japan", weights: { anime: +40, movies: +20 }},
                 { choice: "Australia", weights: { country: +30, ambient: +10 }},
@@ -36,7 +39,8 @@ const questions = [
 
         {
             question: "What type of exercise do you prefer?", 
-            image: "img/q4.jpg",
+            questionImage: "img/q4.jpg",
+            progressImage: "img/q3progress.jpg",
             choices: [
                 { choice: "Dance", weights: { dance: +40, movies: +25 }},
                 { choice: "Jogging", weights: { pop: +30, rock: +20 }},
@@ -47,7 +51,8 @@ const questions = [
 
         {
             question: "What kind of music do you prefer to listen to?", 
-            image: "img/q5.jpg",
+            questionImage: "img/q5.jpg",
+            progressImage: "img/q4progress.jpg",
             choices: [
                 { choice: "Country", weights: { country: +40, ambient: +15 }},
                 { choice: "Rock", weights: { indie: +15, rock: +40 }},
@@ -58,7 +63,8 @@ const questions = [
 
         {
             question: "Which season do you enjoy the most?", 
-            image: "img/q6.jpg",
+            questionImage: "img/q6.jpg",
+            progressImage: "img/q5progress.jpg",
             choices: [
                 { choice: "Fall", weights: { indie: +20, ambient: +35 }},
                 { choice: "Winter", weights: { piano: +25, chill: +30 }},
@@ -69,7 +75,8 @@ const questions = [
 
         {
             question: "What types of movies do you prefer?", 
-            image: "img/q7.jpg", 
+            questionImage: "img/q7.jpg", 
+            progressImage: "img/q6progress.jpg",
             choices: [
                 { choice: "Action", weights: { rock: +40, anime: +40 }},
                 { choice: "Comedy", weights: { indie: +20, chill: +20 }},
@@ -80,7 +87,8 @@ const questions = [
 
         {
             question: "What is your favorite flower?",   
-            image: "img/q8.jpg",
+            questionImage: "img/q8.jpg",
+            progressImage: "img/q7progress.jpg",
             choices: [
                 { choice: "Rose", weights: { indie: +25, movies: +15 }},
                 { choice: "Tulip", weights: { chill: +25, ambient: +15 }},
@@ -91,7 +99,8 @@ const questions = [
 
         {
             question: "What type of cuisine do you enjoy the most?",   
-            image: "img/q9.jpg",
+            questionImage: "img/q9.jpg",
+            progressImage: "img/q8progress.jpg",
             choices: [
                 { choice: "Japanese", weights: { anime: +40, movies: +20 }},
                 { choice: "Spanish", weights: { dance: +40, pop: +30 }},
@@ -102,7 +111,8 @@ const questions = [
 
         {
             question: "What is your favorite time of day?", 
-            image: "img/q10.jpg",  
+            questionImage: "img/q10.jpg",  
+            progressImage: "img/q9progress.jpg",
             choices: [
                 { choice: "Morning", weights: { piano: +40, ambient: +25 }},
                 { choice: "Afternoon", weights: { pop: +35, dance: +20 }},
@@ -159,12 +169,14 @@ const questions = [
         const questionContainer = document.getElementById("question");
         const choicesContainer = document.getElementById("choices");
         const questionImage = document.getElementById("questionImage");
+        const progressImage = document.getElementById("progressImage");
         const currentQuestion = questions[currentQuestionIndex];
         
         questionContainer.textContent = currentQuestion.question;
         choicesContainer.innerHTML = "";
 
-        questionImage.setAttribute("src", questions[currentQuestionIndex].image);
+        questionImage.setAttribute("src", questions[currentQuestionIndex].questionImage);
+        progressImage.setAttribute("src", questions[currentQuestionIndex].progressImage);
 
         currentQuestion.choices.forEach((choiceObj) => {
             const button = document.createElement("button");
@@ -203,7 +215,7 @@ const questions = [
 
     function calculateResults(){
         document.getElementById("calculatingResults").classList.remove("active");
-        document.getElementById("calculatingResults").classList.add("hidden")
+        document.getElementById("calculatingResults").classList.add("hidden");
         document.getElementById("results").classList.remove("hidden");
         document.getElementById("results").classList.add("active");
         displayRecommendedTracks();
@@ -291,9 +303,7 @@ const questions = [
             });
         });
         
-
-        
- 
   
 
 
+        
