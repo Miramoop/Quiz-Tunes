@@ -222,16 +222,13 @@ const questions = [
         
         for (const genre in weights) {
             if (weights.hasOwnProperty(genre)) {
-                //console.log(`Checking genre: ${genre}, weight: ${weights[genre]}`); //Testing
     
                 if (weights[genre] > maxValue) {
                     maxValue = weights[genre];
                     dominantGenre = genre;
-                   //console.log(`New dominant genre: ${dominantGenre}, maxValue: ${maxValue}`); //Testing
                 }
             }
         }
-        //console.log(`Final dominant genre: ${dominantGenre}`); //Testing
         return dominantGenre;
     }
 
@@ -244,7 +241,6 @@ const questions = [
 
         trackInfo.tracks.forEach(track => {
 
-            //const result = null; //Testing Error Management
             const result = `
                 <div id="resultsContent">
                     <h2>Your Recommended Song is: </h2>
@@ -268,12 +264,9 @@ const questions = [
         });
     }
 
-    //Would need to have trackId in order to add into their library
-    //Saving Track to user's libary
         const saveTrack = async () => {
             const access_token = localStorage.getItem('access_token');
             const trackId = localStorage.getItem('track_id');
-            //const trackId = null; //Testing Error Management
         
             const response = await fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`, {
                 method: 'PUT',
@@ -303,28 +296,6 @@ const questions = [
         });
         
 
-        //Testing to Make Sure Track Actually Saved
-        // const checkSavedTrack = async () => {
-        //     const access_token = localStorage.getItem('access_token');
-        //     const trackId = localStorage.getItem('track_id');
-
-        //     const response = await fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`, {
-        //     method: 'GET',
-        //     headers: {
-        //             'Authorization': `Bearer ${access_token}`,
-        //     }
-        // });
-        
-        // return await response.json();
-        // };
-
-        // document.getElementById("checkSaveTrack").addEventListener('click', function() {
-        //     checkSavedTrack().then(result => {
-        //         console.log(result);
-        //     }).catch(error => {
-        //         console.error('There was a problem with the save operation:', error);
-        //     });
-        // });
         
  
   

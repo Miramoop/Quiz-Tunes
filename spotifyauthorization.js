@@ -51,7 +51,6 @@ const getCodeChallenge = async (verifier) => {
 }
 
 // Step 2 - Request User Authorization
-//Creating constants of the clientID, redirectUri, scope, and authUrl
 const clientId = '8a649d0e1cf74b1c89b6874845b17646';
 const redirectUri = 'http://localhost:5500';
 const scope = 'user-read-private user-read-email user-library-modify user-library-read';
