@@ -155,20 +155,16 @@ const questions = [
         displayHome();
     });
 
-    function displayQuestionImage(currentQuestionIndex){
-        const questionImage = document.getElementById("questionImage");
-        questionImage.setAttribute("src", questions[currentQuestionIndex].image);
-    }
-
     function displayQuestion() {
         const questionContainer = document.getElementById("question");
         const choicesContainer = document.getElementById("choices");
+        const questionImage = document.getElementById("questionImage");
         const currentQuestion = questions[currentQuestionIndex];
         
         questionContainer.textContent = currentQuestion.question;
         choicesContainer.innerHTML = "";
 
-        displayQuestionImage(currentQuestionIndex);
+        questionImage.setAttribute("src", questions[currentQuestionIndex].image);
 
         currentQuestion.choices.forEach((choiceObj) => {
             const button = document.createElement("button");
@@ -222,16 +218,13 @@ const questions = [
         
         for (const genre in weights) {
             if (weights.hasOwnProperty(genre)) {
-                console.log(`Checking genre: ${genre}, weight: ${weights[genre]}`); //Testing
     
                 if (weights[genre] > maxValue) {
                     maxValue = weights[genre];
                     dominantGenre = genre;
-                console.log(`New dominant genre: ${dominantGenre}, maxValue: ${maxValue}`); //Testing
                 }
             }
         }
-        console.log(`Final dominant genre: ${dominantGenre}`); //Testing
         return dominantGenre;
     }
 
