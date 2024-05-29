@@ -5,10 +5,10 @@ const questions = [
             question: "What is your ideal way to spend a Saturday afternoon?",  
             image: "img/q1.jpg",
             choices: [
-                { choice: "Reading a book", weights: { chill: +20, ambient: +20 }}, 
-                { choice: "Hiking in the Forest", weights: { country: +20, ambient: +20 }},
-                { choice: "Hanging out with Friends", weights: { indie: +20, pop: +20 }},
-                { choice: "Watching movies or TV shows", weights: { movies: +20, anime: +20 }},
+                { choice: "Reading a book", weights: { chill: +25, ambient: +30 }}, 
+                { choice: "Hiking in the Forest", weights: { country: +30, ambient: +15 }},
+                { choice: "Hanging out with Friends", weights: { indie: +30, pop: +25 }},
+                { choice: "Watching movies or TV shows", weights: { movies: +35, anime: +25 }},
             ],
         },
 
@@ -16,10 +16,10 @@ const questions = [
             question: "What is your ideal vacation?",
             image: "img/q2.jpg",
             choices: [
-                { choice: "Beach Resort", weights: { chill: +20, dance: +20 }},
-                { choice: "Mountain Retreat", weights: { rock: +20, ambient: +20 }},
-                { choice: "City Exploration", weights: { anime: +20, movies: +20 }},
-                { choice:  "Chilling at Home", weights: { chill: +20, piano: +20 }},
+                { choice: "Beach Resort", weights: { chill: +30, dance: +20 }},
+                { choice: "Mountain Retreat", weights: { rock: +35, ambient: +20 }},
+                { choice: "City Exploration", weights: { anime: +25, movies: +30 }},
+                { choice:  "Chilling at Home", weights: { chill: +25, piano: +20 }},
             ]
         },
 
@@ -27,10 +27,10 @@ const questions = [
             question: "If you were able to travel to any of these countries, where would you choose?",
             image: "img/q3.jpg",
             choices: [
-                { choice: "Japan", weights: { anime: +20, movies: +20 }},
-                { choice: "Australia", weights: { country: +20, ambient: +20 }},
-                { choice: "France", weights: { indie: +20, piano: +20 }},
-                { choice: "Mexico", weights: { dance: +20, pop: +20 }},
+                { choice: "Japan", weights: { anime: +40, movies: +20 }},
+                { choice: "Australia", weights: { country: +30, ambient: +10 }},
+                { choice: "France", weights: { indie: +10, piano: +30 }},
+                { choice: "Mexico", weights: { dance: +40, pop: +25 }},
             ]
         },
 
@@ -38,10 +38,10 @@ const questions = [
             question: "What type of exercise do you prefer?", 
             image: "img/q4.jpg",
             choices: [
-                { choice: "Dance", weights: { dance: +20, movies: +20 }},
-                { choice: "Jogging", weights: { pop: +20, rock: +20 }},
-                { choice: "Weight Training", weights: { rock: +20, anime: +20 }},
-                { choice: "Yoga", weights: { piano: +20, chill: +20 }},
+                { choice: "Dance", weights: { dance: +40, movies: +25 }},
+                { choice: "Jogging", weights: { pop: +30, rock: +20 }},
+                { choice: "Weight Training", weights: { rock: +35, anime: +30 }},
+                { choice: "Yoga", weights: { piano: +40, chill: +25 }},
             ]
         },
 
@@ -49,10 +49,10 @@ const questions = [
             question: "What kind of music do you prefer to listen to?", 
             image: "img/q5.jpg",
             choices: [
-                { choice: "Country", weights: { country: +20, ambient: +20 }},
-                { choice: "Rock", weights: { indie: +20, rock: +20 }},
-                { choice: "Dance", weights: { pop: +20, dance: +20 }},
-                { choice: "Chill", weights: { chill: +20, ambient: +20 }},
+                { choice: "Country", weights: { country: +40, ambient: +15 }},
+                { choice: "Rock", weights: { indie: +15, rock: +40 }},
+                { choice: "Dance", weights: { pop: +15, dance: +40 }},
+                { choice: "Chill", weights: { chill: +40, ambient: +15 }},
             ]
         },
 
@@ -60,10 +60,10 @@ const questions = [
             question: "Which season do you enjoy the most?", 
             image: "img/q6.jpg",
             choices: [
-                { choice: "Fall", weights: { indie: +20, ambient: +20 }},
-                { choice: "Winter", weights: { piano: +20, chill: +20 }},
-                { choice: "Spring", weights: { chill: +20, anime: +20 }},
-                { choice: "Summer", weights: { pop: +20, dance: +20 }},
+                { choice: "Fall", weights: { indie: +20, ambient: +35 }},
+                { choice: "Winter", weights: { piano: +25, chill: +30 }},
+                { choice: "Spring", weights: { chill: +10, anime: +15 }},
+                { choice: "Summer", weights: { pop: +30, dance: +40 }},
             ]
         },
 
@@ -71,10 +71,10 @@ const questions = [
             question: "What types of movies do you prefer?", 
             image: "img/q7.jpg", 
             choices: [
-                { choice: "Action", weights: { rock: +20, anime: +20 }},
+                { choice: "Action", weights: { rock: +40, anime: +40 }},
                 { choice: "Comedy", weights: { indie: +20, chill: +20 }},
-                { choice: "Drama", weights: { indie: +20, pop: +20 }},
-                { choice: "Horror", weights: { pop: +20, rock: +20 }},
+                { choice: "Drama", weights: { indie: +30, pop: +25 }},
+                { choice: "Horror", weights: { pop: +10, rock: +15 }},
             ]
         },
 
@@ -82,10 +82,10 @@ const questions = [
             question: "What is your favorite flower?",   
             image: "img/q8.jpg",
             choices: [
-                { choice: "Rose", weights: { indie: +20, movies: +20 }},
-                { choice: "Tulip", weights: { chill: +20, ambient: +20 }},
-                { choice: "Sunflower", weights: { pop: +20, dance: +20 }},
-                { choice: "Orchids", weights: { rock: +20, piano: +20 }},
+                { choice: "Rose", weights: { indie: +25, movies: +15 }},
+                { choice: "Tulip", weights: { chill: +25, ambient: +15 }},
+                { choice: "Sunflower", weights: { pop: +25, dance: +25 }},
+                { choice: "Orchids", weights: { rock: +25, piano: +15 }},
             ]
         },
 
@@ -93,10 +93,10 @@ const questions = [
             question: "What type of cuisine do you enjoy the most?",   
             image: "img/q9.jpg",
             choices: [
-                { choice: "Japanese", weights: { anime: +20, movies: +20 }},
-                { choice: "Spanish", weights: { dance: +20, pop: +20 }},
-                { choice: "French", weights: { piano: +20, indie: +20 }},
-                { choice: "American", weights: { movies: +20, country: +20 }},
+                { choice: "Japanese", weights: { anime: +40, movies: +20 }},
+                { choice: "Spanish", weights: { dance: +40, pop: +30 }},
+                { choice: "French", weights: { piano: +40, indie: +20 }},
+                { choice: "American", weights: { movies: +40, country: +30 }},
             ]
         },
 
@@ -104,10 +104,10 @@ const questions = [
             question: "What is your favorite time of day?", 
             image: "img/q10.jpg",  
             choices: [
-                { choice: "Morning", weights: { piano: +20, ambient: +20 }},
-                { choice: "Afternoon", weights: { pop: +20, dance: +20 }},
-                { choice: "Evening", weights: { chill: +20, indie: +20 }},
-                { choice: "Night", weights: { rock: +20, movies: +20 }},
+                { choice: "Morning", weights: { piano: +40, ambient: +25 }},
+                { choice: "Afternoon", weights: { pop: +35, dance: +20 }},
+                { choice: "Evening", weights: { chill: +30, indie: +20 }},
+                { choice: "Night", weights: { rock: +25, movies: +15 }},
             ]
         },
 
@@ -222,13 +222,16 @@ const questions = [
         
         for (const genre in weights) {
             if (weights.hasOwnProperty(genre)) {
+                console.log(`Checking genre: ${genre}, weight: ${weights[genre]}`); //Testing
     
                 if (weights[genre] > maxValue) {
                     maxValue = weights[genre];
                     dominantGenre = genre;
+                console.log(`New dominant genre: ${dominantGenre}, maxValue: ${maxValue}`); //Testing
                 }
             }
         }
+        console.log(`Final dominant genre: ${dominantGenre}`); //Testing
         return dominantGenre;
     }
 
