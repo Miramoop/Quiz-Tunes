@@ -259,6 +259,7 @@ const questions = [
             `;
 
             resultsContent.innerHTML = result;
+            localStorage.setItem("track_id",track.id);
         });
     }
 
@@ -266,19 +267,59 @@ const questions = [
 
     //Would need to have trackId in order to add into their library
     //Saving Track to user's libary
-    // const saveTrack = async (access_token, trackId) => {
-    //     access_token = localStorage.getItem('access_token');
+        const saveTrack = async () => {
+            const access_token = localStorage.getItem('access_token');
+            const trackId = localStorage.getItem('track_id');
+        
+            const response = await fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${access_token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+        
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Error ${response.status}: ${errorData.message}`);
+            }
+        
+            return response.status === 200 ? 'Track saved successfully' : response.json();
+        };
+        
+        document.getElementById("saveTrack").addEventListener('click', function() {
+            saveTrack().then(result => {
+                console.log(result);
+            }).catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        });
+        
 
-    //     const response = await fetch("https://api.spotify.com/v1/me/tracks=${trackId}", {
-    //         method: 'PUT',
-    //         headers: { 'Authorization': 'Bearer ' + access_token},
-    //       });
+        //Testing to Make Sure Track Actually Saved
+        // const checkSavedTrack = async () => {
+        //     const access_token = localStorage.getItem('access_token');
+        //     const trackId = localStorage.getItem('track_id');
 
-    //       return await response.json();
-    // }
-    //     document.getElementById("saveTrack").addEventListener('click', function() {
-    //         saveTrack();
-    //     });
+        //     const response = await fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`, {
+        //     method: 'GET',
+        //     headers: {
+        //             'Authorization': `Bearer ${access_token}`,
+        //     }
+        // });
+        
+        // return await response.json();
+        // };
+
+        // document.getElementById("checkSaveTrack").addEventListener('click', function() {
+        //     checkSavedTrack().then(result => {
+        //         console.log(result);
+        //     }).catch(error => {
+        //         console.error('There was a problem with the save operation:', error);
+        //     });
+        // });
+        
+ 
   
 
 
