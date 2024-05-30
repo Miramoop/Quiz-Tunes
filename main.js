@@ -2,7 +2,7 @@ import { getTrack, getTrackInfo } from "./spotifyServices.js";
 
 let questions;
 
-fetch('questions.json')
+fetch('data/questions.json')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok ' + response.statusText);
