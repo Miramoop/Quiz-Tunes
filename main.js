@@ -1,4 +1,4 @@
-import { getTrack, getTrackInfo, getToken } from "./api/spotifyServices.js";
+import { getTrack, getTrackInfo} from "./api/spotifyServices.js";
 
 let questions;
 
@@ -51,14 +51,14 @@ let weights;
 
     document.getElementById("startQuiz").addEventListener('click', startQuiz);
 
-
-    //also add here the clearing of recommended track so it does not show up
-    //when user finishes quiz for second time on same log in
     function resetQuiz(){ 
         toggleClasses(document.getElementById("quiz"), "active", "hidden");
         toggleClasses(document.getElementById("results"), "active", "hidden");
         toggleClasses(document.getElementById("home"), "hidden", "active");
         currentQuestionIndex = 0;
+
+        const resultsContent = document.getElementById("resultsContent");
+        resultsContent.innerHTML = "";
     }
 
     document.getElementById("resetQuiz").addEventListener('click', resetQuiz);

@@ -193,7 +193,7 @@ checkAuth().catch(error => {
   console.error("Error in checkAuth function: ", error);
 });
 
-export {getTrackInfo, getToken, getTrack};
+export {getTrackInfo, getTrack};
 
 
 
