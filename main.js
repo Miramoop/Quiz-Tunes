@@ -1,4 +1,4 @@
-import { getTrack, getTrackInfo } from "./spotifyServices.js";
+import { getTrack, getTrackInfo, getToken } from "./api/spotifyServices.js";
 
 let questions;
 
@@ -11,7 +11,6 @@ fetch('data/questions.json')
   })
   .then(data => {
     questions = data;
-    console.log(questions); 
   })
   .catch(error => {
     console.error('Error loading JSON:', error);
@@ -33,31 +32,27 @@ fetch('data/questions.json')
 
    let dominantGenre;
 
-    function startQuiz(){ //To Do - Simplify Class Toggles
-        document.getElementById("home").classList.remove("active");
-        document.getElementById("home").classList.add("hidden");
-        document.getElementById("quiz").classList.remove("hidden");
-        document.getElementById("quiz").classList.add("active");
+    function toggleClasses(element, removeClass, addClass) {
+        element.classList.remove(removeClass);
+        element.classList.add(addClass);
+    }
+
+    function startQuiz() {
+        toggleClasses(document.getElementById("home"), "active", "hidden");
+        toggleClasses(document.getElementById("quiz"), "hidden", "active");
         displayQuestion();
     }
 
-    document.getElementById("startQuiz").addEventListener('click', function() {
-        startQuiz();
-    });
+    document.getElementById("startQuiz").addEventListener('click', startQuiz);
 
-    function displayHome(){ //To Do - Simplify Class Toggles
-        document.getElementById("quiz").classList.remove("active");
-        document.getElementById("quiz").classList.add("hidden");
-        document.getElementById("results").classList.remove("active");
-        document.getElementById("results").classList.add("hidden");
-        document.getElementById("home").classList.remove("hidden");
-        document.getElementById("home").classList.add("active");
+    function resetQuiz(){ 
+        toggleClasses(document.getElementById("quiz"), "active", "hidden");
+        toggleClasses(document.getElementById("results"), "active", "hidden");
+        toggleClasses(document.getElementById("home"), "hidden", "active");
         currentQuestionIndex = 0;
     }
 
-    document.getElementById("displayHome").addEventListener('click', function() {
-        displayHome();
-    });
+    document.getElementById("resetQuiz").addEventListener('click', resetQuiz);
 
     function displayQuestion() { //To Do - Possibly Simplify by using html in this js, similar to displayRecommendedTracks
         const questionContainer = document.getElementById("question");
@@ -77,7 +72,7 @@ fetch('data/questions.json')
             button.textContent = choiceObj.choice;
             button.onclick = () => {
                 updateChoiceWeights(choiceObj.weights);
-                saveAnswer();
+                handleQuestionUpdate();
             };
             choicesContainer.appendChild(button);
         });
@@ -94,30 +89,24 @@ fetch('data/questions.json')
         }
     }
 
-    function saveAnswer(){ //To Do - Rename Function
+    function handleQuestionUpdate(){
         currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length){
+        if (currentQuestionIndex < questions.length) {
             displayQuestion();
         }
-        else { //To Do - Simplify Class Toggles
-            document.getElementById("quiz").classList.remove("active");
-            document.getElementById("quiz").classList.add("hidden");
-            document.getElementById("calculatingResults").classList.remove("hidden");
-            document.getElementById("calculatingResults").classList.add("active");
+        else {
+            toggleClasses(document.getElementById("quiz"), "active", "hidden");
+            toggleClasses(document.getElementById("quizComplete"), "hidden", "active");
         }
     }
 
-    function displayResults(){ //To Do - Simplify Class Toggles & Rename Elements
-        document.getElementById("calculatingResults").classList.remove("active");
-        document.getElementById("calculatingResults").classList.add("hidden");
-        document.getElementById("results").classList.remove("hidden");
-        document.getElementById("results").classList.add("active");
+    function displayResults() {
+        toggleClasses(document.getElementById("quizComplete"), "active", "hidden");
+        toggleClasses(document.getElementById("results"), "hidden", "active");
         displayRecommendedTracks();
     }
 
-    document.getElementById("calculateResults").addEventListener('click', function() {
-        displayResults();
-    });
+    document.getElementById("quizComplete").addEventListener('click', displayResults);
 
     function calculateDominantGenre(weights) {
         let maxValue = -Infinity;
@@ -166,9 +155,7 @@ fetch('data/questions.json')
         });
     }
 
-    document.getElementById("saveTrack").addEventListener('click', function() {
-        getTrack();
-    });
+    document.getElementById("saveTrack").addEventListener('click', getTrack);
        
         
   
