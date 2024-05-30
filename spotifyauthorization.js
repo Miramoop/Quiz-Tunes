@@ -52,8 +52,7 @@ const getCodeChallenge = async (verifier) => {
 
 // Step 2 - Request User Authorization
 const clientId = '8a649d0e1cf74b1c89b6874845b17646';
-//const redirectUri = 'http://localhost:5500';
-const redirectUri = 'https://miramoop.github.io/Spotify-Recommender/';
+const redirectUri = 'http://localhost:5500';
 const scope = 'user-read-private user-read-email user-library-modify user-library-read';
 const authUrl = new URL("https://accounts.spotify.com/authorize");
 
