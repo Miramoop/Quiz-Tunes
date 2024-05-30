@@ -11,26 +11,32 @@ fetch('data/questions.json')
   })
   .then(data => {
     questions = data;
+    //console.log(questions); //Testing
+  })
+  .catch(error => {
+    console.error('Error loading JSON:', error);
+  });
+
+let weights; 
+
+  fetch('data/weights.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    }
+    return response.json();
+  })
+  .then(data => {
+    weights = data;
+    //console.log(weights); //Testing
   })
   .catch(error => {
     console.error('Error loading JSON:', error);
   });
 
     let currentQuestionIndex = 0;  
-    let weights = {
-        chill: 0,
-        pop: 0,
-        dance: 0,
-        ambient: 0,
-        anime: 0,
-        indie: 0,
-        movies: 0,
-        rock: 0,
-        country: 0,
-        piano: 0,
-    }; 
 
-   let dominantGenre;
+    let dominantGenre;
 
     function toggleClasses(element, removeClass, addClass) {
         element.classList.remove(removeClass);
@@ -45,6 +51,9 @@ fetch('data/questions.json')
 
     document.getElementById("startQuiz").addEventListener('click', startQuiz);
 
+
+    //also add here the clearing of recommended track so it does not show up
+    //when user finishes quiz for second time on same log in
     function resetQuiz(){ 
         toggleClasses(document.getElementById("quiz"), "active", "hidden");
         toggleClasses(document.getElementById("results"), "active", "hidden");
@@ -109,19 +118,24 @@ fetch('data/questions.json')
     document.getElementById("quizComplete").addEventListener('click', displayResults);
 
     function calculateDominantGenre(weights) {
-        let maxValue = -Infinity;
-        
-        for (const genre in weights) {
-            if (weights.hasOwnProperty(genre)) {
-    
-                if (weights[genre] > maxValue) {
-                    maxValue = weights[genre];
-                    dominantGenre = genre;
-                }
+    let maxValue = -Infinity;
+    let dominantGenre;
+
+    for (const genre in weights) {
+        if (weights.hasOwnProperty(genre)) {
+           //console.log(`Genre: ${genre}, Weight: ${weights[genre]}`); // Testing
+
+            if (weights[genre] > maxValue) {
+                maxValue = weights[genre];
+                dominantGenre = genre;
             }
         }
-        return dominantGenre;
     }
+
+    //console.log(`Dominant Genre: ${dominantGenre}`); // Testing
+    return dominantGenre;
+}
+
 
     async function displayRecommendedTracks(){
         const resultsElem = document.getElementById("results");
