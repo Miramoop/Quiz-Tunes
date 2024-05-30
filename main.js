@@ -1,4 +1,4 @@
-import { getTrackInfo } from "./spotifyServices.js";
+import { getTrack, getTrackInfo } from "./spotifyServices.js";
 
 let questions;
 
@@ -166,36 +166,10 @@ fetch('questions.json')
         });
     }
 
-        const saveTrack = async () => { //To Do - Move into spotifyServices js
-            const access_token = localStorage.getItem('access_token');
-            const trackId = localStorage.getItem('track_id');
-        
-            const response = await fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${access_token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-        
-            if (!response.ok) {
-                alert('Error in Saving Track! Please Try Again');
-                const errorData = await response.json();
-                throw new Error(`Error ${response.status}: ${errorData.message}`);
-            }
-
-            alert('Track was Saved Successfully!');
-            return response.status === 200 ? 'Track saved successfully' : response.json();
-            
-        };
-        
-        document.getElementById("saveTrack").addEventListener('click', function() {
-            saveTrack().then(result => {
-                console.log(result);
-            }).catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
-        });
+    document.getElementById("saveTrack").addEventListener('click', function() {
+        getTrack();
+    });
+       
         
   
 
