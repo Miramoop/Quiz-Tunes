@@ -145,7 +145,8 @@ let weights;
 
         localStorage.setItem("trackName",trackInfo.tracks[0].name);
         localStorage.setItem("artistName", trackInfo.tracks[0].artists[0].name);
-
+        localStorage.setItem("spotifyLink",trackInfo.tracks[0].external_urls.spotify);
+        
         trackInfo.tracks.forEach(track => {
 
             const result = `
@@ -158,9 +159,11 @@ let weights;
                     <p>Artist: ${track.artists.map(artist => artist.name).join(", ")}</p>
                     <p>Album: ${track.album.name}</p>
                     <p>Genre: ${(dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1))}</p>
-                    <a id="spotifyLink" href=${track.external_urls.spotify}>Link to Spotify</a>
                 </div>
             `;
+
+            //Taken out because it will be put under its own display
+            //<a id="spotifyLink" href=${track.external_urls.spotify}>Link to Spotify</a>
 
             resultsContent.innerHTML = result;
             //localStorage.setItem("track_id",track.id); //only needed for saving track to library feature
@@ -171,19 +174,17 @@ let weights;
         });
     }
 
-
-const videoSection = document.getElementById('videoSection');
+const videoSection = document.getElementById('videoContent');
 const fetchButton = document.getElementById('youtubeVideo');
 
-fetchButton.addEventListener('click', async () => {
-
+const fetchYouTubeDataAndDisplay = async () => {
     // Get trackName and artistName from localStorage
-const trackName = localStorage.getItem("trackName");
-const artistName = localStorage.getItem("artistName");
+    const trackName = localStorage.getItem("trackName");
+    const artistName = localStorage.getItem("artistName");
 
-// Fetch YouTube data and display videos
-fetchYouTubeData(trackName, artistName)
-    .then(data => {
+    // Fetch YouTube data and display videos
+    try {
+        const data = await fetchYouTubeData(trackName, artistName);
         console.log('API Response Data:', data);
 
         if (!data.items) {
@@ -209,18 +210,34 @@ fetchYouTubeData(trackName, artistName)
 
             videoSection.appendChild(videoContainer);
         });
-    })
-    .catch(error => {
+
+        // Remove the event listener after fetching and displaying the videos
+        fetchButton.removeEventListener('click', fetchYouTubeDataAndDisplay);
+    } catch (error) {
         console.error('Error displaying YouTube videos:', error);
-    });
-})
+    }
+};
+
+fetchButton.addEventListener('click', fetchYouTubeDataAndDisplay);
 
 
+const spotifyContent = document.getElementById('spotifyContent');
+const spotifyTrack = document.getElementById('spotifyTrack');
 
+const displaySpotifyLink = async () => {
+    const spotifyLink = localStorage.getItem("spotifyLink");
+
+    const result = `
+                <div id="spotifyContent">
+                <a id="spotifyLink" href=${spotifyLink}>Link to Spotify</a>
+            `;
+    
+    spotifyContent.innerHTML = result;
+
+}
+
+spotifyTrack.addEventListener('click', displaySpotifyLink);
+///Would need to add if saving track feature gets added back
 // document.getElementById("saveTrack").addEventListener('click', getTrack);
-       
-        
-  
 
 
-        

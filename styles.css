@@ -140,7 +140,12 @@ button:hover {
     background: transparent;
 }
 
-#copyright {
+#videoContent {
+    align-content: center;
+    padding: 25px;
+}
+
+#footer {
     width: 100%;
     text-align: center;
     align-items: center;
@@ -149,6 +154,6 @@ button:hover {
     margin: 0;
 }
 
-#copyright a i{
+#footer a i{
     background: lightgoldenrodyellow;
 }
