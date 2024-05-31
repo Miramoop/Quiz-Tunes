@@ -132,32 +132,37 @@ const getTrackInfo = async (access_token, genre) => {
   return await response.json();
 }
 
-const getTrack = async (access_token, trackId) => {
-  access_token = localStorage.getItem('access_token');
-  trackId = localStorage.getItem('track_id');
 
-  try {
-    const response = await fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${access_token}`,
-        'Content-Type': 'application/json'
-      },
-    });
+//Used for Saving Track (Feature is on hold right now)
+// const getTrack = async (access_token, trackId) => {
+//   access_token = localStorage.getItem('access_token');
+//   trackId = localStorage.getItem('track_id');
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      alert('Error in Saving Track! Please Try Again');
-      throw new Error(`Error ${response.status}: ${errorData.message}`);
-    }
+//   try {
+//     const response = await fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`, {
+//       method: 'PUT',
+//       body: {
+//         ids: "string"
+//       },
+//       headers: {
+//         'Authorization': `Bearer ${access_token}`,
+//         'Content-Type': 'application/json'
+//       },
+//     });
 
-    alert('Track was Saved Successfully!');
-    return response.status === 200 ? 'Track saved successfully' : await response.json();
-  } catch (error) {
-    console.error('There was an error with the fetch operation:', error);
-    throw error;
-  }
-};
+//     if (!response.ok) {
+//       const errorData = await response.json();
+//       alert('Error in Saving Track! Please Try Again');
+//       throw new Error(`Error ${response.status}: ${errorData.message}`);
+//     }
+
+//     alert('Track was Saved Successfully!');
+//     return response.status === 200 ? 'Track saved successfully' : await response.json();
+//   } catch (error) {
+//     console.error('There was an error with the fetch operation:', error);
+//     throw error;
+//   }
+// };
 
 
 //Processes the authorization code from the URL and calls getToken to generate an access token
@@ -193,7 +198,9 @@ checkAuth().catch(error => {
   console.error("Error in checkAuth function: ", error);
 });
 
-export {getTrackInfo, getTrack};
+export {getTrackInfo};
+
+//getTrack would need to be added to export if saving track to library is included feature
 
 
 

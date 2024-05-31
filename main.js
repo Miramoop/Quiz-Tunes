@@ -1,4 +1,5 @@
-import { getTrack, getTrackInfo} from "./api/spotifyServices.js";
+import { getTrackInfo } from "./api/spotifyServices.js"; //getTrack would need to be added to import if add ability to save track to library
+import { fetchYouTubeData } from "./api/youtubeApi.js";
 
 let questions;
 
@@ -135,14 +136,15 @@ let weights;
     //console.log(`Dominant Genre: ${dominantGenre}`); // Testing
     return dominantGenre;
 }
-
-
     async function displayRecommendedTracks(){
         const resultsElem = document.getElementById("results");
 
         dominantGenre = calculateDominantGenre(weights);
         const trackInfo = await getTrackInfo(localStorage.getItem('access_token'), dominantGenre);
         console.log(trackInfo);
+
+        localStorage.setItem("trackName",trackInfo.tracks[0].name);
+        localStorage.setItem("artistName", trackInfo.tracks[0].artists[0].name);
 
         trackInfo.tracks.forEach(track => {
 
@@ -161,7 +163,7 @@ let weights;
             `;
 
             resultsContent.innerHTML = result;
-            localStorage.setItem("track_id",track.id);
+            //localStorage.setItem("track_id",track.id); //only needed for saving track to library feature
 
             if(!result) {
                 alert('Error in Displaying Results! Please Try Again!');
@@ -169,7 +171,53 @@ let weights;
         });
     }
 
-    document.getElementById("saveTrack").addEventListener('click', getTrack);
+
+const videoSection = document.getElementById('videoSection');
+const fetchButton = document.getElementById('youtubeVideo');
+
+fetchButton.addEventListener('click', async () => {
+
+    // Get trackName and artistName from localStorage
+const trackName = localStorage.getItem("trackName");
+const artistName = localStorage.getItem("artistName");
+
+// Fetch YouTube data and display videos
+fetchYouTubeData(trackName, artistName)
+    .then(data => {
+        console.log('API Response Data:', data);
+
+        if (!data.items) {
+            throw new Error('No items found in the response');
+        }
+
+        data.items.forEach(el => {
+            const videoId = el.id.videoId;
+            const videoTitle = el.snippet.title;
+
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+            iframe.width = '560';
+            iframe.height = '315';
+            iframe.frameBorder = '0';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+
+            const videoContainer = document.createElement('div');
+            videoContainer.className = 'video-container';
+            videoContainer.innerHTML = `<h3>${videoTitle}</h3>`;
+            videoContainer.appendChild(iframe);
+
+            videoSection.appendChild(videoContainer);
+        });
+    })
+    .catch(error => {
+        console.error('Error displaying YouTube videos:', error);
+    });
+})
+
+
+
+// document.getElementById("saveTrack").addEventListener('click', getTrack);
        
         
   
