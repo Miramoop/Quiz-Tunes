@@ -56,10 +56,20 @@ let weights;
         toggleClasses(document.getElementById("quiz"), "active", "hidden");
         toggleClasses(document.getElementById("results"), "active", "hidden");
         toggleClasses(document.getElementById("home"), "hidden", "active");
-        currentQuestionIndex = 0;
 
-        const resultsContent = document.getElementById("resultsContent");
-        resultsContent.innerHTML = "";
+        toggleClasses(document.getElementById("resultsContent"), "active", "hidden");
+        toggleClasses(document.getElementById("buttonHolder"), "active", "hidden");
+
+        fetchButton.disabled = false;
+        spotifyTrack.disabled = false;
+
+        const videoContent = document.getElementById("videoContent");
+        videoContent.innerHTML = "";
+
+        const spotifyContent = document.getElementById("spotifyContent");
+        spotifyContent.innerHTML = "";
+
+        currentQuestionIndex = 0;
     }
 
     document.getElementById("resetQuiz").addEventListener('click', resetQuiz);
@@ -113,6 +123,9 @@ let weights;
     function displayResults() {
         toggleClasses(document.getElementById("quizComplete"), "active", "hidden");
         toggleClasses(document.getElementById("results"), "hidden", "active");
+        toggleClasses(document.getElementById("resultsContent"), "hidden", "active");
+        toggleClasses(document.getElementById("buttonHolder"), "hidden", "active");
+ 
         displayRecommendedTracks();
     }
 
@@ -137,15 +150,13 @@ let weights;
     return dominantGenre;
 }
     async function displayRecommendedTracks(){
-        const resultsElem = document.getElementById("results");
-
         dominantGenre = calculateDominantGenre(weights);
         const trackInfo = await getTrackInfo(localStorage.getItem('access_token'), dominantGenre);
         console.log(trackInfo);
 
-        localStorage.setItem("trackName",trackInfo.tracks[0].name);
-        localStorage.setItem("artistName", trackInfo.tracks[0].artists[0].name);
-        localStorage.setItem("spotifyLink",trackInfo.tracks[0].external_urls.spotify);
+        localStorage.setItem("track_Name",trackInfo.tracks[0].name);
+        localStorage.setItem("artist_Name",trackInfo.tracks[0].artists[0].name);
+        localStorage.setItem("spotify_Link",trackInfo.tracks[0].external_urls.spotify);
         
         trackInfo.tracks.forEach(track => {
 
@@ -162,9 +173,6 @@ let weights;
                 </div>
             `;
 
-            //Taken out because it will be put under its own display
-            //<a id="spotifyLink" href=${track.external_urls.spotify}>Link to Spotify</a>
-
             resultsContent.innerHTML = result;
             //localStorage.setItem("track_id",track.id); //only needed for saving track to library feature
 
@@ -178,9 +186,12 @@ const videoSection = document.getElementById('videoContent');
 const fetchButton = document.getElementById('youtubeVideo');
 
 const fetchYouTubeDataAndDisplay = async () => {
+
+    fetchButton.disabled = true;
+
     // Get trackName and artistName from localStorage
-    const trackName = localStorage.getItem("trackName");
-    const artistName = localStorage.getItem("artistName");
+    const trackName = localStorage.getItem("track_Name");
+    const artistName = localStorage.getItem("artist_Name");
 
     // Fetch YouTube data and display videos
     try {
@@ -212,20 +223,22 @@ const fetchYouTubeDataAndDisplay = async () => {
         });
 
         // Remove the event listener after fetching and displaying the videos
-        fetchButton.removeEventListener('click', fetchYouTubeDataAndDisplay);
+       // fetchButton.removeEventListener('click', fetchYouTubeDataAndDisplay);
     } catch (error) {
         console.error('Error displaying YouTube videos:', error);
+        fetchButton.disabled = false;
     }
 };
 
 fetchButton.addEventListener('click', fetchYouTubeDataAndDisplay);
 
-
 const spotifyContent = document.getElementById('spotifyContent');
 const spotifyTrack = document.getElementById('spotifyTrack');
 
 const displaySpotifyLink = async () => {
-    const spotifyLink = localStorage.getItem("spotifyLink");
+    spotifyTrack.disabled = true;
+
+    const spotifyLink = localStorage.getItem("spotify_Link");
 
     const result = `
                 <div id="spotifyContent">
