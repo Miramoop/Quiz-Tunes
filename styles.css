@@ -81,9 +81,19 @@ button:hover {
     color: white;
 }
 
+
+#results
+
+#resultsContent
+
+#videoContent
+
+#spotifyContent
+
 #spotifyLink {
     background: transparent;
     transition-duration: 0.4s;
+    flex-grow: 1;
 }
 
 #spotifyLink:hover {
@@ -122,13 +132,22 @@ button:hover {
 }
 
 #results {
-    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+    text-align: center;
+    /* width: 100%;
     text-align: center;
     padding: 60px 0;
     background: lightgoldenrodyellow;
     background-image: linear-gradient(180deg,slateblue, palegoldenrod);
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: hidden; */
+}
+
+#buttonHolder {
+    align-content: center;
+    padding: 25px;
 }
 
 #resultsContent {
@@ -140,7 +159,11 @@ button:hover {
     background: transparent;
 }
 
-#copyright {
+#videoContent {
+    align-content: center;
+}
+
+#footer {
     width: 100%;
     text-align: center;
     align-items: center;
@@ -149,6 +172,6 @@ button:hover {
     margin: 0;
 }
 
-#copyright a i{
+#footer a i{
     background: lightgoldenrodyellow;
 }
