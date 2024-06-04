@@ -44,10 +44,14 @@ let weights;
         element.classList.add(addClass);
     }
 
+   
+
     function startQuiz() {
         toggleClasses(document.getElementById("home"), "active", "hidden");
+        
         toggleClasses(document.getElementById("quiz"), "hidden", "active");
         displayQuestion();
+        
     }
 
     document.getElementById("startQuiz").addEventListener('click', startQuiz);
@@ -97,6 +101,7 @@ let weights;
             choicesContainer.appendChild(button);
         });
     }
+
 
     function updateChoiceWeights(choiceWeights) {
         for (let choice in choiceWeights) {
@@ -252,5 +257,6 @@ const displaySpotifyLink = async () => {
 spotifyTrack.addEventListener('click', displaySpotifyLink);
 ///Would need to add if saving track feature gets added back
 // document.getElementById("saveTrack").addEventListener('click', getTrack);
+
 
 
