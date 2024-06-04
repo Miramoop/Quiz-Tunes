@@ -242,7 +242,7 @@ const displaySpotifyLink = async () => {
 
     const result = `
                 <div id="spotifyContent">
-                <a id="spotifyLink" href=${spotifyLink}>Link to Spotify</a>
+                <a id="spotifyLink" href=${spotifyLink} target="_blank">Link to Spotify</a>
             `;
     
     spotifyContent.innerHTML = result;
