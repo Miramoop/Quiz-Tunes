@@ -1,4 +1,5 @@
-import { getTrack, getTrackInfo} from "./api/spotifyServices.js";
+import { getTrackInfo } from "./api/spotifyServices.js"; //getTrack would need to be added to import if add ability to save track to library
+import { fetchYouTubeData } from "./api/youtubeApi.js";
 
 let questions;
 
@@ -55,10 +56,20 @@ let weights;
         toggleClasses(document.getElementById("quiz"), "active", "hidden");
         toggleClasses(document.getElementById("results"), "active", "hidden");
         toggleClasses(document.getElementById("home"), "hidden", "active");
-        currentQuestionIndex = 0;
 
-        const resultsContent = document.getElementById("resultsContent");
-        resultsContent.innerHTML = "";
+        toggleClasses(document.getElementById("resultsContent"), "active", "hidden");
+        toggleClasses(document.getElementById("buttonHolder"), "active", "hidden");
+
+        fetchButton.disabled = false;
+        spotifyTrack.disabled = false;
+
+        const videoContent = document.getElementById("videoContent");
+        videoContent.innerHTML = "";
+
+        const spotifyContent = document.getElementById("spotifyContent");
+        spotifyContent.innerHTML = "";
+
+        currentQuestionIndex = 0;
     }
 
     document.getElementById("resetQuiz").addEventListener('click', resetQuiz);
@@ -112,6 +123,9 @@ let weights;
     function displayResults() {
         toggleClasses(document.getElementById("quizComplete"), "active", "hidden");
         toggleClasses(document.getElementById("results"), "hidden", "active");
+        toggleClasses(document.getElementById("resultsContent"), "hidden", "active");
+        toggleClasses(document.getElementById("buttonHolder"), "hidden", "active");
+ 
         displayRecommendedTracks();
     }
 
@@ -135,15 +149,15 @@ let weights;
     //console.log(`Dominant Genre: ${dominantGenre}`); // Testing
     return dominantGenre;
 }
-
-
     async function displayRecommendedTracks(){
-        const resultsElem = document.getElementById("results");
-
         dominantGenre = calculateDominantGenre(weights);
         const trackInfo = await getTrackInfo(localStorage.getItem('access_token'), dominantGenre);
         console.log(trackInfo);
 
+        localStorage.setItem("track_Name",trackInfo.tracks[0].name);
+        localStorage.setItem("artist_Name",trackInfo.tracks[0].artists[0].name);
+        localStorage.setItem("spotify_Link",trackInfo.tracks[0].external_urls.spotify);
+        
         trackInfo.tracks.forEach(track => {
 
             const result = `
@@ -156,12 +170,11 @@ let weights;
                     <p>Artist: ${track.artists.map(artist => artist.name).join(", ")}</p>
                     <p>Album: ${track.album.name}</p>
                     <p>Genre: ${(dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1))}</p>
-                    <a id="spotifyLink" href=${track.external_urls.spotify}>Link to Spotify</a>
                 </div>
             `;
 
             resultsContent.innerHTML = result;
-            localStorage.setItem("track_id",track.id);
+            //localStorage.setItem("track_id",track.id); //only needed for saving track to library feature
 
             if(!result) {
                 alert('Error in Displaying Results! Please Try Again!');
@@ -169,10 +182,75 @@ let weights;
         });
     }
 
-    document.getElementById("saveTrack").addEventListener('click', getTrack);
-       
-        
-  
+const videoSection = document.getElementById('videoContent');
+const fetchButton = document.getElementById('youtubeVideo');
+
+const fetchYouTubeDataAndDisplay = async () => {
+
+    fetchButton.disabled = true;
+
+    // Get trackName and artistName from localStorage
+    const trackName = localStorage.getItem("track_Name");
+    const artistName = localStorage.getItem("artist_Name");
+
+    // Fetch YouTube data and display videos
+    try {
+        const data = await fetchYouTubeData(trackName, artistName);
+        console.log('API Response Data:', data);
+
+        if (!data.items) {
+            throw new Error('No items found in the response');
+        }
+
+        data.items.forEach(el => {
+            const videoId = el.id.videoId;
+            const videoTitle = el.snippet.title;
+
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+            iframe.width = '560';
+            iframe.height = '315';
+            iframe.frameBorder = '0';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+
+            const videoContainer = document.createElement('div');
+            videoContainer.className = 'video-container';
+            videoContainer.innerHTML = `<h3>${videoTitle}</h3>`;
+            videoContainer.appendChild(iframe);
+
+            videoSection.appendChild(videoContainer);
+        });
+
+        // Remove the event listener after fetching and displaying the videos
+       // fetchButton.removeEventListener('click', fetchYouTubeDataAndDisplay);
+    } catch (error) {
+        console.error('Error displaying YouTube videos:', error);
+        fetchButton.disabled = false;
+    }
+};
+
+fetchButton.addEventListener('click', fetchYouTubeDataAndDisplay);
+
+const spotifyContent = document.getElementById('spotifyContent');
+const spotifyTrack = document.getElementById('spotifyTrack');
+
+const displaySpotifyLink = async () => {
+    spotifyTrack.disabled = true;
+
+    const spotifyLink = localStorage.getItem("spotify_Link");
+
+    const result = `
+                <div id="spotifyContent">
+                <a id="spotifyLink" href=${spotifyLink}>Link to Spotify</a>
+            `;
+    
+    spotifyContent.innerHTML = result;
+
+}
+
+spotifyTrack.addEventListener('click', displaySpotifyLink);
+///Would need to add if saving track feature gets added back
+// document.getElementById("saveTrack").addEventListener('click', getTrack);
 
 
-        

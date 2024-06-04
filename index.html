@@ -33,12 +33,19 @@
     </div> 
 
     <div id="results" class="hidden">
-        <div id="resultsContent"></div>
-        <button id="saveTrack">Save Track to Library</button>
-        <button id="resetQuiz">Return to HomePage</button> 
+        <div id="resultsContent" class="hidden"></div>
+        <div id="videoContent"></div>
+        <div id="spotifyContent"></div>
+        <div id="buttonHolder" class="hidden">
+            <button id="resetQuiz">Return to HomePage</button>
+            <button id="spotifyTrack">View the Spotify Track</button>
+            <button id="youtubeVideo">View the YouTube Video</button>
+        </div>
+        <!--Would need to add back if the saving track feature gets added back-->
+        <!-- <button id="saveTrack">Save Track to Library</button> --> 
     </div>
 
-    <div id="copyright" class="active"> 
+    <div id="footer" class="active"> 
     <p> Check out my Socials Below:
         <br>
         <br>
@@ -46,8 +53,12 @@
     <a href="https://github.com/Miramoop" target="_blank" rel="noopener" rel="noreferrer"><i class="fa-brands fa-github"></i></a>
     <a href="https://www.linkedin.com/in/mirandamorris845/" target="_blank" rel="noopener" rel="noreferrer"><i class="fa-brands fa-linkedin"></i></a>
     </div>
+    
+<script src="main.js" type="module"></script>
 
-<script src="main.js" type="module"></script> 
+<!--Dont's need to make script reference to these scripts because they are -->
+<!-- <script src="api/spotifyServices.js" type="module"></script> -->
+<!-- <script src="api/youtubeApi.js" type="module"></script>  -->
 <script src="https://kit.fontawesome.com/7777890cf7.js" crossorigin="anonymous"></script> 
 </body>
 </html>
