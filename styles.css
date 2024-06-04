@@ -14,6 +14,14 @@
     display: block;
 }
 
+p {
+    padding: 2vh;
+}
+
+ul {
+    list-style-type: none;
+}
+
 body {
     min-height: 100vh;
     display: flex;
@@ -28,7 +36,7 @@ body {
 header {
     width: 100%;
     text-align: center;
-    padding: 25px 0;
+    padding: 2vh;
     font-weight: 300;
     box-sizing: border-box;
     overflow: hidden;
@@ -38,15 +46,14 @@ header {
 #home {
     width: 100%;
     text-align: center;
-    padding: 300px 0;
 }
 
 img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 
 #questionImage {
@@ -74,17 +81,7 @@ button:hover {
     color: white;
 }
 
-
-#results
-
-#resultsContent
-
-#videoContent
-
-#spotifyContent
-
 #spotifyLink {
-    background: transparent;
     transition-duration: 0.4s;
     flex-grow: 1;
 }
@@ -94,47 +91,26 @@ button:hover {
     color: white;
 }
 
-#quiz {
+#quiz, #question, #choices, #quizComplete {
     width: 100%;
     text-align: center;
-    padding: 20px 0;
-}
-
-#question {
-    padding: 25px 0;
-    background: transparent;
-}
-
-#choices {
-    padding: 25px;
-    background: transparent;
-}
-
-#quizComplete {
-    width: 100%;
-    text-align: center;
-    padding: 300px 0;
+    padding: 1vh;
 }
 
 #results {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 5px;
+    grid-gap: 1vh;
     text-align: center;
 }
 
 #buttonHolder {
     align-content: center;
-    padding: 25px;
+    padding: 1vh;
 }
 
-#resultsContent {
-    padding: 25px;
-    background: transparent;
-}
-
-#trackDiv {
-    background: transparent;
+#resultsContent p {
+    padding: 1vh;
 }
 
 #videoContent {
@@ -145,6 +121,6 @@ footer {
     width: 100%;
     text-align: center;
     align-items: center;
-    padding: 40px 0;
+    padding: 2vh;
     margin: 0;
 }

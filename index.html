@@ -12,45 +12,46 @@
     </header>
 
 <div class="wrapper">
-    <div id="home" class="active"> 
+    <section id="home" class="active">
         <h2>Welcome to the Song Recommender!</h2>
-        <p>Click the button below to start the quiz: <br><br></p>
+        <p>Click the button below to start the quiz:</p>
         <button id="startQuiz">Start Quiz</button>
-    </div>
+    </section>
 
-    <div id="quiz" class="hidden">
+    <section id="quiz" class="hidden">
         <img id="progressImage">
         <img id="questionImage">
         <div id="question"></div>
         <div id="choices"></div>
-    </div>
+    </section>
 
-    <div id="quizComplete" class="hidden">
+    <section id="quizComplete" class="hidden">
         <img id="progressImage" src="img/q10progress.jpg">
         <h2>Quiz is Complete!</h2>
-        <p>Click below to get your results:<br><br></p>
+        <p>Click below to get your results:</p>
         <button id="calculateResults">Calculate Results</button>
-    </div> 
+    </section>
 
-    <div id="results" class="hidden">
+    <section id="results" class="hidden">
         <div id="resultsContent" class="hidden"></div>
         <div id="videoContent"></div>
         <div id="spotifyContent"></div>
         <div id="buttonHolder" class="hidden">
-            <button id="resetQuiz">Return to HomePage</button>
-            <button id="spotifyTrack">View the Spotify Track</button>
-            <button id="youtubeVideo">View the YouTube Video</button>
+            <ul>
+                <li><button id="resetQuiz">Return to HomePage</button></li>
+                <li><button id="spotifyTrack">View the Spotify Track</button></li>
+                <l1><button id="youtubeVideo">View the YouTube Video</button></l1>
+            </ul>
         </div>
         <!--Would need to add back if the saving track feature gets added back-->
         <!-- <button id="saveTrack">Save Track to Library</button> --> 
     </div>
+    </section>
+
 </div>
 
 <footer class="active">
-    <p> Check out my Socials Below:
-        <br>
-        <br>
-    </p>
+    <p> Check out my Socials Below: </p>
     <a href="https://github.com/Miramoop" target="_blank" rel="noopener" rel="noreferrer"><i class="fa-brands fa-github"></i></a>
     <a href="https://www.linkedin.com/in/mirandamorris845/" target="_blank" rel="noopener" rel="noreferrer"><i class="fa-brands fa-linkedin"></i></a>
 </footer>

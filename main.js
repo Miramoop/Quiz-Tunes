@@ -190,6 +190,7 @@ let weights;
 const videoSection = document.getElementById('videoContent');
 const fetchButton = document.getElementById('youtubeVideo');
 
+//should make the items within the data.items.forEach(el => {}) into html elements similar to displayRecommendedTracks
 const fetchYouTubeDataAndDisplay = async () => {
 
     fetchButton.disabled = true;
