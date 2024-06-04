@@ -12,6 +12,7 @@ fetch('data/questions.json')
   })
   .then((data) => {
     questions = data;
+    displayQuestion(0); // Once we have the data, go ahead and populate the first question
     //console.log(questions); //Testing
   })
   .catch((error) => {
@@ -75,25 +76,21 @@ function resetQuiz() {
 
 document.getElementById('resetQuiz').addEventListener('click', resetQuiz);
 
-function displayQuestion() {
+// By passing in the index of the question we want to display we can more easily load the first question.
+// This will also give us options down the road to add features such as being able to click on the progress dots to go back to a specific question.
+function displayQuestion(index) {
   //To Do - Possibly Simplify by using html in this js, similar to displayRecommendedTracks
   const questionContainer = document.getElementById('question');
   const choicesContainer = document.getElementById('choices');
   const questionImage = document.getElementById('questionImage');
   const progressImage = document.getElementById('progressImage');
-  const currentQuestion = questions[currentQuestionIndex];
+  const currentQuestion = questions[index];
 
   questionContainer.textContent = currentQuestion.question;
   choicesContainer.innerHTML = '';
 
-  questionImage.setAttribute(
-    'src',
-    questions[currentQuestionIndex].questionImage
-  );
-  progressImage.setAttribute(
-    'src',
-    questions[currentQuestionIndex].progressImage
-  );
+  questionImage.setAttribute('src', questions[index].questionImage);
+  progressImage.setAttribute('src', questions[index].progressImage);
 
   currentQuestion.choices.forEach((choiceObj) => {
     const button = document.createElement('button');
@@ -119,7 +116,7 @@ function updateChoiceWeights(choiceWeights) {
 function handleQuestionUpdate() {
   currentQuestionIndex++;
   if (currentQuestionIndex < questions.length) {
-    displayQuestion();
+    displayQuestion(currentQuestionIndex);
   } else {
     toggleClasses(document.getElementById('quiz'), 'active', 'hidden');
     toggleClasses(document.getElementById('quizComplete'), 'hidden', 'active');
