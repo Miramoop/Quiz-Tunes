@@ -61,22 +61,22 @@ const authUrl = new URL("https://accounts.spotify.com/authorize");
 //generating a code challenge using the getCodeChallenge function,
 //Then stores the codeVerifier in localStorage, sets the authrization
 //parameters, then redirects to the authorization URL
-const initiateAuthFlow = async () => {
-  const codeChallenge = await getCodeChallenge(codeVerifier);
-  window.localStorage.setItem('code_verifier', codeVerifier);
+// const initiateAuthFlow = async () => {
+//   const codeChallenge = await getCodeChallenge(codeVerifier);
+//   window.localStorage.setItem('code_verifier', codeVerifier);
 
-  const params = {
-      response_type: 'code',
-      client_id: clientId,
-      scope,
-      code_challenge_method: 'S256',
-      code_challenge: codeChallenge,
-      redirect_uri: redirectUri,
-  }
+//   const params = {
+//       response_type: 'code',
+//       client_id: clientId,
+//       scope,
+//       code_challenge_method: 'S256',
+//       code_challenge: codeChallenge,
+//       redirect_uri: redirectUri,
+//   }
 
-  authUrl.search = new URLSearchParams(params).toString();
-  window.location.href = authUrl.toString();
-}
+//   authUrl.search = new URLSearchParams(params).toString();
+//   window.location.href = authUrl.toString();
+// }
 
 //Creates a function that takes in the authorization code obtained from the URL
 //after being redirected back from the Spotify Authorization screen

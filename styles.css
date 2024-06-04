@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: lightgoldenrodyellow;
     font-family: "Lucida Console", "Courier New", monospace;
     scroll-behavior: smooth;
 }
@@ -15,23 +14,21 @@
     display: block;
 }
 
-h1 {
-    background: transparent;
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: lightgoldenrodyellow;
+    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-h2 {
-    background: transparent;
-}
-
-p {
-    background: transparent;
-}
-
-#header {
+header {
     width: 100%;
     text-align: center;
     padding: 25px 0;
-    background: slateblue;
     font-weight: 300;
     box-sizing: border-box;
     overflow: hidden;
@@ -42,10 +39,6 @@ p {
     width: 100%;
     text-align: center;
     padding: 300px 0;
-    background: lightgoldenrodyellow;
-    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
-    box-sizing: border-box;
-    overflow: hidden;
 }
 
 img {
@@ -105,10 +98,6 @@ button:hover {
     width: 100%;
     text-align: center;
     padding: 20px 0;
-    background: lightgoldenrodyellow;
-    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
-    box-sizing: border-box;
-    overflow: hidden;
 }
 
 #question {
@@ -125,10 +114,6 @@ button:hover {
     width: 100%;
     text-align: center;
     padding: 300px 0;
-    background: lightgoldenrodyellow;
-    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
-    box-sizing: border-box;
-    overflow: hidden;
 }
 
 #results {
@@ -136,13 +121,6 @@ button:hover {
     grid-template-columns: 1fr 1fr;
     grid-gap: 5px;
     text-align: center;
-    /* width: 100%;
-    text-align: center;
-    padding: 60px 0;
-    background: lightgoldenrodyellow;
-    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
-    box-sizing: border-box;
-    overflow: hidden; */
 }
 
 #buttonHolder {
@@ -163,15 +141,10 @@ button:hover {
     align-content: center;
 }
 
-#footer {
+footer {
     width: 100%;
     text-align: center;
     align-items: center;
     padding: 40px 0;
-    background: palegoldenrod;
     margin: 0;
-}
-
-#footer a i{
-    background: lightgoldenrodyellow;
 }
