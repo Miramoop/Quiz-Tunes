@@ -1,6 +1,11 @@
+:root {
+--border-color: black;
+--button-link-color: white;
+--hover-color: slateblue;
+--main-color: black;
+}
+
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family: "Lucida Console", "Courier New", monospace;
     scroll-behavior: smooth;
@@ -23,104 +28,95 @@ ul {
 }
 
 body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     background: lightgoldenrodyellow;
     background-image: linear-gradient(180deg,slateblue, palegoldenrod);
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0;
+    min-height: 100vh;
     overflow: hidden;
 }
 
 header {
-    width: 100%;
-    text-align: center;
-    padding: 2vh;
-    font-weight: 300;
     box-sizing: border-box;
+    color: var(--main-color);
+    font-weight: 300;
+    margin: 0;
     overflow: hidden;
-    color: black;
+    padding: 2vh;
+    text-align: center;
+    width: 100%;
 }
 
 #home {
-    width: 100%;
     text-align: center;
+    width: 100%;
 }
 
 img {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
+    margin: 2vh auto;
 }
 
 #questionImage {
+    border-color: var(--border-color);
     border-radius: 10px;
     border-style: outset;
-    border-color: black;
 }
 
 #progressImage {
+    border-color: var(--border-color);
     border-radius: 10px;
     border-style: inset;
-    border-color: black;
 }
 
 button {
-    background: white; 
-    padding: 20px;
     align-items: center;
+    background: var(--button-link-color); 
     border-radius: 10px;
+    padding: 20px;
     transition-duration: 0.4s;
 } 
 
 button:hover {
-    background-color: slateblue;
-    color: white;
+    background-color: var(--hover-color);
+    color: var(--button-link-color);
 }
 
 #spotifyLink {
-    transition-duration: 0.4s;
     flex-grow: 1;
+    transition-duration: 0.4s;
 }
 
 #spotifyLink:hover {
-    background-color: darkblue;
-    color: white;
+    background-color: var(--hover-color);
+    color: var(--button-link-color);
 }
 
 #quiz, #question, #choices, #quizComplete {
-    width: 100%;
-    text-align: center;
     padding: 1vh;
+    text-align: center;
+    width: 100%;
 }
 
 #results {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-gap: 1vh;
+    grid-template-columns: 1fr 1fr;
     text-align: center;
 }
 
-#buttonHolder {
+#buttonHolder, #resultsContent p, #videoContent {
     align-content: center;
     padding: 1vh;
-}
-
-#resultsContent p {
-    padding: 1vh;
-}
-
-#videoContent {
-    align-content: center;
 }
 
 footer {
-    width: 100%;
-    text-align: center;
     align-items: center;
-    padding: 2vh;
     margin: 0;
+    padding: 2vh;
+    text-align: center;
+    width: 100%; 
 }

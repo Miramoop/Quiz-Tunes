@@ -76,6 +76,8 @@ function resetQuiz() {
 
 document.getElementById('resetQuiz').addEventListener('click', resetQuiz);
 
+//Issue occurs where the last question is displayed first whenever completing the quiz from the "return to homepage button"
+
 // By passing in the index of the question we want to display we can more easily load the first question.
 // This will also give us options down the road to add features such as being able to click on the progress dots to go back to a specific question.
 function displayQuestion(index) {
