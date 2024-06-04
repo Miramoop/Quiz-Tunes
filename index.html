@@ -19,14 +19,16 @@
     </section>
 
     <section id="quiz" class="hidden">
-        <img id="progressImage">
-        <img id="questionImage">
-        <div id="question"></div>
-        <div id="choices"></div>
+        <ul>
+            <li><img id="progressImage"></li>
+            <li><img id="questionImage"></li>
+            <li><div id="question"></div></li>
+            <li><div id="choices"></div></li>
+        </ul>
     </section>
 
     <section id="quizComplete" class="hidden">
-        <img id="progressImage" src="img/q10progress.jpg">
+        <img id="progressImage" src="img/quizcompleteprogress.jpg" alt="Quiz Complete, Progress Bar Full Image">
         <h2>Quiz is Complete!</h2>
         <p>Click below to get your results:</p>
         <button id="calculateResults">Calculate Results</button>
@@ -36,6 +38,7 @@
         <div id="resultsContent" class="hidden"></div>
         <div id="videoContent"></div>
         <div id="spotifyContent"></div>
+        
         <div id="buttonHolder" class="hidden">
             <ul>
                 <li><button id="resetQuiz">Return to HomePage</button></li>
@@ -45,7 +48,6 @@
         </div>
         <!--Would need to add back if the saving track feature gets added back-->
         <!-- <button id="saveTrack">Save Track to Library</button> --> 
-    </div>
     </section>
 
 </div>
