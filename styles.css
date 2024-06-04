@@ -95,7 +95,7 @@ button:hover {
     color: var(--button-link-color);
 }
 
-#quiz, #question, #choices, #quizComplete {
+#quiz, #questionText, #choicesText, #quizComplete {
     padding: 1vh;
     text-align: center;
     width: 100%;

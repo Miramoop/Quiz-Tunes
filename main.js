@@ -52,7 +52,7 @@ function startQuiz() {
   displayQuestion();
 }
 
-document.getElementById('startQuiz').addEventListener('click', startQuiz);
+document.getElementById('startQuizButton').addEventListener('click', startQuiz);
 
 function resetQuiz() {
   toggleClasses(document.getElementById('quiz'), 'active', 'hidden');
@@ -63,7 +63,7 @@ function resetQuiz() {
   toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
 
   fetchButton.disabled = false;
-  spotifyTrack.disabled = false;
+  spotifyTrackButton.disabled = false;
 
   const videoContent = document.getElementById('videoContent');
   videoContent.innerHTML = '';
@@ -74,7 +74,7 @@ function resetQuiz() {
   currentQuestionIndex = 0;
 }
 
-document.getElementById('resetQuiz').addEventListener('click', resetQuiz);
+document.getElementById('resetQuizButton').addEventListener('click', resetQuiz);
 
 //Issue occurs where the last question is displayed first whenever completing the quiz from the "return to homepage button"
 
@@ -82,8 +82,8 @@ document.getElementById('resetQuiz').addEventListener('click', resetQuiz);
 // This will also give us options down the road to add features such as being able to click on the progress dots to go back to a specific question.
 function displayQuestion(index) {
   //To Do - Possibly Simplify by using html in this js, similar to displayRecommendedTracks
-  const questionContainer = document.getElementById('question');
-  const choicesContainer = document.getElementById('choices');
+  const questionContainer = document.getElementById('questionText');
+  const choicesContainer = document.getElementById('choicesText');
   const questionImage = document.getElementById('questionImage');
   const progressImage = document.getElementById('progressImage');
   const currentQuestion = questions[index];
@@ -200,7 +200,7 @@ async function displayRecommendedTracks() {
 }
 
 const videoSection = document.getElementById('videoContent');
-const fetchButton = document.getElementById('youtubeVideo');
+const fetchButton = document.getElementById('youtubeVideoButton');
 
 //should make the items within the data.items.forEach(el => {}) into html elements similar to displayRecommendedTracks
 const fetchYouTubeDataAndDisplay = async () => {
@@ -251,10 +251,10 @@ const fetchYouTubeDataAndDisplay = async () => {
 fetchButton.addEventListener('click', fetchYouTubeDataAndDisplay);
 
 const spotifyContent = document.getElementById('spotifyContent');
-const spotifyTrack = document.getElementById('spotifyTrack');
+const spotifyTrackButton = document.getElementById('spotifyTrackButton');
 
 const displaySpotifyLink = async () => {
-  spotifyTrack.disabled = true;
+  spotifyTrackButton.disabled = true;
 
   const spotifyLink = localStorage.getItem('spotify_Link');
 
@@ -266,6 +266,6 @@ const displaySpotifyLink = async () => {
   spotifyContent.innerHTML = result;
 };
 
-spotifyTrack.addEventListener('click', displaySpotifyLink);
+spotifyTrackButton.addEventListener('click', displaySpotifyLink);
 ///Would need to add if saving track feature gets added back
 // document.getElementById("saveTrack").addEventListener('click', getTrack);

@@ -15,15 +15,15 @@
     <section id="home" class="active">
         <h2>Welcome to the Song Recommender!</h2>
         <p>Click the button below to start the quiz:</p>
-        <button id="startQuiz">Start Quiz</button>
+        <button id="startQuizButton">Start Quiz</button>
     </section>
 
     <section id="quiz" class="hidden">
         <ul>
             <li><img id="progressImage"></li>
             <li><img id="questionImage"></li>
-            <li><div id="question"></div></li>
-            <li><div id="choices"></div></li>
+            <li><div id="questionText"></div></li>
+            <li><div id="choicesText"></div></li>
         </ul>
     </section>
 
@@ -41,13 +41,13 @@
         
         <div id="buttonHolder" class="hidden">
             <ul>
-                <li><button id="resetQuiz">Return to HomePage</button></li>
-                <li><button id="spotifyTrack">View the Spotify Track</button></li>
-                <l1><button id="youtubeVideo">View the YouTube Video</button></l1>
+                <li><button id="resetQuizButton">Return to HomePage</button></li>
+                <li><button id="spotifyTrackButton">View the Spotify Track</button></li>
+                <l1><button id="youtubeVideoButton">View the YouTube Video</button></l1>
+                <!--Would need to add back if the saving track feature gets added back-->
+                <!-- <l1><button id="saveTrack">Save Track to Library</button></l1> -->
             </ul>
         </div>
-        <!--Would need to add back if the saving track feature gets added back-->
-        <!-- <button id="saveTrack">Save Track to Library</button> --> 
     </section>
 
 </div>
@@ -59,10 +59,6 @@
 </footer>
 
 <script src="main.js" type="module"></script>
-
-<!--Dont's need to make script reference to these scripts because they are -->
-<!-- <script src="api/spotifyServices.js" type="module"></script> -->
-<!-- <script src="api/youtubeApi.js" type="module"></script>  -->
 <script src="https://kit.fontawesome.com/7777890cf7.js" crossorigin="anonymous"></script> 
 </body>
 </html>
