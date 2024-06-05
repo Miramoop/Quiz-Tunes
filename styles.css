@@ -1,8 +1,12 @@
+:root {
+--border-color: black;
+--button-link-color: white;
+--hover-color: slateblue;
+--main-color: black;
+}
+
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
-    background: lightgoldenrodyellow;
     font-family: "Lucida Console", "Courier New", monospace;
     scroll-behavior: smooth;
 }
@@ -15,163 +19,112 @@
     display: block;
 }
 
-h1 {
-    background: transparent;
+ul {
+    list-style-type: none;
 }
 
-h2 {
-    background: transparent;
+body {
+    background: lightgoldenrodyellow;
+    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
+    display: flex;
+    flex-direction: column;
+    margin: 0vh;
+    min-height: 100vh;
 }
 
-p {
-    background: transparent;
-}
-
-#header {
-    width: 100%;
-    text-align: center;
-    padding: 25px 0;
-    background: slateblue;
-    font-weight: 300;
-    box-sizing: border-box;
+header {
+    align-items: center;
+    color: var(--main-color);
+    margin: 0vh;
     overflow: hidden;
-    color: black;
+    text-align: center;
+    width: 100%;
 }
 
 #home {
-    width: 100%;
     text-align: center;
-    padding: 300px 0;
-    background: lightgoldenrodyellow;
-    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
-    box-sizing: border-box;
-    overflow: hidden;
+    width: 100%;
 }
 
 img {
+    align-items: center;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    height: auto;
+    margin: 2vh auto;
+    max-width: 100%;
 }
 
-#questionImage {
+#questionImage, #progressImage {
+    border-color: var(--border-color);
     border-radius: 10px;
     border-style: outset;
-    border-color: black;
 }
 
 #progressImage {
-    border-radius: 10px;
     border-style: inset;
-    border-color: black;
 }
 
 button {
-    background: white; 
-    padding: 20px;
     align-items: center;
+    background: var(--button-link-color); 
     border-radius: 10px;
+    padding: 3vh;
     transition-duration: 0.4s;
 } 
 
 button:hover {
-    background-color: slateblue;
-    color: white;
+    background-color: var(--hover-color);
+    color: var(--button-link-color);
 }
 
-
-#results
-
-#resultsContent
-
-#videoContent
-
-#spotifyContent
-
 #spotifyLink {
-    background: transparent;
-    transition-duration: 0.4s;
     flex-grow: 1;
+    transition-duration: 0.4s;
 }
 
 #spotifyLink:hover {
-    background-color: darkblue;
-    color: white;
+    background-color: var(--hover-color);
+    color: var(--button-link-color);
 }
 
-#quiz {
-    width: 100%;
+#quiz, #questionText, #choicesText, #quizComplete {
+    align-items: center;
+    padding: 1vh;
     text-align: center;
-    padding: 20px 0;
-    background: lightgoldenrodyellow;
-    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-#question {
-    padding: 25px 0;
-    background: transparent;
-}
-
-#choices {
-    padding: 25px;
-    background: transparent;
-}
-
-#quizComplete {
     width: 100%;
-    text-align: center;
-    padding: 300px 0;
-    background: lightgoldenrodyellow;
-    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
-    box-sizing: border-box;
-    overflow: hidden;
-}
+} 
 
 #results {
-    display: grid;
+    display:grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 5px;
+    grid-gap: 1vh;
     text-align: center;
-    /* width: 100%;
-    text-align: center;
-    padding: 60px 0;
-    background: lightgoldenrodyellow;
-    background-image: linear-gradient(180deg,slateblue, palegoldenrod);
-    box-sizing: border-box;
-    overflow: hidden; */
 }
 
-#buttonHolder {
-    align-content: center;
-    padding: 25px;
+#buttonHolder, #resultsContent p, #videoContent {
+    align-content: space-between;
 }
 
-#resultsContent {
-    padding: 25px;
-    background: transparent;
-}
-
-#trackDiv {
-    background: transparent;
+#buttonHolder li{
+    display:inline-block;
 }
 
 #videoContent {
-    align-content: center;
+    padding: 0;
 }
 
-#footer {
-    width: 100%;
-    text-align: center;
+footer {
     align-items: center;
-    padding: 40px 0;
-    background: palegoldenrod;
-    margin: 0;
+    margin: 0vh;
+    padding: 1vh;
+    text-align: center;
+    width: 100%; 
 }
 
-#footer a i{
-    background: lightgoldenrodyellow;
+/*For some reason the contents are not centered, will need to look into this issue further*/
+@media screen and (max-width: 1000px) {
+    #results {
+        display: inline-block; 
+        align-content: space-between;
+    }
 }
