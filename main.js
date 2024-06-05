@@ -47,12 +47,17 @@ function toggleClasses(element, removeClass, addClass) {
 
 function startQuiz() {
   toggleClasses(document.getElementById('home'), 'active', 'hidden');
-
   toggleClasses(document.getElementById('quiz'), 'hidden', 'active');
   displayQuestion();
 }
 
 document.getElementById('startQuizButton').addEventListener('click', startQuiz);
+document.getElementById('startQuizButton').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      startQuiz();
+  }
+}); 
 
 function resetQuiz() {
   toggleClasses(document.getElementById('quiz'), 'active', 'hidden');
@@ -75,6 +80,12 @@ function resetQuiz() {
 }
 
 document.getElementById('resetQuizButton').addEventListener('click', resetQuiz);
+document.getElementById('resetQuizButton').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      resetQuiz();
+  }
+}); 
 
 //Issue occurs where the last question is displayed first whenever completing the quiz from the "return to homepage button"
 
@@ -100,10 +111,20 @@ function displayQuestion(index) {
   currentQuestion.choices.forEach((choiceObj) => {
     const button = document.createElement('button');
     button.textContent = choiceObj.choice;
+
     button.onclick = () => {
       updateChoiceWeights(choiceObj.weights);
       handleQuestionUpdate();
     };
+
+    button.onkeydown = (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault(); 
+        updateChoiceWeights(choiceObj.weights);
+        handleQuestionUpdate();
+      }
+    };
+
     choicesContainer.appendChild(button);
   });
 }
@@ -254,6 +275,12 @@ const fetchYouTubeDataAndDisplay = async () => {
 };
 
 fetchButton.addEventListener('click', fetchYouTubeDataAndDisplay);
+fetchButton.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      fetchYouTubeDataAndDisplay();
+  }
+}); 
 
 const spotifyContent = document.getElementById('spotifyContent');
 const spotifyTrackButton = document.getElementById('spotifyTrackButton');
@@ -272,5 +299,12 @@ const displaySpotifyLink = async () => {
 };
 
 spotifyTrackButton.addEventListener('click', displaySpotifyLink);
+spotifyTrackButton.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      displaySpotifyLink();
+  }
+}); 
+
 ///Would need to add if saving track feature gets added back
 // document.getElementById("saveTrack").addEventListener('click', getTrack);

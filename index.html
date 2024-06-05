@@ -15,7 +15,7 @@
     <section id="home" class="active">
         <h2>Welcome to QuizTunes!</h2>
         <p>Click the button below to start the quiz:</p>
-        <button id="startQuizButton">Start Quiz</button>
+        <button id="startQuizButton" tabindex="0">Start Quiz</button>
     </section>
 
     <section id="quiz" class="hidden">
@@ -31,7 +31,7 @@
         <img id="progressImage" src="img/quizcompleteprogress.jpg" alt="Progress indicator with all 10 circles filled">
         <h2>Quiz is Complete!</h2>
         <p>Click below to get your results:</p>
-        <button id="calculateResults">Calculate Results</button>
+        <button id="calculateResults" tabindex="0">Calculate Results</button>
     </section>
 
     <section id="results" class="hidden">
@@ -40,9 +40,9 @@
         <div id="spotifyContent"></div>
         <div id="buttonHolder" class="hidden">
             <ul>
-                <li><button id="resetQuizButton">Return to HomePage</button></li>
-                <li><button id="spotifyTrackButton">View the Spotify Track</button></li>
-                <l1><button id="youtubeVideoButton">View the YouTube Video</button></l1>
+                <li><button id="resetQuizButton" tabindex="0">Return to HomePage</button></li>
+                <li><button id="spotifyTrackButton" tabindex="0">View the Spotify Track</button></li>
+                <l1><button id="youtubeVideoButton" tabindex="0">View the YouTube Video</button></l1>
                 <!--Would need to add back if the saving track feature gets added back-->
                 <!-- <l1><button id="saveTrack">Save Track to Library</button></l1> -->
             </ul>

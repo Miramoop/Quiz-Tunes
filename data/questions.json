@@ -373,7 +373,7 @@
       "question": "What is your favorite time of day?",
       "questionImage": {
         "src": "img/q10.jpg",
-        "alt": "Image of a clock"
+        "alt": "Image of a pocket watch clock pointing at random time"
     },
     "progressImage": {
         "src": "img/q10progress.jpg",
