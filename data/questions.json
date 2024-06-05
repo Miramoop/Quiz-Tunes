@@ -2,7 +2,7 @@
     {
       "question": "What is your ideal way to spend a Saturday afternoon?",
       "questionImage": "img/q1.jpg",
-      "progressImage": "img/emptyprogress.jpg",
+      "progressImage": "img/q1progress.jpg",
       "choices": [
         {
           "choice": "Reading a book",
@@ -37,7 +37,7 @@
     {
       "question": "What is your ideal vacation?",
       "questionImage": "img/q2.jpg",
-      "progressImage": "img/q1progress.jpg",
+      "progressImage": "img/q2progress.jpg",
       "choices": [
         {
           "choice": "Beach Resort",
@@ -72,7 +72,7 @@
     {
       "question": "If you were able to travel to any of these countries, where would you choose?",
       "questionImage": "img/q3.jpg",
-      "progressImage": "img/q2progress.jpg",
+      "progressImage": "img/q3progress.jpg",
       "choices": [
         {
           "choice": "Japan",
@@ -107,7 +107,7 @@
     {
       "question": "What type of exercise do you prefer?",
       "questionImage": "img/q4.jpg",
-      "progressImage": "img/q3progress.jpg",
+      "progressImage": "img/q4progress.jpg",
       "choices": [
         {
           "choice": "Dance",
@@ -142,7 +142,7 @@
     {
       "question": "What kind of music do you prefer to listen to?",
       "questionImage": "img/q5.jpg",
-      "progressImage": "img/q4progress.jpg",
+      "progressImage": "img/q5progress.jpg",
       "choices": [
         {
           "choice": "Country",
@@ -177,7 +177,7 @@
     {
       "question": "Which season do you enjoy the most?",
       "questionImage": "img/q6.jpg",
-      "progressImage": "img/q5progress.jpg",
+      "progressImage": "img/q6progress.jpg",
       "choices": [
         {
           "choice": "Fall",
@@ -212,7 +212,7 @@
     {
       "question": "What types of movies do you prefer?",
       "questionImage": "img/q7.jpg",
-      "progressImage": "img/q6progress.jpg",
+      "progressImage": "img/q7progress.jpg",
       "choices": [
         {
           "choice": "Action",
@@ -247,7 +247,7 @@
     {
       "question": "What is your favorite flower?",
       "questionImage": "img/q8.jpg",
-      "progressImage": "img/q7progress.jpg",
+      "progressImage": "img/q8progress.jpg",
       "choices": [
         {
           "choice": "Rose",
@@ -282,7 +282,7 @@
     {
       "question": "What type of cuisine do you enjoy the most?",
       "questionImage": "img/q9.jpg",
-      "progressImage": "img/q8progress.jpg",
+      "progressImage": "img/q9progress.jpg",
       "choices": [
         {
           "choice": "Japanese",
@@ -317,7 +317,7 @@
     {
       "question": "What is your favorite time of day?",
       "questionImage": "img/q10.jpg",
-      "progressImage": "img/q9progress.jpg",
+      "progressImage": "img/q10progress.jpg",
       "choices": [
         {
           "choice": "Morning",
