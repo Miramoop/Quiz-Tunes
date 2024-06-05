@@ -1,8 +1,14 @@
 [
     {
       "question": "What is your ideal way to spend a Saturday afternoon?",
-      "questionImage": "img/q1.jpg",
-      "progressImage": "img/q1progress.jpg",
+      "questionImage": {
+          "src": "img/q1.jpg",
+          "alt": "Four ways to spend a Saturday afternoon represented by: a book, a tree, three girls swinging, and a tv"
+      },
+      "progressImage": {
+          "src": "img/q1progress.jpg",
+          "alt": "Progress indicator with no circles filled"
+      },
       "choices": [
         {
           "choice": "Reading a book",
@@ -36,8 +42,15 @@
     },
     {
       "question": "What is your ideal vacation?",
-      "questionImage": "img/q2.jpg",
-      "progressImage": "img/q2progress.jpg",
+      "questionImage": {
+        "src": "img/q2.jpg",
+        "alt": "Four types of vacations represented by: a palm tree, a mountainscape, a cityscape, and multiple houses"
+    },
+    "progressImage": {
+        "src": "img/q2progress.jpg",
+        "alt": "Progress indicator with 1 circle filled"
+    },
+
       "choices": [
         {
           "choice": "Beach Resort",
@@ -71,8 +84,14 @@
     },
     {
       "question": "If you were able to travel to any of these countries, where would you choose?",
-      "questionImage": "img/q3.jpg",
-      "progressImage": "img/q3progress.jpg",
+      "questionImage": {
+        "src": "img/q3.jpg",
+        "alt": "Four countries represented by: A Japanese Fan, An Australian Flag, A French Flag, and a Mexican Flag"
+    },
+    "progressImage": {
+        "src": "img/q3progress.jpg",
+        "alt": "Progress indicator with 2 circles filled"
+    },
       "choices": [
         {
           "choice": "Japan",
@@ -106,8 +125,14 @@
     },
     {
       "question": "What type of exercise do you prefer?",
-      "questionImage": "img/q4.jpg",
-      "progressImage": "img/q4progress.jpg",
+      "questionImage": {
+        "src": "img/q4.jpg",
+        "alt": "Four exercises represented by: music notes, a man jogging in the forest, weights on a rack, and a lady practicing yoga outside"
+    },
+    "progressImage": {
+        "src": "img/q4progress.jpg",
+        "alt": "Progress indicator with 3 circles filled"
+    },
       "choices": [
         {
           "choice": "Dance",
@@ -141,8 +166,14 @@
     },
     {
       "question": "What kind of music do you prefer to listen to?",
-      "questionImage": "img/q5.jpg",
-      "progressImage": "img/q5progress.jpg",
+      "questionImage": {
+        "src": "img/q5.jpg",
+        "alt": "Four types of music represented by: an acoustic guitar, an electric guitar, a disco ball, and a pair of headphones"
+    },
+    "progressImage": {
+        "src": "img/q5progress.jpg",
+        "alt": "Progress indicator with 4 circles filled"
+    },
       "choices": [
         {
           "choice": "Country",
@@ -176,8 +207,14 @@
     },
     {
       "question": "Which season do you enjoy the most?",
-      "questionImage": "img/q6.jpg",
-      "progressImage": "img/q6progress.jpg",
+      "questionImage": {
+        "src": "img/q6.jpg",
+        "alt": "Four seasons represented by: a tree with orange and green leaves, an igloo, a poppy flower, and the sun"
+    },
+    "progressImage": {
+        "src": "img/q6progress.jpg",
+        "alt": "Progress indicator with 5 circles filled"
+    },
       "choices": [
         {
           "choice": "Fall",
@@ -211,8 +248,14 @@
     },
     {
       "question": "What types of movies do you prefer?",
-      "questionImage": "img/q7.jpg",
-      "progressImage": "img/q7progress.jpg",
+      "questionImage": {
+        "src": "img/q7.jpg",
+        "alt": "Four movie genres represented by a black film clapperboard with the words action, comedy, drama, and horror written on it"
+    },
+    "progressImage": {
+        "src": "img/q7progress.jpg",
+        "alt": "Progress indicator with 6 circles filled"
+    },
       "choices": [
         {
           "choice": "Action",
@@ -246,8 +289,14 @@
     },
     {
       "question": "What is your favorite flower?",
-      "questionImage": "img/q8.jpg",
-      "progressImage": "img/q8progress.jpg",
+      "questionImage": {
+        "src": "img/q8.jpg",
+        "alt": "Four flowers represented by: a rose, a tulip, a sunflower, and an orchid with two butterflies flying by it"
+    },
+    "progressImage": {
+        "src": "img/q8progress.jpg",
+        "alt": "Progress indicator with 7 circles filled"
+    },
       "choices": [
         {
           "choice": "Rose",
@@ -281,8 +330,14 @@
     },
     {
       "question": "What type of cuisine do you enjoy the most?",
-      "questionImage": "img/q9.jpg",
-      "progressImage": "img/q9progress.jpg",
+      "questionImage": {
+        "src": "img/q9.jpg",
+        "alt": "Four types of cuisine represented by: a Japanese fan, a Spanish flag, a French flag, and an American flag"
+    },
+    "progressImage": {
+        "src": "img/q9progress.jpg",
+        "alt": "Progress indicator with 8 circles filled"
+    },
       "choices": [
         {
           "choice": "Japanese",
@@ -316,8 +371,14 @@
     },
     {
       "question": "What is your favorite time of day?",
-      "questionImage": "img/q10.jpg",
-      "progressImage": "img/q10progress.jpg",
+      "questionImage": {
+        "src": "img/q10.jpg",
+        "alt": "Four times of the day represented by a clock"
+    },
+    "progressImage": {
+        "src": "img/q10progress.jpg",
+        "alt": "Progress indicator with 9 circles filled"
+    },
       "choices": [
         {
           "choice": "Morning",

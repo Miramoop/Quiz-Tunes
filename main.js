@@ -91,8 +91,11 @@ function displayQuestion(index) {
   questionContainer.textContent = currentQuestion.question;
   choicesContainer.innerHTML = '';
 
-  questionImage.setAttribute('src', questions[index].questionImage);
-  progressImage.setAttribute('src', questions[index].progressImage);
+  questionImage.setAttribute('src', questions[index].questionImage.src);
+  questionImage.setAttribute('alt', questions[index].questionImage.alt);
+ 
+  progressImage.setAttribute('src', questions[index].progressImage.src);
+  progressImage.setAttribute('alt', questions[index].progressImage.alt);
 
   currentQuestion.choices.forEach((choiceObj) => {
     const button = document.createElement('button');
