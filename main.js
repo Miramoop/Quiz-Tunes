@@ -159,6 +159,7 @@ function calculateDominantGenre(weights) {
   //console.log(`Dominant Genre: ${dominantGenre}`); // Testing
   return dominantGenre;
 }
+
 async function displayRecommendedTracks() {
   dominantGenre = calculateDominantGenre(weights);
   const trackInfo = await getTrackInfo(
