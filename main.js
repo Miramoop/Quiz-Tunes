@@ -175,7 +175,7 @@ async function displayRecommendedTracks() {
     const result = `
                 <div id="resultsContent">
                     <h2>Your Recommended Song is: </h2>
-                </div>
+                
                 <div id="trackDiv">
                     <img src=${track.album.images[1].url}>
                     <p>Track Name: ${track.name}</p>
@@ -187,6 +187,7 @@ async function displayRecommendedTracks() {
                       dominantGenre.charAt(0).toUpperCase() +
                       dominantGenre.slice(1)
                     }</p>
+                </div>
                 </div>
             `;
 
@@ -234,7 +235,7 @@ const fetchYouTubeDataAndDisplay = async () => {
 
       const videoContainer = document.createElement('div');
       videoContainer.className = 'video-container';
-      videoContainer.innerHTML = `<h3>${videoTitle}</h3>`;
+      videoContainer.innerHTML = `<h2>${videoTitle}</h2>`;
       videoContainer.appendChild(iframe);
 
       videoSection.appendChild(videoContainer);
