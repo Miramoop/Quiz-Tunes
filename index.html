@@ -28,10 +28,11 @@
     </section>
 
     <section id="quizComplete" class="hidden">
-        <img id="progressImage" src="img/quizcompleteprogress.jpg" alt="Progress indicator with all 10 circles filled">
+        <img id="progressImage" role="img" src="img/quizcompleteprogress.jpg" alt="Progress indicator with all 10 circles filled">
         <h2>Quiz is Complete!</h2>
         <p>Click below to get your results:</p>
         <button id="calculateResults" tabindex="0">Calculate Results</button>
+        <div id="announcement" aria-live="polite" class="visually-hidden"></div>
     </section>
 
     <section id="results" class="hidden">
@@ -53,8 +54,8 @@
 
 <footer class="active">
     <p> Check out my Socials Below: </p>
-    <a href="https://github.com/Miramoop" target="_blank" rel="noopener" rel="noreferrer" aria-label="Click to visit my GitHub Page"><i class="fa-brands fa-github"></i></a>
-    <a href="https://www.linkedin.com/in/mirandamorris845/" target="_blank" rel="noopener" rel="noreferrer" aria-label="Click to visit my Linkedin Page"><i class="fa-brands fa-linkedin"></i></a>
+    <a href="https://github.com/Miramoop" target="_blank" rel="noopener" rel="noreferrer" aria-label="GitHub Page"><i class="fa-brands fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/mirandamorris845/" target="_blank" rel="noopener" rel="noreferrer" aria-label="Linkedin Page"><i class="fa-brands fa-linkedin"></i></a>
 </footer>
 
 <script src="main.js" type="module"></script>

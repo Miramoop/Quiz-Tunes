@@ -87,6 +87,22 @@ document.getElementById('resetQuizButton').addEventListener('keydown', function(
   }
 }); 
 
+let lastInteractionWasMouse = false;
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Tab' && lastInteractionWasMouse) {
+      event.preventDefault();
+      focusProgressBar();
+      // focusQuestion();
+      // focusFirstButton();
+      lastInteractionWasMouse = false; 
+    }
+  });
+
+document.addEventListener('mousedown', () => {
+  lastInteractionWasMouse = true;
+});
+
 //Issue occurs where the last question is displayed first whenever completing the quiz from the "return to homepage button"
 
 // By passing in the index of the question we want to display we can more easily load the first question.
@@ -100,17 +116,24 @@ function displayQuestion(index) {
   const currentQuestion = questions[index];
 
   questionContainer.textContent = currentQuestion.question;
+  questionContainer.setAttribute('aria-label', `Question: ${currentQuestion.question}`);
+  questionContainer.setAttribute('tabindex', 0);
+
   choicesContainer.innerHTML = '';
 
   questionImage.setAttribute('src', questions[index].questionImage.src);
   questionImage.setAttribute('alt', questions[index].questionImage.alt);
+  questionImage.setAttribute('tabIndex', 0);
  
   progressImage.setAttribute('src', questions[index].progressImage.src);
   progressImage.setAttribute('alt', questions[index].progressImage.alt);
+  progressImage.setAttribute('tabIndex', 0);
 
-  currentQuestion.choices.forEach((choiceObj) => {
+  currentQuestion.choices.forEach((choiceObj, choiceIndex) => {
     const button = document.createElement('button');
     button.textContent = choiceObj.choice;
+    button.setAttribute('tabindex', 0);
+    button.setAttribute('aria-label', `Choice ${choiceIndex + 1}: ${choiceObj.choice}`);
 
     button.onclick = () => {
       updateChoiceWeights(choiceObj.weights);
@@ -127,7 +150,35 @@ function displayQuestion(index) {
 
     choicesContainer.appendChild(button);
   });
+
+  if (!lastInteractionWasMouse) {
+    focusProgressBar();
+    // focusQuestion();
+    // focusFirstButton();
+  }
 }
+
+//maybe add aria-labels instead for these types of elements since they cannot be selected
+function focusProgressBar() {
+  const progressImage = document.getElementById('progressImage');
+  if (progressImage) {
+    progressImage.focus();
+  }
+}
+
+// function focusQuestion(){
+//   const questionContainer = document.getElementById('questionText');
+//   if (questionContainer) {
+//     questionContainer.focus();
+//   }
+// }
+
+// function focusFirstButton() {
+//   const firstButton = document.querySelector('#choicesText button');
+//   if (firstButton) {
+//     firstButton.focus();
+//   }
+// }
 
 function updateChoiceWeights(choiceWeights) {
   for (let choice in choiceWeights) {
@@ -149,6 +200,11 @@ function handleQuestionUpdate() {
   }
 }
 
+document
+  .getElementById('quizComplete')
+  .addEventListener('click', displayResults);
+
+
 function displayResults() {
   toggleClasses(document.getElementById('quizComplete'), 'active', 'hidden');
   toggleClasses(document.getElementById('results'), 'hidden', 'active');
@@ -158,9 +214,6 @@ function displayResults() {
   displayRecommendedTracks();
 }
 
-document
-  .getElementById('quizComplete')
-  .addEventListener('click', displayResults);
 
 function calculateDominantGenre(weights) {
   let maxValue = -Infinity;
@@ -196,6 +249,7 @@ async function displayRecommendedTracks() {
     trackInfo.tracks[0].external_urls.spotify
   );
 
+  //To Do - For the Album Track Cover should add alt text that updates with the image
   trackInfo.tracks.forEach((track) => {
     const result = `
                 <div id="resultsContent">
@@ -245,11 +299,16 @@ const fetchYouTubeDataAndDisplay = async () => {
       throw new Error('No items found in the response');
     }
 
+   
     data.items.forEach((el) => {
       const videoId = el.id.videoId;
       const videoTitle = el.snippet.title;
 
+      //To DO - Make this link visible only if the browser does not support iframe, the user can still see the video
+      const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
+
       const iframe = document.createElement('iframe');
+      iframe.title = `${videoTitle}`;
       iframe.src = `https://www.youtube.com/embed/${videoId}`;
       iframe.width = '560';
       iframe.height = '315';
@@ -262,6 +321,10 @@ const fetchYouTubeDataAndDisplay = async () => {
       videoContainer.className = 'video-container';
       videoContainer.innerHTML = `<h2>${videoTitle}</h2>`;
       videoContainer.appendChild(iframe);
+
+      const noScript = document.createElement('noscript');
+      noScript.innerHTML = `<a href="${videoLink}"> Your browser does not support this type of embed. Watch the video here instead`;
+      videoContainer.appendChild(noScript);
 
       videoSection.appendChild(videoContainer);
     });
