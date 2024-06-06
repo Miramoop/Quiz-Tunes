@@ -72,6 +72,7 @@ function resetQuiz() {
   spotifyContent.innerHTML = '';
 
   currentQuestionIndex = 0;
+  displayQuestion(0);
 }
 
 document.getElementById('resetQuizButton').addEventListener('click', resetQuiz);
@@ -93,9 +94,11 @@ function displayQuestion(index) {
 
   questionImage.setAttribute('src', questions[index].questionImage.src);
   questionImage.setAttribute('alt', questions[index].questionImage.alt);
+  // questionImage.setAttribute('tabIndex', 0);
  
   progressImage.setAttribute('src', questions[index].progressImage.src);
   progressImage.setAttribute('alt', questions[index].progressImage.alt);
+  // progressImage.setAttribute('tabIndex', 0);
 
   currentQuestion.choices.forEach((choiceObj) => {
     const button = document.createElement('button');
@@ -104,8 +107,28 @@ function displayQuestion(index) {
       updateChoiceWeights(choiceObj.weights);
       handleQuestionUpdate();
     };
+
+    button.onkeydown = (event) => {
+      if (event.key === 'Enter' || event.key === 'Space' || event.key === ' ') {
+        event.preventDefault(); 
+        updateChoiceWeights(choiceObj.weights);
+        handleQuestionUpdate();
+      }
+    };
+
     choicesContainer.appendChild(button);
   });
+
+  if (!lastInteractionWasMouse) {
+    focusProgressBar();
+  }
+}
+
+function focusProgressBar() {
+  const progressImage = document.getElementById('progressImage');
+  if (progressImage) {
+    progressImage.focus();
+  }
 }
 
 function updateChoiceWeights(choiceWeights) {
