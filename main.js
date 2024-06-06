@@ -81,8 +81,9 @@ document.getElementById('resetQuizButton').addEventListener('click', resetQuiz);
 
 // By passing in the index of the question we want to display we can more easily load the first question.
 // This will also give us options down the road to add features such as being able to click on the progress dots to go back to a specific question.
+
+//To Do - Possibly Simplify by using html in this js, similar to displayRecommendedTracks
 function displayQuestion(index) {
-  //To Do - Possibly Simplify by using html in this js, similar to displayRecommendedTracks
   const questionContainer = document.getElementById('questionText');
   const choicesContainer = document.getElementById('choicesText');
   const questionImage = document.getElementById('questionImage');
@@ -90,38 +91,43 @@ function displayQuestion(index) {
   const currentQuestion = questions[index];
 
   questionContainer.textContent = currentQuestion.question;
-  choicesContainer.innerHTML = '';
 
   questionImage.setAttribute('src', questions[index].questionImage.src);
   questionImage.setAttribute('alt', questions[index].questionImage.alt);
-  // questionImage.setAttribute('tabIndex', 0);
- 
+
   progressImage.setAttribute('src', questions[index].progressImage.src);
   progressImage.setAttribute('alt', questions[index].progressImage.alt);
-  // progressImage.setAttribute('tabIndex', 0);
+  
+  let choicesHTML = '';
+  currentQuestion.choices.forEach((choiceObj, idx) => {
+    choicesHTML += `
+    <button id="choice-${idx}" type="button">
+    ${choiceObj.choice}
+    </button>
+    `;
+  });
 
-  currentQuestion.choices.forEach((choiceObj) => {
-    const button = document.createElement('button');
-    button.textContent = choiceObj.choice;
+  choicesContainer.innerHTML = choicesHTML;
+  
+  currentQuestion.choices.forEach((choiceObj, idx) => {
+    const button = document.getElementById(`choice-${idx}`);
     button.onclick = () => {
       updateChoiceWeights(choiceObj.weights);
       handleQuestionUpdate();
     };
 
     button.onkeydown = (event) => {
-      if (event.key === 'Enter' || event.key === 'Space' || event.key === ' ') {
-        event.preventDefault(); 
+      if (event.key === 'Enter' || event.key === '') {
+        event.preventDefault();
         updateChoiceWeights(choiceObj.weights);
         handleQuestionUpdate();
       }
     };
-
-    choicesContainer.appendChild(button);
   });
 
-  if (!lastInteractionWasMouse) {
-    focusProgressBar();
-  }
+  // if (!lastInteractionWasMouse) {
+  //   focusProgressBar();
+  // }
 }
 
 function focusProgressBar() {
