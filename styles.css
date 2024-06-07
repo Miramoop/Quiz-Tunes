@@ -72,9 +72,11 @@ button {
     transition-duration: 0.4s;
 } 
 
-button:hover {
+button:focus, button:hover {
     background-color: var(--hover-color);
     color: var(--button-link-color);
+    outline: 2px solid #000;
+    outline-offset: 2px;
 }
 
 #spotifyLink {
