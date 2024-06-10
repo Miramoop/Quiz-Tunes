@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A Quiz Application that Recommends a Track on Spotify API & YouTube API based on your results">
     <title>QuizTunes</title>
     <link rel="stylesheet" href="styles.css"> 
 </head>
@@ -11,27 +12,23 @@
         <h1>QuizTunes</h1>
     </header>
 
-<div class="wrapper">
+<div class="wrapper" role="main">
     <section id="home" class="active">
         <h2>Welcome to QuizTunes!</h2>
-        <p>Click the button below to start the quiz:</p>
-        <button id="startQuizButton">Start Quiz</button>
+        <button id="startQuizButton" aria-label="Start the Quiz">Start Quiz</button>
     </section>
 
     <section id="quiz" class="hidden">
-        <ul>
-            <li><img id="progressImage"></li>
-            <li><img id="questionImage"></li>
-            <li><div id="questionText"></div></li>
-            <li><div id="choicesText"></div></li>
-        </ul>
+        <img id="progressImage">
+        <img id="questionImage">
+        <div id="questionText" tabindex="-1"></div>
+        <div id="choicesText"></div>
     </section>
 
     <section id="quizComplete" class="hidden">
         <img id="progressImage" src="img/quizcompleteprogress.jpg" alt="Progress indicator with all 10 circles filled">
         <h2>Quiz is Complete!</h2>
-        <p>Click below to get your results:</p>
-        <button id="calculateResults">Calculate Results</button>
+        <button id="calculateResults" aria-label="Calculate the Results">Calculate Results</button>
     </section>
 
     <section id="results" class="hidden">
@@ -40,21 +37,20 @@
         <div id="spotifyContent"></div>
         <div id="buttonHolder" class="hidden">
             <ul>
-                <li><button id="resetQuizButton">Return to HomePage</button></li>
-                <li><button id="spotifyTrackButton">View the Spotify Track</button></li>
-                <l1><button id="youtubeVideoButton">View the YouTube Video</button></l1>
+                <li><button id="resetQuizButton" aria-label="Reset and Start the Quiz Over">Return to HomePage</button></li>
+                <li><button id="spotifyTrackButton" aria-label="View the Spotify Track Link">View the Spotify Track</button></li>
+                <li><button id="youtubeVideoButton" aria-label="View the YouTube Video">View the YouTube Video</button></li>
                 <!--Would need to add back if the saving track feature gets added back-->
                 <!-- <l1><button id="saveTrack">Save Track to Library</button></l1> -->
             </ul>
         </div>
     </section>
-
 </div>
 
 <footer class="active">
     <p> Check out my Socials Below: </p>
-    <a href="https://github.com/Miramoop" target="_blank" rel="noopener" rel="noreferrer" aria-label="Click to visit my GitHub Page"><i class="fa-brands fa-github"></i></a>
-    <a href="https://www.linkedin.com/in/mirandamorris845/" target="_blank" rel="noopener" rel="noreferrer" aria-label="Click to visit my Linkedin Page"><i class="fa-brands fa-linkedin"></i></a>
+    <a href="https://github.com/Miramoop" target="_blank" rel="noopener" rel="noreferrer" aria-label="GitHub Page"><i class="fa-brands fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/mirandamorris845/" target="_blank" rel="noopener" rel="noreferrer" aria-label="Linkedin Page"><i class="fa-brands fa-linkedin"></i></a>
 </footer>
 
 <script src="main.js" type="module"></script>

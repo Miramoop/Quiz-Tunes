@@ -12,10 +12,12 @@ fetch('data/questions.json')
   })
   .then((data) => {
     questions = data;
-    displayQuestion(0); // Once we have the data, go ahead and populate the first question
-    //console.log(questions); //Testing
+    displayQuestion(0); 
   })
   .catch((error) => {
+    // const errorContainer = document.getElementById('errorContainer');
+    // errorContainer.textContent = 'An error occurred while loading data. Please try again later.';
+    // errorContainer.setAttribute('aria-live', 'assertive');
     console.error('Error loading JSON:', error);
   });
 
@@ -30,14 +32,15 @@ fetch('data/weights.json')
   })
   .then((data) => {
     weights = data;
-    //console.log(weights); //Testing
   })
   .catch((error) => {
+    // const errorContainer = document.getElementById('errorContainer');
+    // errorContainer.textContent = 'An error occurred while loading data. Please try again later.';
+    // errorContainer.setAttribute('aria-live', 'assertive');
     console.error('Error loading JSON:', error);
   });
 
 let currentQuestionIndex = 0;
-
 let dominantGenre;
 
 function toggleClasses(element, removeClass, addClass) {
@@ -47,20 +50,18 @@ function toggleClasses(element, removeClass, addClass) {
 
 function startQuiz() {
   toggleClasses(document.getElementById('home'), 'active', 'hidden');
-
   toggleClasses(document.getElementById('quiz'), 'hidden', 'active');
-  displayQuestion();
-}
+  displayQuestion(0);
+}   
 
 document.getElementById('startQuizButton').addEventListener('click', startQuiz);
 
 function resetQuiz() {
   toggleClasses(document.getElementById('quiz'), 'active', 'hidden');
   toggleClasses(document.getElementById('results'), 'active', 'hidden');
-  toggleClasses(document.getElementById('home'), 'hidden', 'active');
-
   toggleClasses(document.getElementById('resultsContent'), 'active', 'hidden');
   toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
+  toggleClasses(document.getElementById('home'), 'hidden', 'active');
 
   fetchButton.disabled = false;
   spotifyTrackButton.disabled = false;
@@ -72,16 +73,14 @@ function resetQuiz() {
   spotifyContent.innerHTML = '';
 
   currentQuestionIndex = 0;
+  displayQuestion(0);
 }
 
 document.getElementById('resetQuizButton').addEventListener('click', resetQuiz);
 
-//Issue occurs where the last question is displayed first whenever completing the quiz from the "return to homepage button"
-
 // By passing in the index of the question we want to display we can more easily load the first question.
 // This will also give us options down the road to add features such as being able to click on the progress dots to go back to a specific question.
 function displayQuestion(index) {
-  //To Do - Possibly Simplify by using html in this js, similar to displayRecommendedTracks
   const questionContainer = document.getElementById('questionText');
   const choicesContainer = document.getElementById('choicesText');
   const questionImage = document.getElementById('questionImage');
@@ -89,26 +88,44 @@ function displayQuestion(index) {
   const currentQuestion = questions[index];
 
   questionContainer.textContent = currentQuestion.question;
-  choicesContainer.innerHTML = '';
 
   questionImage.setAttribute('src', questions[index].questionImage.src);
   questionImage.setAttribute('alt', questions[index].questionImage.alt);
- 
+  
   progressImage.setAttribute('src', questions[index].progressImage.src);
   progressImage.setAttribute('alt', questions[index].progressImage.alt);
-
-  currentQuestion.choices.forEach((choiceObj) => {
-    const button = document.createElement('button');
-    button.textContent = choiceObj.choice;
-    button.onclick = () => {
+    
+  let choicesHTML = '';
+  currentQuestion.choices.forEach((choiceObj, idx) => {
+    choicesHTML += `
+    <button id="choice-${idx}" type="button" tabindex="0" aria-label="Choice ${idx + 1}: ${choiceObj.choice}">
+    ${choiceObj.choice}
+    </button>
+    `;
+  });
+    
+  choicesContainer.innerHTML = choicesHTML;
+  
+  currentQuestion.choices.forEach((choiceObj, idx) => {
+    const button = document.getElementById(`choice-${idx}`);
+    button.onclick = () => {    
       updateChoiceWeights(choiceObj.weights);
       handleQuestionUpdate();
     };
-    choicesContainer.appendChild(button);
+
+    button.onkeydown = (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        updateChoiceWeights(choiceObj.weights);
+        handleQuestionUpdate();
+      }
+    };
   });
+
+    questionContainer.focus();
 }
 
-function updateChoiceWeights(choiceWeights) {
+function updateChoiceWeights(choiceWeights) {   
   for (let choice in choiceWeights) {
     if (weights.hasOwnProperty(choice)) {
       weights[choice] += choiceWeights[choice];
@@ -147,16 +164,12 @@ function calculateDominantGenre(weights) {
 
   for (const genre in weights) {
     if (weights.hasOwnProperty(genre)) {
-      //console.log(`Genre: ${genre}, Weight: ${weights[genre]}`); // Testing
-
       if (weights[genre] > maxValue) {
         maxValue = weights[genre];
         dominantGenre = genre;
       }
     }
   }
-
-  //console.log(`Dominant Genre: ${dominantGenre}`); // Testing
   return dominantGenre;
 }
 async function displayRecommendedTracks() {
@@ -180,7 +193,7 @@ async function displayRecommendedTracks() {
                     <h2>Your Recommended Song is: </h2>
                 
                 <div id="trackDiv">
-                    <img src=${track.album.images[1].url}>
+                    <img src=${track.album.images[1].url} alt=${track.album.name}>
                     <p>Track Name: ${track.name}</p>
                     <p>Artist: ${track.artists
                       .map((artist) => artist.name)
@@ -198,7 +211,10 @@ async function displayRecommendedTracks() {
     //localStorage.setItem("track_id",track.id); //only needed for saving track to library feature
 
     if (!result) {
-      alert('Error in Displaying Results! Please Try Again!');
+    const errorContainer = document.getElementById('errorContainer');
+    errorContainer.textContent = 'Error in Displaying Results. Please try again.';
+    errorContainer.setAttribute('aria-live', 'assertive');
+    console.error('Error in Displaying Results. Please try again.', error);
     }
   });
 }
@@ -206,7 +222,7 @@ async function displayRecommendedTracks() {
 const videoSection = document.getElementById('videoContent');
 const fetchButton = document.getElementById('youtubeVideoButton');
 
-//should make the items within the data.items.forEach(el => {}) into html elements similar to displayRecommendedTracks
+//To Do - Make the items within the data.items.forEach(el => {}) into html elements similar to displayRecommendedTracks
 const fetchYouTubeDataAndDisplay = async () => {
   fetchButton.disabled = true;
 
@@ -228,6 +244,7 @@ const fetchYouTubeDataAndDisplay = async () => {
       const videoTitle = el.snippet.title;
 
       const iframe = document.createElement('iframe');
+      iframe.title = `${videoTitle}`;
       iframe.src = `https://www.youtube.com/embed/${videoId}`;
       iframe.width = '560';
       iframe.height = '315';
@@ -247,6 +264,9 @@ const fetchYouTubeDataAndDisplay = async () => {
     // Remove the event listener after fetching and displaying the videos
     // fetchButton.removeEventListener('click', fetchYouTubeDataAndDisplay);
   } catch (error) {
+    const errorContainer = document.getElementById('errorContainer');
+    errorContainer.textContent = 'Error in Displaying YouTube Video. Please try again.';
+    errorContainer.setAttribute('aria-live', 'assertive');
     console.error('Error displaying YouTube videos:', error);
     fetchButton.disabled = false;
   }
