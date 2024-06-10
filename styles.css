@@ -35,8 +35,10 @@ body {
 header {
     align-items: center;
     color: var(--main-color);
+    display: flex;
+    justify-content: flex-start;
     margin: 0vh;
-    overflow: hidden;
+    overflow: hidden; 
     text-align: center;
     width: 100%;
 }
@@ -52,6 +54,10 @@ img {
     height: auto;
     margin: 2vh auto;
     max-width: 100%;
+}
+
+#headerLogo {
+    max-width: 15vh;
 }
 
 #questionImage, #progressImage {
