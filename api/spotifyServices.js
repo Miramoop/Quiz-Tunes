@@ -1,4 +1,4 @@
-//This spotify authorization 
+//This spotify authorization will not occur at all in my current code, as the saving track feature has been scrapped
 const generateRandomString = (length) => {
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const values = crypto.getRandomValues(new Uint8Array(length));

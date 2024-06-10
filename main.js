@@ -1,7 +1,11 @@
-import { getTrackInfo } from './api/spotifyServices.js'; //getTrack would need to be added to import if add ability to save track to library
+// import { getTrackInfo } from './api/spotifyServices.js'; //getTrack would need to be added to import if add ability to save track to library
+import { getTrackInfo, getToken } from './api/spotifyApi.js';
 import { fetchYouTubeData } from './api/youtubeApi.js';
 
 let questions;
+let weights;
+let currentQuestionIndex = 0;
+let dominantGenre;
 
 fetch('data/questions.json')
   .then((response) => {
@@ -21,8 +25,6 @@ fetch('data/questions.json')
     console.error('Error loading JSON:', error);
   });
 
-let weights;
-
 fetch('data/weights.json')
   .then((response) => {
     if (!response.ok) {
@@ -40,9 +42,6 @@ fetch('data/weights.json')
     console.error('Error loading JSON:', error);
   });
 
-let currentQuestionIndex = 0;
-let dominantGenre;
-
 function toggleClasses(element, removeClass, addClass) {
   element.classList.remove(removeClass);
   element.classList.add(addClass);
@@ -51,8 +50,14 @@ function toggleClasses(element, removeClass, addClass) {
 function startQuiz() {
   toggleClasses(document.getElementById('home'), 'active', 'hidden');
   toggleClasses(document.getElementById('quiz'), 'hidden', 'active');
-  displayQuestion(0);
-}   
+  getToken()
+      .then(() => {
+          displayQuestion(0); 
+      })
+      .catch(error => {
+          console.error("Error getting token:", error);
+      });
+}
 
 document.getElementById('startQuizButton').addEventListener('click', startQuiz);
 
