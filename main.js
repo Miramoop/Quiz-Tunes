@@ -62,6 +62,7 @@ function resetQuiz() {
   toggleClasses(document.getElementById('resultsContent'), 'active', 'hidden');
   toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
   toggleClasses(document.getElementById('home'), 'hidden', 'active');
+  toggleClasses(document.getElementById('errorScreen'), 'active', 'hidden');
 
   fetchButton.disabled = false;
   spotifyTrackButton.disabled = false;
@@ -155,7 +156,7 @@ function displayResults() {
 }
 
 document
-  .getElementById('quizComplete')
+  .getElementById('calculateResults')
   .addEventListener('click', displayResults);
 
 function calculateDominantGenre(weights) {
@@ -173,12 +174,14 @@ function calculateDominantGenre(weights) {
   return dominantGenre;
 }
 async function displayRecommendedTracks() {
-  dominantGenre = calculateDominantGenre(weights);
-  const trackInfo = await getTrackInfo(
-    localStorage.getItem('access_token'),
-    dominantGenre
-  );
-  console.log(trackInfo);
+  try {
+    //throwing error to test response
+    // throw new Error('Test Error');
+    dominantGenre = calculateDominantGenre(weights);
+    const trackInfo = await getTrackInfo(
+      localStorage.getItem('access_token'),
+      dominantGenre
+    );
 
   localStorage.setItem('track_Name', trackInfo.tracks[0].name);
   localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
@@ -207,31 +210,48 @@ async function displayRecommendedTracks() {
                 </div>
             `;
 
-    resultsContent.innerHTML = result;
-    //localStorage.setItem("track_id",track.id); //only needed for saving track to library feature
+    //test this w/ screen reader & add to calculating results page?
+    const resultsContent = document.getElementById('resultsContent');
+    resultsContent.innerHTML = ''; 
 
-    if (!result) {
-    const errorContainer = document.getElementById('errorContainer');
-    errorContainer.textContent = 'Error in Displaying Results. Please try again.';
-    errorContainer.setAttribute('aria-live', 'assertive');
-    console.error('Error in Displaying Results. Please try again.', error);
-    }
-  });
+    trackInfo.tracks.forEach((track) => {
+      const trackDiv = document.createElement('div');
+      trackDiv.setAttribute('id', 'trackDiv');
+      trackDiv.setAttribute('role', 'article');
+      trackDiv.setAttribute('aria-live', 'assertive');
+      trackDiv.setAttribute('aria-atomic', 'true');
+      trackDiv.innerHTML = `
+        <img src="${track.album.images[1].url}" alt="Album Cover for ${track.album.name}">
+        <p>Track Name: ${track.name}</p>
+        <p>Artist: ${track.artists.map((artist) => artist.name).join(', ')}</p>
+        <p>Album: ${track.album.name}</p>
+        <p>Genre: ${dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1)}</p>
+      `;
+
+      resultsContent.appendChild(trackDiv);
+    });
+
+  } catch (error) {
+    toggleClasses(document.getElementById('quizComplete'), 'active', 'hidden');
+    toggleClasses(document.getElementById('results'), 'active', 'hidden');
+    toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
+    toggleClasses(document.getElementById('errorScreen'), 'hidden', 'active');
+  }
 }
+
+document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
 
 const videoSection = document.getElementById('videoContent');
 const fetchButton = document.getElementById('youtubeVideoButton');
 
-//To Do - Make the items within the data.items.forEach(el => {}) into html elements similar to displayRecommendedTracks
 const fetchYouTubeDataAndDisplay = async () => {
   fetchButton.disabled = true;
 
-  // Get trackName and artistName from localStorage
   const trackName = localStorage.getItem('track_Name');
   const artistName = localStorage.getItem('artist_Name');
 
-  // Fetch YouTube data and display videos
   try {
+    // throw new Error('Test Error');
     const data = await fetchYouTubeData(trackName, artistName);
     console.log('API Response Data:', data);
 
@@ -261,13 +281,13 @@ const fetchYouTubeDataAndDisplay = async () => {
       videoSection.appendChild(videoContainer);
     });
 
-    // Remove the event listener after fetching and displaying the videos
-    // fetchButton.removeEventListener('click', fetchYouTubeDataAndDisplay);
   } catch (error) {
-    const errorContainer = document.getElementById('errorContainer');
-    errorContainer.textContent = 'Error in Displaying YouTube Video. Please try again.';
-    errorContainer.setAttribute('aria-live', 'assertive');
-    console.error('Error displaying YouTube videos:', error);
+    toggleClasses(document.getElementById('quizComplete'), 'active', 'hidden');
+    toggleClasses(document.getElementById('results'), 'active', 'hidden');
+    toggleClasses(document.getElementById('resultsContent'), 'active', 'hidden');
+    toggleClasses(document.getElementById('spotifyContent'),'active', 'hidden');
+    toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
+    toggleClasses(document.getElementById('errorScreen'), 'hidden', 'active');
     fetchButton.disabled = false;
   }
 };

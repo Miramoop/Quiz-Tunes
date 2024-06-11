@@ -95,7 +95,7 @@ button:focus, button:hover {
     color: var(--button-link-color);
 }
 
-#quiz, #questionText, #choicesText, #quizComplete {
+#quiz, #questionText, #choicesText, #quizComplete, #errorScreen {
     align-items: center;
     padding: 1vh;
     text-align: center;
