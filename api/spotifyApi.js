@@ -1,5 +1,5 @@
-const client_id = '8a649d0e1cf74b1c89b6874845b17646';
-const client_secret = '401dcd9823934db3bae3337efb7320a5';
+const client_id = '';
+const client_secret = '';
 
 async function getToken() {
     const url = 'https://accounts.spotify.com/api/token';

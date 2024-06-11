@@ -177,52 +177,102 @@ function calculateDominantGenre(weights) {
   }
   return dominantGenre;
 }
+
 async function displayRecommendedTracks() {
-  dominantGenre = calculateDominantGenre(weights);
-  const trackInfo = await getTrackInfo(
-    localStorage.getItem('access_token'),
-    dominantGenre
-  );
-  console.log(trackInfo);
+  try {
+    dominantGenre = calculateDominantGenre(weights);
+    const trackInfo = await getTrackInfo(
+      localStorage.getItem('access_token'),
+      dominantGenre
+    );
 
-  localStorage.setItem('track_Name', trackInfo.tracks[0].name);
-  localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
-  localStorage.setItem(
-    'spotify_Link',
-    trackInfo.tracks[0].external_urls.spotify
-  );
+    console.log(trackInfo);
 
-  trackInfo.tracks.forEach((track) => {
-    const result = `
-                <div id="resultsContent">
-                    <h2>Your Recommended Song is: </h2>
-                
-                <div id="trackDiv">
-                    <img src=${track.album.images[1].url} alt=${track.album.name}>
-                    <p>Track Name: ${track.name}</p>
-                    <p>Artist: ${track.artists
-                      .map((artist) => artist.name)
-                      .join(', ')}</p>
-                    <p>Album: ${track.album.name}</p>
-                    <p>Genre: ${
-                      dominantGenre.charAt(0).toUpperCase() +
-                      dominantGenre.slice(1)
-                    }</p>
-                </div>
-                </div>
-            `;
+    localStorage.setItem('track_Name', trackInfo.tracks[0].name);
+    localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
+    localStorage.setItem(
+      'spotify_Link',
+      trackInfo.tracks[0].external_urls.spotify
+    );
 
-    resultsContent.innerHTML = result;
-    //localStorage.setItem("track_id",track.id); //only needed for saving track to library feature
+    //test this w/ screen reader & add to calculating results page?
+    const resultsContent = document.getElementById('resultsContent');
+    resultsContent.setAttribute('role', 'region');
+    resultsContent.setAttribute('aria-live', 'polite');
+    resultsContent.setAttribute('aria-atomic', 'true');
+    resultsContent.innerHTML = ''; // Clear previous content
 
-    if (!result) {
+    trackInfo.tracks.forEach((track) => {
+      const trackDiv = document.createElement('div');
+      trackDiv.setAttribute('id', 'trackDiv');
+      trackDiv.setAttribute('role', 'article');
+      trackDiv.setAttribute('aria-live', 'assertive');
+      trackDiv.setAttribute('aria-atomic', 'true');
+      trackDiv.innerHTML = `
+        <img src="${track.album.images[1].url}" alt="Album Cover for ${track.album.name}">
+        <p>Track Name: ${track.name}</p>
+        <p>Artist: ${track.artists.map((artist) => artist.name).join(', ')}</p>
+        <p>Album: ${track.album.name}</p>
+        <p>Genre: ${dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1)}</p>
+      `;
+
+      resultsContent.appendChild(trackDiv);
+    });
+  } catch (error) {
     const errorContainer = document.getElementById('errorContainer');
     errorContainer.textContent = 'Error in Displaying Results. Please try again.';
-    errorContainer.setAttribute('aria-live', 'assertive');
+    errorContainer.setAttribute('role', 'alert');
     console.error('Error in Displaying Results. Please try again.', error);
-    }
-  });
+  }
 }
+
+//original function
+// async function displayRecommendedTracks() {
+//   dominantGenre = calculateDominantGenre(weights);
+//   const trackInfo = await getTrackInfo(
+//     localStorage.getItem('access_token'),
+//     dominantGenre
+//   );
+//   console.log(trackInfo);
+
+//   localStorage.setItem('track_Name', trackInfo.tracks[0].name);
+//   localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
+//   localStorage.setItem(
+//     'spotify_Link',
+//     trackInfo.tracks[0].external_urls.spotify
+//   );
+
+//   trackInfo.tracks.forEach((track) => {
+//     const result = `
+//                 <div id="resultsContent">
+//                     <h2>Your Recommended Song is: </h2>
+                
+//                 <div id="trackDiv">
+//                     <img src="${track.album.images[1].url}" alt="Album Cover for ${track.album.name}">
+//                     <p>Track Name: ${track.name}</p>
+//                     <p>Artist: ${track.artists
+//                       .map((artist) => artist.name)
+//                       .join(', ')}</p>
+//                     <p>Album: ${track.album.name}</p>
+//                     <p>Genre: ${
+//                       dominantGenre.charAt(0).toUpperCase() +
+//                       dominantGenre.slice(1)
+//                     }</p>
+//                 </div>
+//                 </div>
+//             `;
+
+//     resultsContent.innerHTML = result;
+//     //localStorage.setItem("track_id",track.id); //only needed for saving track to library feature
+
+//     if (!result) {
+//     const errorContainer = document.getElementById('errorContainer');
+//     errorContainer.textContent = 'Error in Displaying Results. Please try again.';
+//     errorContainer.setAttribute('aria-live', 'assertive');
+//     console.error('Error in Displaying Results. Please try again.', error);
+//     }
+//   });
+// }
 
 const videoSection = document.getElementById('videoContent');
 const fetchButton = document.getElementById('youtubeVideoButton');
@@ -251,8 +301,6 @@ const fetchYouTubeDataAndDisplay = async () => {
       const iframe = document.createElement('iframe');
       iframe.title = `${videoTitle}`;
       iframe.src = `https://www.youtube.com/embed/${videoId}`;
-      iframe.width = '560';
-      iframe.height = '315';
       iframe.frameBorder = '0';
       iframe.allow =
         'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
