@@ -1,0 +1,14 @@
+{
+    "weights": {
+        "chill": 0,
+        "pop": 0,
+        "dance": 0,
+        "ambient": 0,
+        "anime": 0,
+        "indie": 0,
+        "movies": 0,
+        "rock": 0,
+        "country": 0,
+        "piano": 0
+    }
+}

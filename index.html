@@ -1,53 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <title>QuizTunes</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Song Recommender</title>
+    <meta name="language" content="en">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience.
+    Take the quiz, answer a series of questions, and based on your response, Quiz Tunes recommends a track from Spotify and YouTube that matches
+    your personality. Powered by the Spotify API and YouTube API, Quiz Tunes analyzes your quiz results to curate personalized music recommendations
+    just for you. Start exploring and find your next favorite song with Quiz Tunes today!">
+    <meta name="author" content="Miranda Morris">
+ 
+    <meta property="og:title" content="Quiz Tunes">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://miramoop.github.io/QuizTunes/">
+    <meta property="og:image" content="https://miramoop.github.io/QuizTunes/img/logo/QuizTunesCardLogo.png">
+    <meta property="og:description" content="Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience.
+    Take the quiz, answer a series of questions, and based on your response, Quiz Tunes recommends a track from Spotify and YouTube that matches
+    your personality. Powered by the Spotify API and YouTube API, Quiz Tunes analyzes your quiz results to curate personalized music recommendations
+    just for you. Start exploring and find your next favorite song with Quiz Tunes today!">
+    <meta property="og:site_name" content="Quiz Tunes">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Quiz Tunes Logo">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Quiz Tunes">
+    <meta name="twitter:description" content="Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience.
+    Take the quiz, answer a series of questions, and based on your response, Quiz Tunes recommends a track from Spotify and YouTube that matches
+    your personality. Powered by the Spotify API and YouTube API, Quiz Tunes analyzes your quiz results to curate personalized music recommendations
+    just for you. Start exploring and find your next favorite song with Quiz Tunes today!">
+    <meta name="twitter:image" content="https://miramoop.github.io/QuizTunes/img/logo/QuizTunesCardLogo.png">
+    <meta name="twitter:image:alt" content="Quiz Tunes Logo">
+
+    <link rel="canonical" href="https://miramoop.github.io/QuizTunes/">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <link rel="stylesheet" href="styles.css"> 
-    <!--Look into adding a good favicon-->
+    
 </head>
 <body>
-    <div id="header" class="active">
-        <h1>Spotify Song Recommender</h1>
-    </div>
-    
-    <div id="home" class="active"> 
-        <h2>Welcome to the Song Recommender!</h2>
-        <p>Click the button below to start the quiz: <br><br></p>
-        <button id="startQuiz">Start Quiz</button>
-    </div>
 
-    <div id="quiz" class="hidden">
+    <header class="active"> 
+        <img id="headerLogo" src="img/logo/QuizTunesLogo.png" alt="QuizTunes Logo">
+        <h1>QuizTunes</h1>
+    </header>
+
+<div class="wrapper" role="main">
+    <section id="home" class="active">
+        <h2>Welcome to QuizTunes!</h2>
+        <button id="startQuizButton" aria-label="Start the Quiz">Start Quiz</button>
+    </section>
+
+    <section id="quiz" class="hidden">
+        <img id="progressImage">
         <img id="questionImage">
-        <div id="question"></div>
-        <div id="choices"></div>
-    </div>
+        <div id="questionText" tabindex="-1"></div>
+        <div id="choicesText"></div>
+    </section>
 
-    <div id="calculatingResults" class="hidden">
+    <section id="quizComplete" class="hidden">
+        <img id="progressImage" src="img/quizcompleteprogress.jpg" alt="Progress indicator with all 10 circles filled">
         <h2>Quiz is Complete!</h2>
-        <p>Click below to get your results:<br><br></p>
-        <button id="calculateResults">Calculate Results</button>
-    </div> 
+        <button id="calculateResults" aria-label="Calculate the Results">Calculate Results</button>
+    </section>
 
-    <div id="results" class="hidden">
-        <div id="resultsContent"></div>
-        <button id="saveTrack">Save Track to Library</button>
-        <!-- <button id="checkSaveTrack">Check if Saved to Library</button> -->
-        <button id="displayHome">Return to HomePage</button> 
-    </div>
+    <section id="results" class="hidden">
+        <div id="resultsContent" class="hidden"></div>
+        <div id="videoContent"></div>
+        <div id="spotifyContent"></div>
+        <div id="buttonHolder" class="hidden">
+            <ul>
+                <li><button id="resetQuizButton" aria-label="Reset and Start the Quiz Over">Return to HomePage</button></li>
+                <li><button id="spotifyTrackButton" aria-label="View the Spotify Track Link">View the Spotify Track</button></li>
+                <li><button id="youtubeVideoButton" aria-label="View the YouTube Video">View the YouTube Video</button></li>
+                <!--Would need to add back if the saving track feature gets added back-->
+                <!-- <l1><button id="saveTrack">Save Track to Library</button></l1> -->
+            </ul>
+        </div>
+    </section>
+</div>
 
-    <div id="copyright" class="active"> 
-    <p> Check out my Socials Below:
-        <br>
-        <br>
-    </p>
-    <a href="https://github.com/Miramoop" target="_blank" rel="noopener" rel="noreferrer"><i class="fa-brands fa-github"></i></a>
-    <a href="https://www.linkedin.com/in/mirandamorris845/" target="_blank" rel="noopener" rel="noreferrer"><i class="fa-brands fa-linkedin"></i></a>
-    </div>
+<footer class="active">
+    <p> Check out my Socials Below: </p>
+    <a href="https://github.com/Miramoop" target="_blank" rel="noopener" rel="noreferrer" aria-label="GitHub Page"><i class="fa-brands fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/mirandamorris845/" target="_blank" rel="noopener" rel="noreferrer" aria-label="Linkedin Page"><i class="fa-brands fa-linkedin"></i></a>
+</footer>
 
-<script src="main.js" type="module"></script> 
-<script src="spotifyauthorization.js" type="module"></script>
+<script src="main.js" type="module"></script>
 <script src="https://kit.fontawesome.com/7777890cf7.js" crossorigin="anonymous"></script> 
 </body>
 </html>

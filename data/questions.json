@@ -1,0 +1,414 @@
+[
+    {
+      "question": "What is your ideal way to spend a Saturday afternoon?",
+      "questionImage": {
+          "src": "img/q1.jpg",
+          "alt": "Four ways to spend a Saturday afternoon represented by: a book, a tree, three girls swinging, and a tv"
+      },
+      "progressImage": {
+          "src": "img/q1progress.jpg",
+          "alt": "Progress indicator with no circles filled"
+      },
+      "choices": [
+        {
+          "choice": "Reading a book",
+          "weights": {
+            "chill": 25,
+            "ambient": 30
+          }
+        },
+        {
+          "choice": "Hiking in the Forest",
+          "weights": {
+            "country": 30,
+            "ambient": 15
+          }
+        },
+        {
+          "choice": "Hanging out with Friends",
+          "weights": {
+            "indie": 30,
+            "pop": 25
+          }
+        },
+        {
+          "choice": "Watching movies or TV shows",
+          "weights": {
+            "movies": 35,
+            "anime": 25
+          }
+        }
+      ]
+    },
+    {
+      "question": "What is your ideal vacation?",
+      "questionImage": {
+        "src": "img/q2.jpg",
+        "alt": "Four types of vacations represented by: a palm tree, a mountainscape, a cityscape, and multiple houses"
+    },
+    "progressImage": {
+        "src": "img/q2progress.jpg",
+        "alt": "Progress indicator with 1 circle filled"
+    },
+
+      "choices": [
+        {
+          "choice": "Beach Resort",
+          "weights": {
+            "chill": 30,
+            "dance": 20
+          }
+        },
+        {
+          "choice": "Mountain Retreat",
+          "weights": {
+            "rock": 35,
+            "ambient": 20
+          }
+        },
+        {
+          "choice": "City Exploration",
+          "weights": {
+            "anime": 25,
+            "movies": 30
+          }
+        },
+        {
+          "choice": "Chilling at Home",
+          "weights": {
+            "chill": 25,
+            "piano": 20
+          }
+        }
+      ]
+    },
+    {
+      "question": "If you were able to travel to any of these countries, where would you choose?",
+      "questionImage": {
+        "src": "img/q3.jpg",
+        "alt": "Four countries represented by: A Japanese Fan, An Australian Flag, A French Flag, and a Mexican Flag"
+    },
+    "progressImage": {
+        "src": "img/q3progress.jpg",
+        "alt": "Progress indicator with 2 circles filled"
+    },
+      "choices": [
+        {
+          "choice": "Japan",
+          "weights": {
+            "anime": 40,
+            "movies": 20
+          }
+        },
+        {
+          "choice": "Australia",
+          "weights": {
+            "country": 30,
+            "ambient": 10
+          }
+        },
+        {
+          "choice": "France",
+          "weights": {
+            "indie": 10,
+            "piano": 30
+          }
+        },
+        {
+          "choice": "Mexico",
+          "weights": {
+            "dance": 40,
+            "pop": 25
+          }
+        }
+      ]
+    },
+    {
+      "question": "What type of exercise do you prefer?",
+      "questionImage": {
+        "src": "img/q4.jpg",
+        "alt": "Four exercises represented by: music notes, a man jogging in the forest, weights on a rack, and a lady practicing yoga outside"
+    },
+    "progressImage": {
+        "src": "img/q4progress.jpg",
+        "alt": "Progress indicator with 3 circles filled"
+    },
+      "choices": [
+        {
+          "choice": "Dance",
+          "weights": {
+            "dance": 40,
+            "movies": 25
+          }
+        },
+        {
+          "choice": "Jogging",
+          "weights": {
+            "pop": 30,
+            "rock": 20
+          }
+        },
+        {
+          "choice": "Weight Training",
+          "weights": {
+            "rock": 35,
+            "anime": 30
+          }
+        },
+        {
+          "choice": "Yoga",
+          "weights": {
+            "piano": 40,
+            "chill": 25
+          }
+        }
+      ]
+    },
+    {
+      "question": "What kind of music do you prefer to listen to?",
+      "questionImage": {
+        "src": "img/q5.jpg",
+        "alt": "Four types of music represented by: an acoustic guitar, an electric guitar, a disco ball, and a pair of headphones"
+    },
+    "progressImage": {
+        "src": "img/q5progress.jpg",
+        "alt": "Progress indicator with 4 circles filled"
+    },
+      "choices": [
+        {
+          "choice": "Country",
+          "weights": {
+            "country": 40,
+            "ambient": 15
+          }
+        },
+        {
+          "choice": "Rock",
+          "weights": {
+            "indie": 15,
+            "rock": 40
+          }
+        },
+        {
+          "choice": "Dance",
+          "weights": {
+            "pop": 15,
+            "dance": 40
+          }
+        },
+        {
+          "choice": "Chill",
+          "weights": {
+            "chill": 40,
+            "ambient": 15
+          }
+        }
+      ]
+    },
+    {
+      "question": "Which season do you enjoy the most?",
+      "questionImage": {
+        "src": "img/q6.jpg",
+        "alt": "Four seasons represented by: a tree with orange and green leaves, an igloo, a poppy flower, and the sun"
+    },
+    "progressImage": {
+        "src": "img/q6progress.jpg",
+        "alt": "Progress indicator with 5 circles filled"
+    },
+      "choices": [
+        {
+          "choice": "Fall",
+          "weights": {
+            "indie": 20,
+            "ambient": 35
+          }
+        },
+        {
+          "choice": "Winter",
+          "weights": {
+            "piano": 25,
+            "chill": 30
+          }
+        },
+        {
+          "choice": "Spring",
+          "weights": {
+            "chill": 10,
+            "anime": 15
+          }
+        },
+        {
+          "choice": "Summer",
+          "weights": {
+            "pop": 30,
+            "dance": 40
+          }
+        }
+      ]
+    },
+    {
+      "question": "What types of movies do you prefer?",
+      "questionImage": {
+        "src": "img/q7.jpg",
+        "alt": "Four movie genres represented by a black film clapperboard with the words action, comedy, drama, and horror written on it"
+    },
+    "progressImage": {
+        "src": "img/q7progress.jpg",
+        "alt": "Progress indicator with 6 circles filled"
+    },
+      "choices": [
+        {
+          "choice": "Action",
+          "weights": {
+            "rock": 40,
+            "anime": 40
+          }
+        },
+        {
+          "choice": "Comedy",
+          "weights": {
+            "indie": 20,
+            "chill": 20
+          }
+        },
+        {
+          "choice": "Drama",
+          "weights": {
+            "indie": 30,
+            "pop": 25
+          }
+        },
+        {
+          "choice": "Horror",
+          "weights": {
+            "pop": 10,
+            "rock": 15
+          }
+        }
+      ]
+    },
+    {
+      "question": "What is your favorite flower?",
+      "questionImage": {
+        "src": "img/q8.jpg",
+        "alt": "Four flowers represented by: a rose, a tulip, a sunflower, and an orchid with two butterflies flying by it"
+    },
+    "progressImage": {
+        "src": "img/q8progress.jpg",
+        "alt": "Progress indicator with 7 circles filled"
+    },
+      "choices": [
+        {
+          "choice": "Rose",
+          "weights": {
+            "indie": 25,
+            "movies": 15
+          }
+        },
+        {
+          "choice": "Tulip",
+          "weights": {
+            "chill": 25,
+            "ambient": 15
+          }
+        },
+        {
+          "choice": "Sunflower",
+          "weights": {
+            "pop": 25,
+            "dance": 25
+          }
+        },
+        {
+          "choice": "Orchids",
+          "weights": {
+            "rock": 25,
+            "piano": 15
+          }
+        }
+      ]
+    },
+    {
+      "question": "What type of cuisine do you enjoy the most?",
+      "questionImage": {
+        "src": "img/q9.jpg",
+        "alt": "Four types of cuisine represented by: a Japanese fan, a Spanish flag, a French flag, and an American flag"
+    },
+    "progressImage": {
+        "src": "img/q9progress.jpg",
+        "alt": "Progress indicator with 8 circles filled"
+    },
+      "choices": [
+        {
+          "choice": "Japanese",
+          "weights": {
+            "anime": 40,
+            "movies": 20
+          }
+        },
+        {
+          "choice": "Spanish",
+          "weights": {
+            "dance": 40,
+            "pop": 30
+          }
+        },
+        {
+          "choice": "French",
+          "weights": {
+            "piano": 40,
+            "indie": 20
+          }
+        },
+        {
+          "choice": "American",
+          "weights": {
+            "movies": 40,
+            "country": 30
+          }
+        }
+      ]
+    },
+    {
+      "question": "What is your favorite time of day?",
+      "questionImage": {
+        "src": "img/q10.jpg",
+        "alt": "Four times of the day represented by a clock"
+    },
+    "progressImage": {
+        "src": "img/q10progress.jpg",
+        "alt": "Progress indicator with 9 circles filled"
+    },
+      "choices": [
+        {
+          "choice": "Morning",
+          "weights": {
+            "piano": 40,
+            "ambient": 25
+          }
+        },
+        {
+          "choice": "Afternoon",
+          "weights": {
+            "pop": 35,
+            "dance": 20
+          }
+        },
+        {
+          "choice": "Evening",
+          "weights": {
+            "chill": 30,
+            "indie": 20
+          }
+        },
+        {
+          "choice": "Night",
+          "weights": {
+            "rock": 25,
+            "movies": 15
+          }
+        }
+      ]
+    }
+  ]
+  
