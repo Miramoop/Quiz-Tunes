@@ -183,15 +183,15 @@ async function displayRecommendedTracks() {
       dominantGenre
     );
 
-  localStorage.setItem('track_Name', trackInfo.tracks[0].name);
-  localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
-  localStorage.setItem(
-    'spotify_Link',
-    trackInfo.tracks[0].external_urls.spotify
-  );
+    localStorage.setItem('track_Name', trackInfo.tracks[0].name);
+    localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
+    localStorage.setItem(
+      'spotify_Link',
+      trackInfo.tracks[0].external_urls.spotify
+    );
 
-  trackInfo.tracks.forEach((track) => {
-    const result = `
+    trackInfo.tracks.forEach((track) => {
+      const result = `
                 <div id="resultsContent">
                     <h2>Your Recommended Song is: </h2>
                 
@@ -199,28 +199,28 @@ async function displayRecommendedTracks() {
                     <img src=${track.album.images[1].url} alt=${track.album.name}>
                     <p>Track Name: ${track.name}</p>
                     <p>Artist: ${track.artists
-                      .map((artist) => artist.name)
-                      .join(', ')}</p>
+          .map((artist) => artist.name)
+          .join(', ')}</p>
                     <p>Album: ${track.album.name}</p>
                     <p>Genre: ${
-                      dominantGenre.charAt(0).toUpperCase() +
-                      dominantGenre.slice(1)
-                    }</p>
+        dominantGenre.charAt(0).toUpperCase() +
+        dominantGenre.slice(1)
+      }</p>
                 </div>
                 </div>
             `;
 
-    //test this w/ screen reader & add to calculating results page?
-    const resultsContent = document.getElementById('resultsContent');
-    resultsContent.innerHTML = ''; 
+      //test this w/ screen reader & add to calculating results page?
+      const resultsContent = document.getElementById('resultsContent');
+      resultsContent.innerHTML = '';
 
-    trackInfo.tracks.forEach((track) => {
-      const trackDiv = document.createElement('div');
-      trackDiv.setAttribute('id', 'trackDiv');
-      trackDiv.setAttribute('role', 'article');
-      trackDiv.setAttribute('aria-live', 'assertive');
-      trackDiv.setAttribute('aria-atomic', 'true');
-      trackDiv.innerHTML = `
+      trackInfo.tracks.forEach((track) => {
+        const trackDiv = document.createElement('div');
+        trackDiv.setAttribute('id', 'trackDiv');
+        trackDiv.setAttribute('role', 'article');
+        trackDiv.setAttribute('aria-live', 'assertive');
+        trackDiv.setAttribute('aria-atomic', 'true');
+        trackDiv.innerHTML = `
         <img src="${track.album.images[1].url}" alt="Album Cover for ${track.album.name}">
         <p>Track Name: ${track.name}</p>
         <p>Artist: ${track.artists.map((artist) => artist.name).join(', ')}</p>
@@ -228,18 +228,28 @@ async function displayRecommendedTracks() {
         <p>Genre: ${dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1)}</p>
       `;
 
-      resultsContent.appendChild(trackDiv);
+        resultsContent.appendChild(trackDiv);
+      });
     });
-
   } catch (error) {
-    toggleClasses(document.getElementById('quizComplete'), 'active', 'hidden');
+    toggleClasses(
+      document.getElementById('quizComplete'),
+      'active',
+      'hidden'
+    );
     toggleClasses(document.getElementById('results'), 'active', 'hidden');
-    toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
+    toggleClasses(
+      document.getElementById('buttonHolder'),
+      'active',
+      'hidden'
+    );
     toggleClasses(document.getElementById('errorScreen'), 'hidden', 'active');
   }
 }
 
-document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
+document
+  .getElementById('resetQuizAfterErrorButton')
+  .addEventListener('click', resetQuiz);
 
 const videoSection = document.getElementById('videoContent');
 const fetchButton = document.getElementById('youtubeVideoButton');
