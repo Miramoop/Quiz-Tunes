@@ -7,8 +7,14 @@ let weights;
 let currentQuestionIndex = 0;
 let dominantGenre;
 
+function toggleClasses(element, removeClass, addClass) {
+  element.classList.remove(removeClass);
+  element.classList.add(addClass);
+}
+
 fetch('data/questions.json')
   .then((response) => {
+    //throw new Error('Test Error'); //Testing
     if (!response.ok) {
       throw new Error('Network response was not ok ' + response.statusText);
     }
@@ -19,14 +25,19 @@ fetch('data/questions.json')
     displayQuestion(0); 
   })
   .catch((error) => {
-    // const errorContainer = document.getElementById('errorContainer');
-    // errorContainer.textContent = 'An error occurred while loading data. Please try again later.';
-    // errorContainer.setAttribute('aria-live', 'assertive');
-    console.error('Error loading JSON:', error);
+    toggleClasses(document.getElementById('home'), 'active', 'hidden');
+    toggleClasses(document.getElementById('errorScreen'), 'hidden', 'active');
+
+    const errorContainer = document.getElementById('errorContainer');
+    errorContainer.textContent = 'An error occurred in displaying the questions data. Please try again!';
+    errorContainer.setAttribute('role', 'alert');
+    document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
+    //console.error('Error loading JSON:', error); //Testing
   });
 
 fetch('data/weights.json')
   .then((response) => {
+    //throw new Error('Test Error'); //Testing
     if (!response.ok) {
       throw new Error('Network response was not ok ' + response.statusText);
     }
@@ -36,16 +47,15 @@ fetch('data/weights.json')
     weights = data;
   })
   .catch((error) => {
-    // const errorContainer = document.getElementById('errorContainer');
-    // errorContainer.textContent = 'An error occurred while loading data. Please try again later.';
-    // errorContainer.setAttribute('aria-live', 'assertive');
-    console.error('Error loading JSON:', error);
-  });
+    toggleClasses(document.getElementById('home'), 'active', 'hidden');
+    toggleClasses(document.getElementById('errorScreen'), 'hidden', 'active');
 
-function toggleClasses(element, removeClass, addClass) {
-  element.classList.remove(removeClass);
-  element.classList.add(addClass);
-}
+    const errorContainer = document.getElementById('errorContainer');
+    errorContainer.textContent = 'An error occurred in displaying the questions data. Please try again!';
+    errorContainer.setAttribute('role', 'alert');
+    document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
+    //console.error('Error loading JSON:', error); //Testing
+  });
 
 function startQuiz() {
   toggleClasses(document.getElementById('home'), 'active', 'hidden');
@@ -80,6 +90,8 @@ function resetQuiz() {
 
   currentQuestionIndex = 0;
   displayQuestion(0);
+
+  location.reload();
 }
 
 document.getElementById('resetQuizButton').addEventListener('click', resetQuiz);
@@ -87,48 +99,48 @@ document.getElementById('resetQuizButton').addEventListener('click', resetQuiz);
 // By passing in the index of the question we want to display we can more easily load the first question.
 // This will also give us options down the road to add features such as being able to click on the progress dots to go back to a specific question.
 function displayQuestion(index) {
-  const questionContainer = document.getElementById('questionText');
-  const choicesContainer = document.getElementById('choicesText');
-  const questionImage = document.getElementById('questionImage');
-  const progressImage = document.getElementById('progressImage');
-  const currentQuestion = questions[index];
-
-  questionContainer.textContent = currentQuestion.question;
-
-  questionImage.setAttribute('src', questions[index].questionImage.src);
-  questionImage.setAttribute('alt', questions[index].questionImage.alt);
+    const questionContainer = document.getElementById('questionText');
+    const choicesContainer = document.getElementById('choicesText');
+    const questionImage = document.getElementById('questionImage');
+    const progressImage = document.getElementById('progressImage');
+    const currentQuestion = questions[index];
   
-  progressImage.setAttribute('src', questions[index].progressImage.src);
-  progressImage.setAttribute('alt', questions[index].progressImage.alt);
-    
-  let choicesHTML = '';
-  currentQuestion.choices.forEach((choiceObj, idx) => {
-    choicesHTML += `
-    <button id="choice-${idx}" type="button" tabindex="0" aria-label="Choice ${idx + 1}: ${choiceObj.choice}">
-    ${choiceObj.choice}
-    </button>
-    `;
-  });
-    
-  choicesContainer.innerHTML = choicesHTML;
+    questionContainer.textContent = currentQuestion.question;
   
-  currentQuestion.choices.forEach((choiceObj, idx) => {
-    const button = document.getElementById(`choice-${idx}`);
-    button.onclick = () => {    
-      updateChoiceWeights(choiceObj.weights);
-      handleQuestionUpdate();
-    };
-
-    button.onkeydown = (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
+    questionImage.setAttribute('src', questions[index].questionImage.src);
+    questionImage.setAttribute('alt', questions[index].questionImage.alt);
+    
+    progressImage.setAttribute('src', questions[index].progressImage.src);
+    progressImage.setAttribute('alt', questions[index].progressImage.alt);
+      
+    let choicesHTML = '';
+    currentQuestion.choices.forEach((choiceObj, idx) => {
+      choicesHTML += `
+      <button id="choice-${idx}" type="button" tabindex="0" aria-label="Choice ${idx + 1}: ${choiceObj.choice}">
+      ${choiceObj.choice}
+      </button>
+      `;
+    });
+      
+    choicesContainer.innerHTML = choicesHTML;
+    
+    currentQuestion.choices.forEach((choiceObj, idx) => {
+      const button = document.getElementById(`choice-${idx}`);
+      button.onclick = () => {    
         updateChoiceWeights(choiceObj.weights);
         handleQuestionUpdate();
-      }
-    };
-  });
-
-    questionContainer.focus();
+      };
+  
+      button.onkeydown = (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          updateChoiceWeights(choiceObj.weights);
+          handleQuestionUpdate();
+        }
+      };
+    });
+  
+      questionContainer.focus();
 }
 
 function updateChoiceWeights(choiceWeights) {   
@@ -181,13 +193,14 @@ function calculateDominantGenre(weights) {
 
 async function displayRecommendedTracks() {
   try {
+    // throw new Error('Test Error'); //Testing
     dominantGenre = calculateDominantGenre(weights);
     const trackInfo = await getTrackInfo(
       localStorage.getItem('access_token'),
       dominantGenre
     );
 
-    console.log(trackInfo);
+    //console.log(trackInfo); //Testing
 
     localStorage.setItem('track_Name', trackInfo.tracks[0].name);
     localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
@@ -196,12 +209,12 @@ async function displayRecommendedTracks() {
       trackInfo.tracks[0].external_urls.spotify
     );
 
-    //test this w/ screen reader & add to calculating results page?
+    //To Do - Test if Read Aloud
     const resultsContent = document.getElementById('resultsContent');
     resultsContent.setAttribute('role', 'region');
     resultsContent.setAttribute('aria-live', 'polite');
     resultsContent.setAttribute('aria-atomic', 'true');
-    resultsContent.innerHTML = ''; // Clear previous content
+    resultsContent.innerHTML = ''; 
 
     trackInfo.tracks.forEach((track) => {
       const trackDiv = document.createElement('div');
@@ -220,60 +233,20 @@ async function displayRecommendedTracks() {
       resultsContent.appendChild(trackDiv);
     });
   } catch (error) {
+    toggleClasses(document.getElementById('quizComplete'), 'active', 'hidden');
+    toggleClasses(document.getElementById('results'), 'active', 'hidden');
+    toggleClasses(document.getElementById('resultsContent'), 'active', 'hidden');
+    toggleClasses(document.getElementById('spotifyContent'),'active', 'hidden');
+    toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
+    toggleClasses(document.getElementById('errorScreen'), 'hidden', 'active');
+
     const errorContainer = document.getElementById('errorContainer');
-    errorContainer.textContent = 'Error in Displaying Results. Please try again.';
+    errorContainer.textContent = 'An error occurred in displaying recommended track. Please try again!';
     errorContainer.setAttribute('role', 'alert');
-    console.error('Error in Displaying Results. Please try again.', error);
+    document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
+
   }
 }
-
-//original function
-// async function displayRecommendedTracks() {
-//   dominantGenre = calculateDominantGenre(weights);
-//   const trackInfo = await getTrackInfo(
-//     localStorage.getItem('access_token'),
-//     dominantGenre
-//   );
-//   console.log(trackInfo);
-
-//   localStorage.setItem('track_Name', trackInfo.tracks[0].name);
-//   localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
-//   localStorage.setItem(
-//     'spotify_Link',
-//     trackInfo.tracks[0].external_urls.spotify
-//   );
-
-//   trackInfo.tracks.forEach((track) => {
-//     const result = `
-//                 <div id="resultsContent">
-//                     <h2>Your Recommended Song is: </h2>
-                
-//                 <div id="trackDiv">
-//                     <img src="${track.album.images[1].url}" alt="Album Cover for ${track.album.name}">
-//                     <p>Track Name: ${track.name}</p>
-//                     <p>Artist: ${track.artists
-//                       .map((artist) => artist.name)
-//                       .join(', ')}</p>
-//                     <p>Album: ${track.album.name}</p>
-//                     <p>Genre: ${
-//                       dominantGenre.charAt(0).toUpperCase() +
-//                       dominantGenre.slice(1)
-//                     }</p>
-//                 </div>
-//                 </div>
-//             `;
-
-//     resultsContent.innerHTML = result;
-//     //localStorage.setItem("track_id",track.id); //only needed for saving track to library feature
-
-//     if (!result) {
-//     const errorContainer = document.getElementById('errorContainer');
-//     errorContainer.textContent = 'Error in Displaying Results. Please try again.';
-//     errorContainer.setAttribute('aria-live', 'assertive');
-//     console.error('Error in Displaying Results. Please try again.', error);
-//     }
-//   });
-// }
 
 const videoSection = document.getElementById('videoContent');
 const fetchButton = document.getElementById('youtubeVideoButton');
@@ -285,9 +258,9 @@ const fetchYouTubeDataAndDisplay = async () => {
   const artistName = localStorage.getItem('artist_Name');
 
   try {
-    // throw new Error('Test Error');
+    // throw new Error('Test Error'); //Testing
     const data = await fetchYouTubeData(trackName, artistName);
-    console.log('API Response Data:', data);
+    // console.log('API Response Data:', data); //Testing
 
     if (!data.items) {
       throw new Error('No items found in the response');
@@ -320,6 +293,12 @@ const fetchYouTubeDataAndDisplay = async () => {
     toggleClasses(document.getElementById('spotifyContent'),'active', 'hidden');
     toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
     toggleClasses(document.getElementById('errorScreen'), 'hidden', 'active');
+   
+    const errorContainer = document.getElementById('errorContainer');
+    errorContainer.textContent = 'An error occurred in displaying YouTube video. Please try again!';
+    errorContainer.setAttribute('role', 'alert');
+    document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
+
     fetchButton.disabled = false;
   }
 };
@@ -330,16 +309,32 @@ const spotifyContent = document.getElementById('spotifyContent');
 const spotifyTrackButton = document.getElementById('spotifyTrackButton');
 
 const displaySpotifyLink = async () => {
-  spotifyTrackButton.disabled = true;
 
-  const spotifyLink = localStorage.getItem('spotify_Link');
+  try {
+    //throw new Error('Test Error'); //Testing
+    spotifyTrackButton.disabled = true;
 
-  const result = `
-                <div id="spotifyContent">
-                <a id="spotifyLink" href=${spotifyLink} target="_blank">Link to Spotify</a>
-            `;
-
-  spotifyContent.innerHTML = result;
+    const spotifyLink = localStorage.getItem('spotify_Link');
+  
+    const result = `
+                  <div id="spotifyContent">
+                  <a id="spotifyLink" href=${spotifyLink} target="_blank">Link to Spotify</a>
+              `;
+  
+    spotifyContent.innerHTML = result;
+  } catch (error) {
+    toggleClasses(document.getElementById('quizComplete'), 'active', 'hidden');
+    toggleClasses(document.getElementById('results'), 'active', 'hidden');
+    toggleClasses(document.getElementById('resultsContent'), 'active', 'hidden');
+    toggleClasses(document.getElementById('spotifyContent'),'active', 'hidden');
+    toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
+    toggleClasses(document.getElementById('errorScreen'), 'hidden', 'active');
+   
+    const errorContainer = document.getElementById('errorContainer');
+    errorContainer.textContent = 'An error occurred in displaying Spotify Link. Please try again!';
+    errorContainer.setAttribute('role', 'alert');
+    document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
+  }
 };
 
 spotifyTrackButton.addEventListener('click', displaySpotifyLink);
