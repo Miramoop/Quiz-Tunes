@@ -72,7 +72,7 @@
 
 <div class="wrapper" role="main">
     <section id="home" class="active">
-        <h2>Welcome to QuizTunes!</h2>
+        <h2 aria-label="Welcome to Quiz Tunes!">Welcome to Quiz Tunes!</h2>
         <button id="startQuizButton" aria-label="Start the Quiz">Start Quiz</button>
     </section>
 
@@ -83,15 +83,14 @@
         <div id="choicesText"></div>
     </section>
 
-    <section id="quizComplete" class="hidden">
-        <img id="progressImage" src="img/quizcompleteprogress.jpg" alt="Progress indicator with all 10 circles filled">
-        <h2>Quiz is Complete!</h2>
+    <section id="quizComplete" class="hidden" role="alert">
+        <img id="progressImage" role="img" src="img/quizcompleteprogress.jpg" alt="Progress indicator with all 10 circles filled">
+        <h2 id="completeTextContainer" aria-label="Quiz is Complete!">Quiz is Complete!</h2> 
         <button id="calculateResults" aria-label="Calculate the Results">Calculate Results</button>
     </section>
 
-    <section id="errorScreen" class="hidden">
-        <div id="errorContainer" role="alert">
-        </div>
+    <section id="errorScreen" class="hidden" role="alert">
+        <div id="errorContainer"></div>
         <button id="resetQuizAfterErrorButton" aria-label="Reset and Start the Quiz Over">Return to HomePage</button>
     </section>
 

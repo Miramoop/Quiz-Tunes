@@ -1,4 +1,3 @@
-// import { getTrackInfo } from './api/spotifyServices.js'; //getTrack would need to be added to import if add ability to save track to library
 import { getTrackInfo, getToken } from './api/spotifyApi.js';
 import { fetchYouTubeData } from './api/youtubeApi.js';
 
@@ -14,7 +13,6 @@ function toggleClasses(element, removeClass, addClass) {
 
 fetch('data/questions.json')
   .then((response) => {
-    //throw new Error('Test Error'); //Testing
     if (!response.ok) {
       throw new Error('Network response was not ok ' + response.statusText);
     }
@@ -32,12 +30,10 @@ fetch('data/questions.json')
     errorContainer.textContent = 'An error occurred in displaying the questions data. Please try again!';
     errorContainer.setAttribute('role', 'alert');
     document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
-    //console.error('Error loading JSON:', error); //Testing
   });
 
 fetch('data/weights.json')
   .then((response) => {
-    //throw new Error('Test Error'); //Testing
     if (!response.ok) {
       throw new Error('Network response was not ok ' + response.statusText);
     }
@@ -54,7 +50,6 @@ fetch('data/weights.json')
     errorContainer.textContent = 'An error occurred in displaying the questions data. Please try again!';
     errorContainer.setAttribute('role', 'alert');
     document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
-    //console.error('Error loading JSON:', error); //Testing
   });
 
 function startQuiz() {
@@ -70,6 +65,12 @@ function startQuiz() {
 }
 
 document.getElementById('startQuizButton').addEventListener('click', startQuiz);
+document.getElementById('startQuizButton').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      startQuiz();
+  }
+}); 
 
 function resetQuiz() {
   toggleClasses(document.getElementById('quiz'), 'active', 'hidden');
@@ -95,9 +96,13 @@ function resetQuiz() {
 }
 
 document.getElementById('resetQuizButton').addEventListener('click', resetQuiz);
+document.getElementById('resetQuizButton').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      resetQuiz();
+  }
+}); 
 
-// By passing in the index of the question we want to display we can more easily load the first question.
-// This will also give us options down the road to add features such as being able to click on the progress dots to go back to a specific question.
 function displayQuestion(index) {
     const questionContainer = document.getElementById('questionText');
     const choicesContainer = document.getElementById('choicesText');
@@ -163,6 +168,11 @@ function handleQuestionUpdate() {
   }
 }
 
+document
+  .getElementById('quizComplete')
+  .addEventListener('click', displayResults);
+
+
 function displayResults() {
   toggleClasses(document.getElementById('quizComplete'), 'active', 'hidden');
   toggleClasses(document.getElementById('results'), 'hidden', 'active');
@@ -193,14 +203,11 @@ function calculateDominantGenre(weights) {
 
 async function displayRecommendedTracks() {
   try {
-    // throw new Error('Test Error'); //Testing
     dominantGenre = calculateDominantGenre(weights);
     const trackInfo = await getTrackInfo(
       localStorage.getItem('access_token'),
       dominantGenre
     );
-
-    //console.log(trackInfo); //Testing
 
     localStorage.setItem('track_Name', trackInfo.tracks[0].name);
     localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
@@ -209,7 +216,6 @@ async function displayRecommendedTracks() {
       trackInfo.tracks[0].external_urls.spotify
     );
 
-    //To Do - Test if Read Aloud
     const resultsContent = document.getElementById('resultsContent');
     resultsContent.setAttribute('role', 'region');
     resultsContent.setAttribute('aria-live', 'polite');
@@ -239,10 +245,11 @@ async function displayRecommendedTracks() {
     toggleClasses(document.getElementById('spotifyContent'),'active', 'hidden');
     toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
     toggleClasses(document.getElementById('errorScreen'), 'hidden', 'active');
+    toggleClasses(document.getElementById('errorContainer'), 'hidden', 'active');
 
     const errorContainer = document.getElementById('errorContainer');
     errorContainer.textContent = 'An error occurred in displaying recommended track. Please try again!';
-    errorContainer.setAttribute('role', 'alert');
+    errorContainer.setAttribute('aria-label', errorContainer.textContent);
     document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
 
   }
@@ -258,17 +265,17 @@ const fetchYouTubeDataAndDisplay = async () => {
   const artistName = localStorage.getItem('artist_Name');
 
   try {
-    // throw new Error('Test Error'); //Testing
     const data = await fetchYouTubeData(trackName, artistName);
-    // console.log('API Response Data:', data); //Testing
 
     if (!data.items) {
       throw new Error('No items found in the response');
     }
-
+   
     data.items.forEach((el) => {
       const videoId = el.id.videoId;
       const videoTitle = el.snippet.title;
+
+      const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
 
       const iframe = document.createElement('iframe');
       iframe.title = `${videoTitle}`;
@@ -283,6 +290,10 @@ const fetchYouTubeDataAndDisplay = async () => {
       videoContainer.innerHTML = `<h2>${videoTitle}</h2>`;
       videoContainer.appendChild(iframe);
 
+      const noScript = document.createElement('noscript');
+      noScript.innerHTML = `<a href="${videoLink}"> Your browser does not support this type of embed. Watch the video here instead`;
+      videoContainer.appendChild(noScript);
+
       videoSection.appendChild(videoContainer);
     });
 
@@ -293,10 +304,10 @@ const fetchYouTubeDataAndDisplay = async () => {
     toggleClasses(document.getElementById('spotifyContent'),'active', 'hidden');
     toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
     toggleClasses(document.getElementById('errorScreen'), 'hidden', 'active');
-   
+  
     const errorContainer = document.getElementById('errorContainer');
     errorContainer.textContent = 'An error occurred in displaying YouTube video. Please try again!';
-    errorContainer.setAttribute('role', 'alert');
+    errorContainer.setAttribute('aria-label', errorContainer.textContent);
     document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
 
     fetchButton.disabled = false;
@@ -304,6 +315,12 @@ const fetchYouTubeDataAndDisplay = async () => {
 };
 
 fetchButton.addEventListener('click', fetchYouTubeDataAndDisplay);
+fetchButton.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      fetchYouTubeDataAndDisplay();
+  }
+}); 
 
 const spotifyContent = document.getElementById('spotifyContent');
 const spotifyTrackButton = document.getElementById('spotifyTrackButton');
@@ -311,7 +328,6 @@ const spotifyTrackButton = document.getElementById('spotifyTrackButton');
 const displaySpotifyLink = async () => {
 
   try {
-    //throw new Error('Test Error'); //Testing
     spotifyTrackButton.disabled = true;
 
     const spotifyLink = localStorage.getItem('spotify_Link');
@@ -332,11 +348,16 @@ const displaySpotifyLink = async () => {
    
     const errorContainer = document.getElementById('errorContainer');
     errorContainer.textContent = 'An error occurred in displaying Spotify Link. Please try again!';
-    errorContainer.setAttribute('role', 'alert');
+    errorContainer.setAttribute('aria-label', errorContainer.textContent);
     document.getElementById('resetQuizAfterErrorButton').addEventListener('click', resetQuiz);
   }
 };
 
 spotifyTrackButton.addEventListener('click', displaySpotifyLink);
-///Would need to add if saving track feature gets added back
-// document.getElementById("saveTrack").addEventListener('click', getTrack);
+spotifyTrackButton.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      displaySpotifyLink();
+  }
+}); 
+

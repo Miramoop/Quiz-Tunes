@@ -103,14 +103,14 @@ button:focus, button:hover {
     color: var(--button-link-color);
 }
 
-#quiz, #questionText, #choicesText, #quizComplete, #errorScreen{
+#quiz, #questionText, #choicesText, #quizComplete, #errorScreen, #completeTextContainer {
     align-items: center;
     padding: 1vh;
     text-align: center;
     width: 100%;
 } 
 
-#errorContainer {
+#errorContainer{
     padding-bottom: 3vh;
 }
 
