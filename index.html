@@ -7,42 +7,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="language" content="en">
     <meta name="robots" content="index, follow">
-    <meta name="description" content="Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience.
-    Take the quiz, answer a series of questions, and based on your response, Quiz Tunes recommends a track from Spotify and YouTube that matches
-    your personality. Powered by the Spotify API and YouTube API, Quiz Tunes analyzes your quiz results to curate personalized music recommendations
-    just for you. Start exploring and find your next favorite song with Quiz Tunes today!">
+    <meta name="description" content="Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience.">
     <meta name="author" content="Miranda Morris">
+    <meta name="google-site-verification" content="ifOE3msuS2Z_oRqyjLavlzcoT-rsuKV8_JSKtuOu4lo"/>
  
     <meta property="og:title" content="Quiz Tunes">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://miramoop.github.io/QuizTunes/">
     <meta property="og:image" content="https://miramoop.github.io/QuizTunes/img/logo/QuizTunesCardLogo.png">
-    <meta property="og:description" content="Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience.
-    Take the quiz, answer a series of questions, and based on your response, Quiz Tunes recommends a track from Spotify and YouTube that matches
-    your personality. Powered by the Spotify API and YouTube API, Quiz Tunes analyzes your quiz results to curate personalized music recommendations
-    just for you. Start exploring and find your next favorite song with Quiz Tunes today!">
+    <meta property="og:description" content="Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience.">
     <meta property="og:site_name" content="Quiz Tunes">
     <meta property="og:locale" content="en_US">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Quiz Tunes Logo">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Quiz Tunes">
-    <meta name="twitter:description" content="Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience.
-    Take the quiz, answer a series of questions, and based on your response, Quiz Tunes recommends a track from Spotify and YouTube that matches
-    your personality. Powered by the Spotify API and YouTube API, Quiz Tunes analyzes your quiz results to curate personalized music recommendations
-    just for you. Start exploring and find your next favorite song with Quiz Tunes today!">
+    <meta name="twitter:description" content="Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience.">
     <meta name="twitter:image" content="https://miramoop.github.io/QuizTunes/img/logo/QuizTunesCardLogo.png">
     <meta name="twitter:image:alt" content="Quiz Tunes Logo">
 
     <link rel="canonical" href="https://miramoop.github.io/QuizTunes/">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/logo/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logo/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logo/favicon-16x16.png">
     <link rel="manifest" href="img/logo/site.webmanifest">
     <link rel="stylesheet" href="styles.css"> 
     
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Quiz Tunes",
+            "url": "https://miramoop.github.io/QuizTunes/",
+            "description": "Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience."
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Quiz Tunes",
+            "url": "https://miramoop.github.io/QuizTunes/",
+            "description": "Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience."
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Quiz",
+            "name": "Quiz Tunes",
+            "description": "Discover new music with Quiz Tunes, a web application that offers a fun and interactive quiz experience."
+        }
+    </script>
+
 </head>
 <body>
 
@@ -78,8 +97,8 @@
         <button id="resetQuizAfterErrorButton" aria-label="Reset and Start the Quiz Over">Return to HomePage</button>
     </section>
 
-    <section id="results" class="hidden" role="region" aria-live="polite" aria-atomic="true">
-        <div id="resultsContent" role="region" aria-live="polite" aria-atomic="true" class="hidden"></div>
+    <section id="results" class="hidden">
+        <div id="resultsContent" role="alert"></div>
         <div id="videoContent"></div>
         <div id="spotifyContent"></div>
         <div id="buttonHolder" class="hidden">
@@ -101,7 +120,6 @@
 </footer>
 
 <script src="main.js" type="module"></script>
-
 <script src="https://kit.fontawesome.com/7777890cf7.js" crossorigin="anonymous"></script> 
 </body>
 </html>
