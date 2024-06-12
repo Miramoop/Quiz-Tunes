@@ -1,7 +1,11 @@
-import { getTrackInfo } from './api/spotifyServices.js'; //getTrack would need to be added to import if add ability to save track to library
+// import { getTrackInfo } from './api/spotifyServices.js'; //getTrack would need to be added to import if add ability to save track to library
+import { getTrackInfo, getToken } from './api/spotifyApi.js';
 import { fetchYouTubeData } from './api/youtubeApi.js';
 
 let questions;
+let weights;
+let currentQuestionIndex = 0;
+let dominantGenre;
 
 fetch('data/questions.json')
   .then((response) => {
@@ -21,8 +25,6 @@ fetch('data/questions.json')
     console.error('Error loading JSON:', error);
   });
 
-let weights;
-
 fetch('data/weights.json')
   .then((response) => {
     if (!response.ok) {
@@ -40,9 +42,6 @@ fetch('data/weights.json')
     console.error('Error loading JSON:', error);
   });
 
-let currentQuestionIndex = 0;
-let dominantGenre;
-
 function toggleClasses(element, removeClass, addClass) {
   element.classList.remove(removeClass);
   element.classList.add(addClass);
@@ -51,8 +50,14 @@ function toggleClasses(element, removeClass, addClass) {
 function startQuiz() {
   toggleClasses(document.getElementById('home'), 'active', 'hidden');
   toggleClasses(document.getElementById('quiz'), 'hidden', 'active');
-  displayQuestion(0);
-}   
+  getToken()
+      .then(() => {
+          displayQuestion(0); 
+      })
+      .catch(error => {
+          console.error("Error getting token:", error);
+      });
+}
 
 document.getElementById('startQuizButton').addEventListener('click', startQuiz);
 
@@ -62,6 +67,7 @@ function resetQuiz() {
   toggleClasses(document.getElementById('resultsContent'), 'active', 'hidden');
   toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
   toggleClasses(document.getElementById('home'), 'hidden', 'active');
+  toggleClasses(document.getElementById('errorScreen'), 'active', 'hidden');
 
   fetchButton.disabled = false;
   spotifyTrackButton.disabled = false;
@@ -155,7 +161,7 @@ function displayResults() {
 }
 
 document
-  .getElementById('quizComplete')
+  .getElementById('calculateResults')
   .addEventListener('click', displayResults);
 
 function calculateDominantGenre(weights) {
@@ -172,66 +178,114 @@ function calculateDominantGenre(weights) {
   }
   return dominantGenre;
 }
+
 async function displayRecommendedTracks() {
-  dominantGenre = calculateDominantGenre(weights);
-  const trackInfo = await getTrackInfo(
-    localStorage.getItem('access_token'),
-    dominantGenre
-  );
-  console.log(trackInfo);
+  try {
+    dominantGenre = calculateDominantGenre(weights);
+    const trackInfo = await getTrackInfo(
+      localStorage.getItem('access_token'),
+      dominantGenre
+    );
 
-  localStorage.setItem('track_Name', trackInfo.tracks[0].name);
-  localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
-  localStorage.setItem(
-    'spotify_Link',
-    trackInfo.tracks[0].external_urls.spotify
-  );
+    console.log(trackInfo);
 
-  trackInfo.tracks.forEach((track) => {
-    const result = `
-                <div id="resultsContent">
-                    <h2>Your Recommended Song is: </h2>
-                
-                <div id="trackDiv">
-                    <img src=${track.album.images[1].url} alt=${track.album.name}>
-                    <p>Track Name: ${track.name}</p>
-                    <p>Artist: ${track.artists
-                      .map((artist) => artist.name)
-                      .join(', ')}</p>
-                    <p>Album: ${track.album.name}</p>
-                    <p>Genre: ${
-                      dominantGenre.charAt(0).toUpperCase() +
-                      dominantGenre.slice(1)
-                    }</p>
-                </div>
-                </div>
-            `;
+    localStorage.setItem('track_Name', trackInfo.tracks[0].name);
+    localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
+    localStorage.setItem(
+      'spotify_Link',
+      trackInfo.tracks[0].external_urls.spotify
+    );
 
-    resultsContent.innerHTML = result;
-    //localStorage.setItem("track_id",track.id); //only needed for saving track to library feature
+    //test this w/ screen reader & add to calculating results page?
+    const resultsContent = document.getElementById('resultsContent');
+    resultsContent.setAttribute('role', 'region');
+    resultsContent.setAttribute('aria-live', 'polite');
+    resultsContent.setAttribute('aria-atomic', 'true');
+    resultsContent.innerHTML = ''; // Clear previous content
 
-    if (!result) {
+    trackInfo.tracks.forEach((track) => {
+      const trackDiv = document.createElement('div');
+      trackDiv.setAttribute('id', 'trackDiv');
+      trackDiv.setAttribute('role', 'article');
+      trackDiv.setAttribute('aria-live', 'assertive');
+      trackDiv.setAttribute('aria-atomic', 'true');
+      trackDiv.innerHTML = `
+        <img src="${track.album.images[1].url}" alt="Album Cover for ${track.album.name}">
+        <p>Track Name: ${track.name}</p>
+        <p>Artist: ${track.artists.map((artist) => artist.name).join(', ')}</p>
+        <p>Album: ${track.album.name}</p>
+        <p>Genre: ${dominantGenre.charAt(0).toUpperCase() + dominantGenre.slice(1)}</p>
+      `;
+
+      resultsContent.appendChild(trackDiv);
+    });
+  } catch (error) {
     const errorContainer = document.getElementById('errorContainer');
     errorContainer.textContent = 'Error in Displaying Results. Please try again.';
-    errorContainer.setAttribute('aria-live', 'assertive');
+    errorContainer.setAttribute('role', 'alert');
     console.error('Error in Displaying Results. Please try again.', error);
-    }
-  });
+  }
 }
+
+//original function
+// async function displayRecommendedTracks() {
+//   dominantGenre = calculateDominantGenre(weights);
+//   const trackInfo = await getTrackInfo(
+//     localStorage.getItem('access_token'),
+//     dominantGenre
+//   );
+//   console.log(trackInfo);
+
+//   localStorage.setItem('track_Name', trackInfo.tracks[0].name);
+//   localStorage.setItem('artist_Name', trackInfo.tracks[0].artists[0].name);
+//   localStorage.setItem(
+//     'spotify_Link',
+//     trackInfo.tracks[0].external_urls.spotify
+//   );
+
+//   trackInfo.tracks.forEach((track) => {
+//     const result = `
+//                 <div id="resultsContent">
+//                     <h2>Your Recommended Song is: </h2>
+                
+//                 <div id="trackDiv">
+//                     <img src="${track.album.images[1].url}" alt="Album Cover for ${track.album.name}">
+//                     <p>Track Name: ${track.name}</p>
+//                     <p>Artist: ${track.artists
+//                       .map((artist) => artist.name)
+//                       .join(', ')}</p>
+//                     <p>Album: ${track.album.name}</p>
+//                     <p>Genre: ${
+//                       dominantGenre.charAt(0).toUpperCase() +
+//                       dominantGenre.slice(1)
+//                     }</p>
+//                 </div>
+//                 </div>
+//             `;
+
+//     resultsContent.innerHTML = result;
+//     //localStorage.setItem("track_id",track.id); //only needed for saving track to library feature
+
+//     if (!result) {
+//     const errorContainer = document.getElementById('errorContainer');
+//     errorContainer.textContent = 'Error in Displaying Results. Please try again.';
+//     errorContainer.setAttribute('aria-live', 'assertive');
+//     console.error('Error in Displaying Results. Please try again.', error);
+//     }
+//   });
+// }
 
 const videoSection = document.getElementById('videoContent');
 const fetchButton = document.getElementById('youtubeVideoButton');
 
-//To Do - Make the items within the data.items.forEach(el => {}) into html elements similar to displayRecommendedTracks
 const fetchYouTubeDataAndDisplay = async () => {
   fetchButton.disabled = true;
 
-  // Get trackName and artistName from localStorage
   const trackName = localStorage.getItem('track_Name');
   const artistName = localStorage.getItem('artist_Name');
 
-  // Fetch YouTube data and display videos
   try {
+    // throw new Error('Test Error');
     const data = await fetchYouTubeData(trackName, artistName);
     console.log('API Response Data:', data);
 
@@ -246,8 +300,6 @@ const fetchYouTubeDataAndDisplay = async () => {
       const iframe = document.createElement('iframe');
       iframe.title = `${videoTitle}`;
       iframe.src = `https://www.youtube.com/embed/${videoId}`;
-      iframe.width = '560';
-      iframe.height = '315';
       iframe.frameBorder = '0';
       iframe.allow =
         'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
@@ -261,13 +313,13 @@ const fetchYouTubeDataAndDisplay = async () => {
       videoSection.appendChild(videoContainer);
     });
 
-    // Remove the event listener after fetching and displaying the videos
-    // fetchButton.removeEventListener('click', fetchYouTubeDataAndDisplay);
   } catch (error) {
-    const errorContainer = document.getElementById('errorContainer');
-    errorContainer.textContent = 'Error in Displaying YouTube Video. Please try again.';
-    errorContainer.setAttribute('aria-live', 'assertive');
-    console.error('Error displaying YouTube videos:', error);
+    toggleClasses(document.getElementById('quizComplete'), 'active', 'hidden');
+    toggleClasses(document.getElementById('results'), 'active', 'hidden');
+    toggleClasses(document.getElementById('resultsContent'), 'active', 'hidden');
+    toggleClasses(document.getElementById('spotifyContent'),'active', 'hidden');
+    toggleClasses(document.getElementById('buttonHolder'), 'active', 'hidden');
+    toggleClasses(document.getElementById('errorScreen'), 'hidden', 'active');
     fetchButton.disabled = false;
   }
 };
