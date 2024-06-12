@@ -1,5 +1,5 @@
-const client_id = '';
-const client_secret = '';
+const client_id = '8a649d0e1cf74b1c89b6874845b17646';
+const client_secret = '401dcd9823934db3bae3337efb7320a5';
 
 async function getToken() {
     const url = 'https://accounts.spotify.com/api/token';
@@ -14,52 +14,27 @@ async function getToken() {
         },
     }
 
-    try {
-        const response = await fetch(url, payload);
-        const data = await response.json();
-        
-        if (response.ok) {
-            localStorage.setItem('access_token', data.access_token);
-            return data; 
-        } else {
-            throw new Error("Failed to fetch token: " + data.error);
-        } 
-    } catch (error) {
-        displayError("Error getting token: " + error.message);
-        console.error("Error getting token: ", error);
-        throw error;
+    const response = await fetch(url, payload);
+    const data = await response.json();
+    
+    if (response.ok) {
+        localStorage.setItem('access_token', data.access_token);
+        return data; 
+    } else {
+        console.error("Error getting token: ", data);
+        throw new Error("Failed to fetch token");
     }
 }
 
 async function getTrackInfo(access_token, genre) {
-    try {
-        const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=1&seed_genres=${genre}`, {
-            method: 'GET',
-            headers: { 'Authorization': 'Bearer ' + access_token },
-        });
+    const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=1&seed_genres=${genre}`, {
+        method: 'GET',
+        headers: { 'Authorization': 'Bearer ' + access_token },
+    });
 
-        //throwing error to test the response
-        // if (true) throw new Error('Simulated API Error');
+    console.log(response);
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error("Failed to fetech track info: " + errorData.error);
-        }
-
-        return await response.json();
-    } catch (error) {
-        displayError("Error fetching track info: " + error.message);
-        console.error("Error fetching track info: ", error);
-        throw error;
-    }
-}
-
-function displayError(message) {
-    const errorContainer = document.getElementById('errorContainer');
-    const errorMessage = document.getElementById('errorMessage');
-
-    errorMessage.textContent = message;
-    toggleClasses(document.getElementById('errorContainer'), 'hidden', 'active');
+    return await response.json();
 }
 
 export { getTrackInfo, getToken }; 

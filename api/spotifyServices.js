@@ -1,3 +1,4 @@
+//This spotify authorization will not occur at all in my current code, as the saving track feature has been scrapped
 const generateRandomString = (length) => {
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const values = crypto.getRandomValues(new Uint8Array(length));
@@ -26,8 +27,8 @@ const getCodeChallenge = async (verifier) => {
 
 const clientId = '8a649d0e1cf74b1c89b6874845b17646';
 
-const redirectUri = 'http://localhost:5500';
-// const redirectUri = 'https://miramoop.github.io/QuizTunes/';
+//const redirectUri = 'http://localhost:5500';
+const redirectUri = 'https://miramoop.github.io/QuizTunes/';
 const scope = 'user-read-private user-read-email user-library-modify user-library-read';
 const authUrl = new URL("https://accounts.spotify.com/authorize");
 
