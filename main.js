@@ -70,6 +70,12 @@ function startQuiz() {
 }
 
 document.getElementById('startQuizButton').addEventListener('click', startQuiz);
+document.getElementById('startQuizButton').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      startQuiz();
+  }
+}); 
 
 function resetQuiz() {
   toggleClasses(document.getElementById('quiz'), 'active', 'hidden');
@@ -95,6 +101,12 @@ function resetQuiz() {
 }
 
 document.getElementById('resetQuizButton').addEventListener('click', resetQuiz);
+document.getElementById('resetQuizButton').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      resetQuiz();
+  }
+}); 
 
 // By passing in the index of the question we want to display we can more easily load the first question.
 // This will also give us options down the road to add features such as being able to click on the progress dots to go back to a specific question.
@@ -162,6 +174,11 @@ function handleQuestionUpdate() {
     toggleClasses(document.getElementById('quizComplete'), 'hidden', 'active');
   }
 }
+
+document
+  .getElementById('quizComplete')
+  .addEventListener('click', displayResults);
+
 
 function displayResults() {
   toggleClasses(document.getElementById('quizComplete'), 'active', 'hidden');
@@ -266,9 +283,13 @@ const fetchYouTubeDataAndDisplay = async () => {
       throw new Error('No items found in the response');
     }
 
+   
     data.items.forEach((el) => {
       const videoId = el.id.videoId;
       const videoTitle = el.snippet.title;
+
+      //To DO - Make this link visible only if the browser does not support iframe, the user can still see the video
+      const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
 
       const iframe = document.createElement('iframe');
       iframe.title = `${videoTitle}`;
@@ -282,6 +303,10 @@ const fetchYouTubeDataAndDisplay = async () => {
       videoContainer.className = 'video-container';
       videoContainer.innerHTML = `<h2>${videoTitle}</h2>`;
       videoContainer.appendChild(iframe);
+
+      const noScript = document.createElement('noscript');
+      noScript.innerHTML = `<a href="${videoLink}"> Your browser does not support this type of embed. Watch the video here instead`;
+      videoContainer.appendChild(noScript);
 
       videoSection.appendChild(videoContainer);
     });
@@ -304,6 +329,12 @@ const fetchYouTubeDataAndDisplay = async () => {
 };
 
 fetchButton.addEventListener('click', fetchYouTubeDataAndDisplay);
+fetchButton.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      fetchYouTubeDataAndDisplay();
+  }
+}); 
 
 const spotifyContent = document.getElementById('spotifyContent');
 const spotifyTrackButton = document.getElementById('spotifyTrackButton');
@@ -338,5 +369,12 @@ const displaySpotifyLink = async () => {
 };
 
 spotifyTrackButton.addEventListener('click', displaySpotifyLink);
+spotifyTrackButton.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      displaySpotifyLink();
+  }
+}); 
+
 ///Would need to add if saving track feature gets added back
 // document.getElementById("saveTrack").addEventListener('click', getTrack);
