@@ -186,6 +186,10 @@ document
   .getElementById('calculateResults')
   .addEventListener('click', displayResults);
 
+document
+  .getElementById('calculateResults')
+  .removeEventListener('click', displayResults);
+
 function calculateDominantGenre(weights) {
   let maxValue = -Infinity;
   let dominantGenre;
